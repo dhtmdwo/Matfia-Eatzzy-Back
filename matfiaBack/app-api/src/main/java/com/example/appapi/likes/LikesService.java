@@ -4,6 +4,8 @@ import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
+import com.example.appapi.likes.model.Likes;
+import com.example.appapi.likes.model.LikesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,10 @@ public class LikesService {
         List<Likes> likesList = likesRepository.findAll();
 
         return likesList.stream().map(LikesDto.LikesResponse::from).collect(Collectors.toList());
+    }
+
+    public LikesDto.LikesResponse read(Long LlkesIdx) {
+        Likes Likes = likesRepository.findById(LlkesIdx).orElseThrow();
+        return LikesDto.LikesResponse.from(Likes);
     }
 }
