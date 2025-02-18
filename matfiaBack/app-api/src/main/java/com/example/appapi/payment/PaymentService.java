@@ -22,4 +22,10 @@ public class PaymentService {
 
         return paymentList.stream().map(PaymentDto.PaymentResponse::from).collect(Collectors.toList());
     }
+
+    public PaymentDto.PaymentResponse read(Long paymentIdx) {
+        Payment payment = paymentRepository.findById(paymentIdx).orElseThrow();
+        return PaymentDto.PaymentResponse.from(payment);
+    }
+
 }

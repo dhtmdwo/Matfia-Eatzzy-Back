@@ -1,5 +1,6 @@
 package com.example.appapi.payment;
 
+import com.example.appapi.payment.model.Payment;
 import com.example.appapi.payment.model.PaymentDto;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class PaymentController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{paymentIdx}")
+    public ResponseEntity<PaymentDto.PaymentResponse> read(@PathVariable Long paymentIdx) {
+        PaymentDto.PaymentResponse response = paymentService.read(paymentIdx);
 
+        return ResponseEntity.ok(response);
+    }
 
 }
