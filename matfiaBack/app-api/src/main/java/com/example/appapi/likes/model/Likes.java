@@ -1,4 +1,4 @@
-package com.example.appapi.like.model;
+package com.example.appapi.likes.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
