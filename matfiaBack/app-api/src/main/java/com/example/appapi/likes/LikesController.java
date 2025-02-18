@@ -1,6 +1,6 @@
-package com.example.appapi.like;
+package com.example.appapi.likes;
 
-import com.example.appapi.like.model.LikesDto;
+import com.example.appapi.likes.model.LikesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

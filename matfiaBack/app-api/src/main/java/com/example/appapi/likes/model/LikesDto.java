@@ -1,8 +1,6 @@
-package com.example.appapi.like.model;
+package com.example.appapi.likes.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 public class LikesDto {

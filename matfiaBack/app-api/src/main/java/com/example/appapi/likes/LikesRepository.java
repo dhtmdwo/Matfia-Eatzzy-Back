@@ -1,6 +1,6 @@
-package com.example.appapi.like;
+package com.example.appapi.likes;
 
-import com.example.appapi.like.model.Likes;
+import com.example.appapi.likes.model.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikesRepository extends JpaRepository<Likes, Long> {
