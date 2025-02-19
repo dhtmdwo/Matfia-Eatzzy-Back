@@ -22,4 +22,9 @@ public class OrdersController {
         List<OrdersDto.ListResponse> resp = ordersService.getList();
         return ResponseEntity.ok(resp);
     }
+    @GetMapping("{idx}")
+    public ResponseEntity<OrdersDto.ReadResponse> getRead(@PathVariable Long idx) {
+        OrdersDto.ReadResponse resp = ordersService.getRead(idx);
+        return ResponseEntity.ok(resp);
+    }
 }

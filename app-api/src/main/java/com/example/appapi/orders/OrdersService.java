@@ -20,4 +20,9 @@ public class OrdersService {
         List<Orders> dto = ordersRepository.findAll();
         return dto.stream().map(OrdersDto.ListResponse::from).collect(Collectors.toList());
     }
+
+    public OrdersDto.ReadResponse getRead(Long idx) {
+        Orders dto = ordersRepository.findByIdx(idx);
+        return OrdersDto.ReadResponse.from(dto);
+    }
 }
