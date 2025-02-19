@@ -2,10 +2,6 @@ package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.likes.model.Likes;
-import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.likes.model.Likes;
-import com.example.appapi.likes.model.LikesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class LikesService {
     private final LikesRepository likesRepository;
-    public void register(LikesDto.CourseRegister dto) {
+    public void register(LikesDto.LikeRegister dto) {
         Likes like = likesRepository.save(dto.toEntity());
     }
 

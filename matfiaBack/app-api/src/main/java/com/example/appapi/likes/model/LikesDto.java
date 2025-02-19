@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class LikesDto {
     @Getter
-    public static class CourseRegister {
+    public static class LikeRegister {
         private String message;
         public Likes toEntity() {
             return Likes.builder()

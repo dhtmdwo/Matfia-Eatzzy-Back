@@ -43,6 +43,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
@@ -71,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739865460012</updated>
       <workItem from="1739865461077" duration="127000" />
+      <workItem from="1739948542219" duration="1000" />
       <workItem from="1739923250019" duration="31000" />
       <workItem from="1739923308463" duration="146000" />
     </task>
