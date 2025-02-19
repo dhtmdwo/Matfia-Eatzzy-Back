@@ -1,4 +1,4 @@
-package com.example.appapi.orders;
+package com.example.appapi.orders.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idx;
-    int quantity;
-    int price;
-    String message;
-    String status;
+    private Long idx;
+    private int quantity;
+    private int price;
+    private String message;
+    private String status;
 }
