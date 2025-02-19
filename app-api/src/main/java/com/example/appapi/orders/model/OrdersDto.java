@@ -21,4 +21,23 @@ public class OrdersDto {
                     .build();
         }
     }
+    @Getter
+    @Builder
+    public static class ListResponse {
+        private Long idx;
+        private int quantity;
+        private int price;
+        private String message;
+        private String status;
+
+        public static ListResponse from(Orders orders) {
+            return ListResponse.builder()
+                    .idx(orders.getIdx())
+                    .quantity(orders.getQuantity())
+                    .price(orders.getPrice())
+                    .message(orders.getMessage())
+                    .status(orders.getStatus())
+                    .build();
+        }
+    }
 }
