@@ -46,6 +46,10 @@
     "git-widget-placeholder": "Merging gitignore",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.configurations.included.in.services": "true",
     "vue.rearranger.settings.migration": "true"
@@ -121,7 +125,7 @@
       <workItem from="1739948542219" duration="1000" />
       <workItem from="1739923250019" duration="31000" />
       <workItem from="1739923308463" duration="146000" />
-      <workItem from="1739953812497" duration="288000" />
+      <workItem from="1739953812497" duration="363000" />
     </task>
     <servers />
   </component>
