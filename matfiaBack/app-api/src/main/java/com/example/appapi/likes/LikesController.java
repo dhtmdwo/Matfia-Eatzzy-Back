@@ -1,8 +1,6 @@
 package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.likes.model.LikesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ import java.util.List;
 public class LikesController {
     private final LikesService likesService;
     @PostMapping("/register")
-    public String register(@RequestBody LikesDto.CourseRegister dto) {
+    public String register(@RequestBody LikesDto.LikeRegister dto) {
         likesService.register(dto);
         return "좋아요 등록 완료";
     }
