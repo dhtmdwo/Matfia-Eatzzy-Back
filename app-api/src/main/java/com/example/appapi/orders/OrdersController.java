@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/app/orders")
 public class OrdersController {
     private final OrdersService ordersService;
     @PostMapping("/register")
