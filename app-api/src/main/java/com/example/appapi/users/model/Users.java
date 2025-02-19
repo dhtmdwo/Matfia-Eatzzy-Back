@@ -23,8 +23,8 @@ import java.util.Collection;
 public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idx;
-    private String id;
+    private Long idx;
+    private String userId;
     private String password;
     private String birthDate;
     private String email;
@@ -50,7 +50,7 @@ public class Users implements UserDetails {
 
     @Override
     public String getUsername() {
-        return id;
+        return userId;
     }
 
     @Override
