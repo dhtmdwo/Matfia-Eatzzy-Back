@@ -14,9 +14,16 @@ import java.util.List;
 public class ReviewsController {
     private final ReviewsService reviewsService;
 
+    @GetMapping("/list")
+    public ResponseEntity<List<Reviews>> list() {
+        List<Reviews> reviewResList = reviewsService.list();
+        return ResponseEntity.ok(reviewResList);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody ReviewsDto.Register dto) {
         reviewsService.register(dto);
         return ResponseEntity.ok("성공");
     }
+
 }
