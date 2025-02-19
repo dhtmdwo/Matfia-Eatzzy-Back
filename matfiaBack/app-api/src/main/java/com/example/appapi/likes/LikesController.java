@@ -17,7 +17,7 @@ public class LikesController {
     public String register(@RequestBody LikesDto.CourseRegister dto) {
         likesService.register(dto);
         return "좋아요 등록 완료";
-    }
+    }//
     @GetMapping("/list")
     public ResponseEntity<List<LikesDto.LikesResponse>> list() {
         List<LikesDto.LikesResponse> response = likesService.list();
