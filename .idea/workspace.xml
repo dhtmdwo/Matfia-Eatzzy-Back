@@ -5,8 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a69b8a2-bca0-442b-9f38-b15af9cb90ca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/AppApiApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/likes/LikesController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/likes/LikesRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/likes/LikesService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/likes/model/Likes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/likes/model/LikesDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/orders/OrdersController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/orders/OrdersRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/orders/OrdersService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/orders/model/Orders.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/orders/model/OrdersDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/payment/PaymentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/payment/PaymentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/payment/PaymentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/payment/model/Payment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/payment/model/PaymentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/paymentmethod/PaymentMethodController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/paymentmethod/PaymentMethodRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/paymentmethod/PaymentMethodService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/paymentmethod/model/PaymentMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/paymentmethod/model/PaymentMethodDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/product/model/Products.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/StoreClosedDayRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/StoreController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/StoreRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/StoreService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/model/AllowedStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/model/Store.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/model/StoreClosedDay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/store/model/StoreDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/java/com/example/appapi/users/model/Users.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/app-api/src/test/java/com/example/appapi/AppApiApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/common/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/common/src/main/java/com/example/common/CommonApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/common/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/common/src/test/java/com/example/common/CommonApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/discovery/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/discovery/src/main/java/com/example/discovery/DiscoveryApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/discovery/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/discovery/src/test/java/com/example/discovery/DiscoveryApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gateway/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gateway/src/main/java/com/example/gateway/GatewayApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gateway/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gateway/src/test/java/com/example/gateway/GatewayApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/resv-api/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/resv-api/src/main/java/com/example/resv/ResvApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/resv-api/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/resv-api/src/test/java/com/example/resv/ResvApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matfiaBack/settings.gradle" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,18 +96,54 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "gitignore",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.AppApiApplication">
+    <configuration name="AppApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="matfiaBack.app-api.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.appapi.AppApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommonApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="matfiaBack.common.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.common.CommonApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="matfiaBack.discovery.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="matfiaBack.gateway.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ResvApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="matfiaBack.resv-api.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.resv.ResvApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,6 +167,7 @@
       <workItem from="1739948542219" duration="1000" />
       <workItem from="1739923250019" duration="31000" />
       <workItem from="1739923308463" duration="146000" />
+      <workItem from="1739953812497" duration="16000" />
     </task>
     <servers />
   </component>
