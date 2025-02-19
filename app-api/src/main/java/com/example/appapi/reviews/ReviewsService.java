@@ -22,4 +22,14 @@ public class ReviewsService {
         List<Reviews> reviewList = reviewsRepository.findAll();
         return reviewList;
     }
+
+    public ReviewsDto.Response read(Long idx) {
+        Optional<Reviews> result = reviewsRepository.findById(idx);
+
+        if(result.isPresent()) {
+            Reviews reviews = result.get();
+            return ReviewsDto.Response.from(reviews);
+        }
+        return null;
+    }
 }

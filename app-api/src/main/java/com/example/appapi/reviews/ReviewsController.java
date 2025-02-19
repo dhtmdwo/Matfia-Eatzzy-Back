@@ -26,4 +26,10 @@ public class ReviewsController {
         return ResponseEntity.ok("성공");
     }
 
+    @GetMapping("/read/{idx}")
+    public ResponseEntity<ReviewsDto.Response> read(@PathVariable Long idx) {
+        ReviewsDto.Response response = reviewsService.read(idx);
+        return ResponseEntity.ok(response);
+    }
+
 }
