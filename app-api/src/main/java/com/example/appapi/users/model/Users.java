@@ -1,9 +1,7 @@
 package com.example.appapi.users.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.appapi.store.model.AllowedStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,24 +22,45 @@ public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
+
+    @Column(nullable = false, length=14)
     private String userId;
+
+    @Column(nullable = false, length=254)
     private String password;
+
+    @Column(nullable = false, length=8)
     private String birthDate;
+
+    @Column(nullable = false, length=10)
+    private String name;
+
+    @Column(nullable = false, length=254)
     private String email;
-    private String postalCode;
+
+    @Column(nullable = false, length=254)
     private String address;
+
+    @Column(nullable = false, length=254)
+    private String addressDetail;
+
+    @Column(nullable = false, length=13)
     private String phone;
-    private String userType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserType userType; // ENUM ('ADMIN', 'SELLER', 'CUSTOMER')
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(userType);
+        GrantedAuthority authority = new SimpleGrantedAuthority(userType.name());
 
         authorities.add(authority);
         return authorities;
     }
+
 
     @Override
     public String getPassword() {
