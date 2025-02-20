@@ -14,24 +14,19 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping("/create")
-    public ResponseEntity<BaseResponse<StoreDto.StoreResponseDto>> create(@RequestBody StoreDto.CreateStoreRequestDto dto) {
+    public ResponseEntity<BaseResponse<StoreDto.StoreResponseDto>> createStore(@RequestBody StoreDto.CreateStoreRequestDto dto) {
         StoreDto.StoreResponseDto createStoreRes = storeService.create(dto);
 
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, createStoreRes));
     }
-//
-//    @GetMapping("/list")
-//    public ResponseEntity<CourseDto.CoursePageResponse> list(int page, int size) {
-//        CourseDto.CoursePageResponse response = courseService.list(page, size);
-//
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @GetMapping("/{courseIdx}")
-//    public ResponseEntity<CourseDto.CourseResponse> read(@PathVariable Long courseIdx) {
-//        CourseDto.CourseResponse response = courseService.read
-//                (courseIdx);
-//
-//        return ResponseEntity.ok(response);
-//    }
+
+    @GetMapping("/list")
+    public ResponseEntity<BaseResponse<StoreDto.StorePageResponseDto>> getStoreList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        StoreDto.StorePageResponseDto response = storeService.list(page, size);
+
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
+    }
+
 }

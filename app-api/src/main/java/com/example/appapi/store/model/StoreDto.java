@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -114,6 +115,53 @@ public class StoreDto {
                     .userIdx(store.getUserIdx())
                     .allowed(store.getAllowed())
                     .closedDayList(closedDayList)
+                    .build();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class StoreSimpleResponseDto {
+        private Long idx;
+        private String name;
+        private String shortAddress;
+        private Long categoryIdx;
+
+        public static StoreSimpleResponseDto from(Store store) {
+            return StoreSimpleResponseDto.builder()
+                    .idx(store.getIdx())
+                    .name(store.getName())
+                    .shortAddress(store.getShortAddress())
+                    .categoryIdx(store.getCategoryIdx())
+                    .build();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class StorePageResponseDto {
+        private int page;
+        private int size;
+        private long totalElements;
+        private int totalPages;
+        private boolean hasNext;
+        private boolean hasPrevious;
+
+        private List<StoreSimpleResponseDto> stores;
+
+        public static StorePageResponseDto from(Page<Store> storePage) {
+            return StorePageResponseDto.builder()
+                    .page(storePage.getNumber())
+                    .size(storePage.getSize())
+                    .totalElements(storePage.getTotalElements())
+                    .totalPages(storePage.getTotalPages())
+                    .hasNext(storePage.hasNext())
+                    .hasPrevious(storePage.hasPrevious())
+                    .stores(storePage.stream().map(StoreDto.StoreSimpleResponseDto::from).collect(Collectors.toList()))
                     .build();
         }
     }
