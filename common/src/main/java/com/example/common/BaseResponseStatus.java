@@ -3,9 +3,6 @@ package com.example.common;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 @Getter
 @AllArgsConstructor
 public enum BaseResponseStatus {
@@ -28,14 +25,13 @@ public enum BaseResponseStatus {
 
     /* 2000 ~ 2999 : 식당 관련 에러 */
     //-- 2000 : 식당 조회 에러
-    RESTAURANT_NOT_FOUND(false, 2001, "식당을 찾을 수 없습니다."),
+    STORE_NOT_FOUND(false, 2001, "식당을 찾을 수 없습니다."),
     //-- 2100 : 식당 검색 에러
-    RESTAURANT_SEARCH_FAILED(false, 2100, "식당 검색에 실패했습니다."),
+    STORE_SEARCH_FAILED(false, 2100, "식당 검색에 실패했습니다."),
     //-- 2200 : 식당 등록 에러
-    RESTAURANT_REGIST_FAILED(false, 2200, "식당 등록에 실패했습니다."),
+    STORE_REGIST_FAILED(false, 2200, "식당 등록에 실패했습니다."),
     //-- 2300 : 식당 정보 수정 에러
-    RESTAURANT_UPDATE_FAILED(false, 2300, "식당 정보 수정에 실패했습니다."),
-
+    STORE_UPDATE_FAILED(false, 2300, "식당 정보 수정에 실패했습니다."),
 
 
     /* 3000~ 3999 : 상품 관련 에러 */
@@ -75,11 +71,11 @@ public enum BaseResponseStatus {
     //-- 6200 : 상품 리뷰 변경 삭제 에러
     PRODUCT_REVIEW_UPDATE_FAILED(false, 6200, "상품 리뷰 수정/삭제에 실패했습니다."),
     //-- 6300 : 식당 리뷰 등록 에러
-    RESTAURANT_REVIEW_REGIST_FAILED(false, 6300, "식당 리뷰 등록에 실패했습니다."),
+    STORE_REVIEW_REGIST_FAILED(false, 6300, "식당 리뷰 등록에 실패했습니다."),
     //-- 6400 : 식당 리뷰 조회 에러
-    RESTAURANT_REVIEW_LOOKUP_FAILED(false, 6400, "식당 리뷰 조회에 실패했습니다."),
+    STORE_REVIEW_LOOKUP_FAILED(false, 6400, "식당 리뷰 조회에 실패했습니다."),
     //-- 6500 : 식당 리뷰 변경 삭제 에러
-    RESTAURANT_REVIEW_UPDATE_FAILED(false, 6500, "식당 리뷰 수정/삭제에 실패했습니다."),
+    STORE_REVIEW_UPDATE_FAILED(false, 6500, "식당 리뷰 수정/삭제에 실패했습니다."),
 
 
     /* 7000 ~ 7999 : 예약 관련 에러 */
