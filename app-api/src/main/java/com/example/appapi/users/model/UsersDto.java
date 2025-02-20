@@ -1,20 +1,11 @@
 package com.example.appapi.users.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 public class UsersDto {
-    @AllArgsConstructor
-    @RequiredArgsConstructor
     @Getter
     public static class SignupRequest {
-
         @Size(min=4, max=12, message="아이디는 4~12글자까지 입력 가능합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]+$", message="아이디는 영어, 숫자만 가능합니다. (대소문자 구분)")
         @NotBlank(message="아이디는 필수 입력값 입니다.")
@@ -33,7 +24,7 @@ public class UsersDto {
         private String birthDate;
 
         @Size(min=2, max=17, message="이름은 2~17글자까지 입력 가능합니다.")
-        @Pattern(regexp = "^[가-핳]+$", message="이름은 한글만 입력 가능합니다.")
+        @Pattern(regexp = "^[가-힣]+$", message="이름은 한글만 입력 가능합니다.")
         private String name;
 
         @Size(max=254, message="이메일은 254자까지 입력 가능합니다.")
@@ -52,7 +43,7 @@ public class UsersDto {
         @NotBlank(message="전화번호는 필수 입력값 입니다.")
         private String phone;
 
-        @NotBlank(message="회원타입은 필수 입력값 입니다.")
+        @NotNull(message="회원타입은 필수 입력값 입니다.")
         private UserType userType;
 
         public Users toEntity(String encodedPassword) {
@@ -70,18 +61,22 @@ public class UsersDto {
             return users;
         }
     }
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
+    @Builder
     public static class SignupResponse {
         private Long idx;
         private String userId;
         private UserType userType;
 
-        public static SignupResponse from(Users entity) {
-            return new SignupResponse(
-                    entity.getIdx(), entity.getUserId(), entity.getUserType()
-            );
+        public static SignupResponse from(Users user) {
+            return SignupResponse.builder()
+                    .idx(user.getIdx())
+                    .userId(user.getUserId())
+                    .userType(user.getUserType())
+                    .build();
         }
     }
 }
