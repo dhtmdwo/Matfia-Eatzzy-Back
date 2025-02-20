@@ -1,4 +1,7 @@
 package com.example.appapi.delivery;
 
-public interface DeliveryRepository {
+import com.example.appapi.delivery.model.Delivery;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 }
