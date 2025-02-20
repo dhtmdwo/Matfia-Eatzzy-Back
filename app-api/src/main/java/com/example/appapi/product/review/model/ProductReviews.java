@@ -29,7 +29,7 @@ public class ProductReviews {
 
     @ManyToOne
     @JoinColumn(name = "products_idx")
-    private Products product;
+    private Products products;
 
     @ManyToOne
     @JoinColumn(name = "users_idx")
