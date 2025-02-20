@@ -24,4 +24,10 @@ public class DeliveryController {
         List<DeliveryDto.ListResponse> resp = deliveryService.getList();
         return ResponseEntity.ok(resp);
     }
+
+    @GetMapping("/{idx}")
+    public ResponseEntity<DeliveryDto.ReadResponse> get(@PathVariable Long idx) {
+        DeliveryDto.ReadResponse resp = deliveryService.getRead(idx);
+        return ResponseEntity.ok(resp);
+    }
 }

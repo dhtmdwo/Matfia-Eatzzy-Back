@@ -37,4 +37,22 @@ public class DeliveryDto {
 
         }
     }
+
+    @Getter
+    @Builder
+    public static class ReadResponse {
+        private Long idx;
+        private String delivery_status;
+        private String courier_company;
+        private int tracking_number;
+
+        public static ReadResponse from(Delivery delivery) {
+            return ReadResponse.builder()
+                    .idx(delivery.getIdx())
+                    .delivery_status(delivery.getDelivery_status())
+                    .courier_company(delivery.getCourier_company())
+                    .tracking_number(delivery.getTracking_number())
+                    .build();
+        }
+    }
 }
