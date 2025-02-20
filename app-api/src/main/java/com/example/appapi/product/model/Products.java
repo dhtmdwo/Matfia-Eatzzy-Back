@@ -1,13 +1,16 @@
 package com.example.appapi.product.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.appapi.product.images.model.ProductsImages;
+import com.example.appapi.product.review.model.ProductReviews;
+import com.example.appapi.store.model.Store;
+import com.example.appapi.users.model.Users;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -22,5 +25,18 @@ public class Products {
     private String description;
     private int price;
     private int stock;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "users_idx")
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "store_idx")
+    private Store store;
+
+    @OneToMany(mappedBy = "products")
+    private List<ProductsImages> images;
+
+    @OneToMany(mappedBy = "products")
+    private List<ProductReviews> reviews;
 }
