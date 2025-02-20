@@ -1,4 +1,4 @@
-package com.example;
+package com.example.common.exception;
 
 import com.example.common.BaseResponseStatus;
 import lombok.AllArgsConstructor;
