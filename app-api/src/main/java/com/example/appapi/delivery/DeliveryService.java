@@ -22,4 +22,9 @@ public class DeliveryService {
         List<Delivery> dto = deliveryRepository.findAll();
         return dto.stream().map(DeliveryDto.ListResponse::from).collect(Collectors.toList());
     }
+
+    public DeliveryDto.ReadResponse getRead(Long idx) {
+        Delivery dto = deliveryRepository.findByIdx(idx);
+        return DeliveryDto.ReadResponse.from(dto);
+    }
 }
