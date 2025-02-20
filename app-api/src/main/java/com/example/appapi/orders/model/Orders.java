@@ -1,9 +1,7 @@
 package com.example.appapi.orders.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.appapi.users.model.Users;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +20,8 @@ public class Orders {
     private int price;
     private String message;
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_idx")
+    private Users user;
 }
