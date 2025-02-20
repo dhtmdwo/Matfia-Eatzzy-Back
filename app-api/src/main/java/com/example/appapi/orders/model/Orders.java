@@ -1,5 +1,6 @@
 package com.example.appapi.orders.model;
 
+import com.example.appapi.delivery.model.Delivery;
 import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,7 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "user_idx")
     private Users user;
+
+    @OneToOne(mappedBy = "orders")
+    private Delivery delivery;
 }
