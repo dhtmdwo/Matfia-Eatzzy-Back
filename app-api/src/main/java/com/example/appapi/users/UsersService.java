@@ -18,6 +18,7 @@ public class UsersService implements UserDetailsService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public UsersDto.SignupResponse signup(UsersDto.SignupRequest dto) {
         Users user = usersRepository.save(dto.toEntity(passwordEncoder.encode(dto.getPassword())));
 

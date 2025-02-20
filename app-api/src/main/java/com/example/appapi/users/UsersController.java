@@ -1,6 +1,7 @@
 package com.example.appapi.users;
 
 import com.example.appapi.users.model.UsersDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,14 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UsersDto.SignupResponse> signup(
-            @RequestBody UsersDto.SignupRequest dto) {
-
-        UsersDto.SignupResponse response = usersService.signup(dto);
-
-        return ResponseEntity.ok(response);
+    public void signup(@Valid @RequestBody UsersDto.SignupRequest dto) {
+        usersService.signup(dto);
     }
+
+    //    public ResponseEntity<UsersDto.SignupResponse> signup(@Valid @RequestBody UsersDto.SignupRequest dto) {
+//
+//        UsersDto.SignupResponse response = usersService.signup(dto);
+//
+//        return ResponseEntity.ok(response);
+//    }
 }
