@@ -70,12 +70,20 @@ public class UsersDto {
         private Long idx;
         private String userId;
         private UserType userType;
+        private String message;
 
         public static SignupResponse from(Users user) {
             return SignupResponse.builder()
                     .idx(user.getIdx())
                     .userId(user.getUserId())
                     .userType(user.getUserType())
+                    .message("회원가입 성공")
+                    .build();
+        }
+
+        public static SignupResponse error(String message) {
+            return SignupResponse.builder()
+                    .message(message)
                     .build();
         }
     }
