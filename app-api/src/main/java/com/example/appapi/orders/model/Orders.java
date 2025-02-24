@@ -1,9 +1,7 @@
 package com.example.appapi.orders.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.appapi.payment.model.Payment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +20,9 @@ public class Orders {
     private int price;
     private String message;
     private String status;
+
+    @OneToOne
+    @JoinColumn(name = "Payment_idx")
+    private Payment payment;
+
 }

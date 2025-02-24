@@ -1,9 +1,7 @@
 package com.example.appapi.paymentmethod.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.appapi.payment.model.Payment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,4 +16,7 @@ public class PaymentMethod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     private String name;
+
+    @OneToOne(mappedBy = "paymentMethod")
+    private Payment payment;
 }
