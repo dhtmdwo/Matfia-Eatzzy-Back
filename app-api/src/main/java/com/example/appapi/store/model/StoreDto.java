@@ -54,7 +54,6 @@ public class StoreDto {
     @Getter
     public static class ClosedDayRequestDto {
         private String day;
-        List<DayOfWeek> closedDays = new ArrayList<>();
 
         public StoreClosedDay toEntity(Store store) {
             return StoreClosedDay.builder()
@@ -100,7 +99,7 @@ public class StoreDto {
         private AllowedStatus allowed;
         List<ClosedDayResponseDto> closedDayList = new ArrayList<>();
 
-        public static StoreResponseDto from(Store store) {
+        public static StoreResponseDto from(Store store, List<ClosedDayResponseDto> closedDayList) {
             return StoreResponseDto.builder()
                     .idx(store.getIdx())
                     .name(store.getName())
@@ -114,7 +113,7 @@ public class StoreDto {
                     .categoryIdx(store.getCategoryIdx())
                     .userIdx(store.getUserIdx())
                     .allowed(store.getAllowed())
-                    .closedDayList(store.getClosedDayList().stream().map(ClosedDayResponseDto::from).collect(Collectors.toList()))
+                    .closedDayList(closedDayList)
                     .build();
         }
     }

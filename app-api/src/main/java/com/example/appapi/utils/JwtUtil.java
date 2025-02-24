@@ -1,5 +1,6 @@
 package com.example.appapi.utils;
 
+import com.example.appapi.users.model.UserType;
 import com.example.appapi.users.model.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -23,7 +24,8 @@ public class JwtUtil {
                     .idx(claims.get("userIdx", Long.class))
                     .userId(claims.get("userId", String.class))
                     .email(claims.get("userEmail", String.class))
-                    .userType(claims.get("userType", String.class))
+                    .userType(UserType.valueOf(claims.get("userType", String.class)))
+
                     .build();
 
         } catch (ExpiredJwtException e) {

@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -18,9 +20,24 @@ public class UsersService implements UserDetailsService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UsersDto.SignupResponse signup(UsersDto.SignupRequest dto) {
-        Users user = usersRepository.save(dto.toEntity(passwordEncoder.encode(dto.getPassword())));
+    @Transactional
+    public Object signup(UsersDto.SignupRequest dto) {
+        
+        Map<String, String> errors = new HashMap<>();
+        // 이메일 중복 검사
+        if (usersRepository.existsByEmail(dto.getEmail())) {
+            errors.put("email", "이미 사용 중인 이메일입니다.");
+        }
+        // 아이디 중복 검사
+        if (usersRepository.existsByUserId(dto.getUserId())) {
+            errors.put("userId", "이미 사용 중인 아이디입니다.");
+        }
 
+        if(!errors.isEmpty()) {
+            return errors;
+        }
+
+        Users user = usersRepository.save(dto.toEntity(passwordEncoder.encode(dto.getPassword())));
         return UsersDto.SignupResponse.from(user);
     }
 

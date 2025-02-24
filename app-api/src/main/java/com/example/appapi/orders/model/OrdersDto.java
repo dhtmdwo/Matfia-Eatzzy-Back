@@ -40,4 +40,23 @@ public class OrdersDto {
                     .build();
         }
     }
+    @Getter
+    @Builder
+    public static class ReadResponse {
+        private Long idx;
+        private int quantity;
+        private int price;
+        private String message;
+        private String status;
+
+        public static ReadResponse from(Orders orders) {
+            return ReadResponse.builder()
+                    .idx(orders.getIdx())
+                    .quantity(orders.getQuantity())
+                    .price(orders.getPrice())
+                    .message(orders.getMessage())
+                    .status(orders.getStatus())
+                    .build();
+        }
+    }
 }

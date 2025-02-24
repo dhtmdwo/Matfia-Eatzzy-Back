@@ -16,12 +16,20 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final StoreClosedDayRepository storeClosedDayRepository;
 
-    public void create(StoreDto.CreateStoreRequestDto dto) {
+    @Transactional
+    public StoreDto.StoreResponseDto create(StoreDto.CreateStoreRequestDto dto) {
         Store store = storeRepository.save(dto.toEntity());
 
-        dto.getClosedDayList().forEach(closedDayRequestDto -> {
-            storeClosedDayRepository.save(closedDayRequestDto.toEntity(store));
-        });
-    }
+        List<StoreClosedDay> closedDays = dto.getClosedDayList().stream()
+                .map(closedDayRequestDto -> closedDayRequestDto.toEntity(store))
+                .toList();
 
+        storeClosedDayRepository.saveAll(closedDays);
+
+        List<StoreDto.ClosedDayResponseDto> closedDayResponseList = closedDays.stream()
+                .map(StoreDto.ClosedDayResponseDto::from)
+                .toList();
+
+        return StoreDto.StoreResponseDto.from(store, closedDayResponseList);
+    }
 }
