@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasRole("CUSTOMER")
                         .requestMatchers("/app/mypage/seller/**").hasRole("SELLER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
         );
 
         // 기존에 사용자한테 설정하도록 한 쿠키(JSESSIONID)를 사용하지 않도록 하는 설정
