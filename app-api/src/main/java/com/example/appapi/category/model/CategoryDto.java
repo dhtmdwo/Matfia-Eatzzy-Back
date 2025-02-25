@@ -27,19 +27,22 @@ public class CategoryDto {
     public static class CategoryResponseDto {
         private Long idx;
         private String name;
-        List<CategoryResponseDto> childrenCategoryList = new ArrayList<>();
+        private List<CategoryResponseDto> childrenCategoryList;
 
         public static CategoryResponseDto from(Category category) {
             return CategoryResponseDto.builder()
                     .idx(category.getIdx())
                     .name(category.getName())
-                    .childrenCategoryList(category.getChildCategoryList() != null
-                            ? category.getChildCategoryList().stream()
-                            .map(CategoryResponseDto::from)
-                            .toList()
-                            : new ArrayList<>())
+                    .childrenCategoryList(
+                            category.getChildCategoryList() != null
+                                    ? category.getChildCategoryList().stream()
+                                    .map(CategoryResponseDto::from)
+                                    .toList()
+                                    : new ArrayList<>()
+                    )
                     .build();
         }
+
     }
 
 }

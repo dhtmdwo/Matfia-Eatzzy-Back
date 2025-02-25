@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CategoryService {
@@ -22,5 +25,12 @@ public class CategoryService {
         Category category = categoryRepository.save(dto.toEntity(parentCategory));
 
         return CategoryDto.CategoryResponseDto.from(category);
+    }
+
+    @Transactional
+    public List<CategoryDto.CategoryResponseDto> getBigCategory() {
+        List<Category> categoryList = categoryRepository.findRootCategoriesWithChildren();
+
+        return categoryList.stream().map(CategoryDto.CategoryResponseDto::from).toList();
     }
 }

@@ -22,7 +22,7 @@ public class Category {
     private String name;
 
     // 자기 참조 관계 (부모 카테고리)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_idx", nullable = true)
     private Category parentCategory;
 
