@@ -16,7 +16,7 @@ public class PaymentMethod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     private String name;
-
     @OneToOne(mappedBy = "paymentMethod")
     private Payment payment;
+
 }
