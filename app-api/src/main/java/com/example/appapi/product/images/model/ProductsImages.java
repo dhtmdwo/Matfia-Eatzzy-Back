@@ -19,7 +19,7 @@ public class ProductsImages {
 
     private String imagePath;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")
     private Products products;
 }

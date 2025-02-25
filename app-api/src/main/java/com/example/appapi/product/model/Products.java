@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
@@ -26,17 +27,45 @@ public class Products {
     private int price;
     private int stock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_idx")
     private Users user;
 
-    @ManyToOne
-    @JoinColumn(name = "store_idx")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_idx",nullable = true)
     private Store store;
 
+    @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductsImages> images;
 
+    @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductReviews> reviews;
+
+    private int reviewCount;
+
+    public void addReviewCount() {
+        this.reviewCount = this.reviewCount + 1;
+    }
+
+    public void subReviewCount() {
+        this.reviewCount = this.reviewCount - 1;
+    }
+
+    private double starPoint;
+
+    public void calculateStarPoint(int value) {
+        starPoint = (starPoint * totalStarCount + value) / totalStarCount + 1;
+    }
+
+    private double totalStarCount;
+
+    public void addStarCount() {
+        this.totalStarCount = this.totalStarCount + 1;
+    }
+
+    public void subStarCount() {
+        this.totalStarCount = this.totalStarCount - 1;
+    }
 }
