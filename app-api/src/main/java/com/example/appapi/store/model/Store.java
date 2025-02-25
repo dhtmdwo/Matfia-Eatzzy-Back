@@ -1,7 +1,10 @@
 package com.example.appapi.store.model;
 
+import com.example.appapi.product.images.model.ProductsImages;
+import com.example.appapi.store.images.model.StoreImages;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.time.DayOfWeek;
@@ -36,6 +39,11 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<StoreClosedDay> closedDayList = new ArrayList<>();  // store_closed_days (FK)
+
+    @BatchSize(size = 6)
+    @OneToMany(mappedBy = "store")
+    private List<StoreImages> images;
+
 
     private Long userIdx;  // user_idx (FK)
     @ManyToOne
