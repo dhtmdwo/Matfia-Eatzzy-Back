@@ -1,17 +1,15 @@
 package com.example.appapi.store.model;
 
-import com.example.appapi.product.images.model.ProductsImages;
+import com.example.appapi.category.model.Category;
 import com.example.appapi.store.images.model.StoreImages;
+import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
-import java.time.LocalDateTime;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,8 +42,6 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<StoreImages> images;
 
-
-    private Long userIdx;  // user_idx (FK)
     @ManyToOne
     @JoinColumn(name = "user_idx")
     private Users user;  // user_idx (FK)
