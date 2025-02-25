@@ -20,7 +20,7 @@ public class ProductReviewImages {
 
     private String imagePath;
 
-    @ManyToOne
-    @JoinColumn(name = "product_reviews_idx")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_reviews_idx",nullable = true)
     private ProductReviews productReviews;
 }
