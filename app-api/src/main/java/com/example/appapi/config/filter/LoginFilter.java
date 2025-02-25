@@ -18,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.Duration;
 
 @RequiredArgsConstructor
@@ -58,7 +59,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-
+        PrintWriter out = response.getWriter();
+        out.print("{");
+        out.print("\"userId\": \"" + users.getUserId() + "\",");
+        out.print("\"userType\": \"" + users.getUserType().name() + "\"");
+        out.print("}");
+        out.flush();
     }
 }
