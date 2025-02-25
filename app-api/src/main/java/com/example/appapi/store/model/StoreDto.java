@@ -1,5 +1,6 @@
 package com.example.appapi.store.model;
 
+import com.example.appapi.users.model.Users;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +18,18 @@ public class StoreDto {
     // store 생성 request
     @Getter
     public static class CreateStoreRequestDto {
-        @NotBlank
         private String name;
         private String description;
         private String callNumber;
         private LocalTime startTime;
         private LocalTime endTime;
-        @NotBlank
         private String openingHours;
-        @NotBlank
         private String address;
         private String shortAddress;
-        private Long categoryIdx;
-        private Long userIdx;
 
         List<ClosedDayRequestDto> closedDayList = new ArrayList<>();
 
-        public Store toEntity() {
+        public Store toEntity(Users user) {
             return Store.builder()
                     .name(name)
                     .description(description)
@@ -44,8 +39,7 @@ public class StoreDto {
                     .openingHours(openingHours)
                     .address(address)
                     .shortAddress(shortAddress)
-                    .categoryIdx(categoryIdx)
-                    .userIdx(userIdx)
+                    .user(user)
                     .allowed(AllowedStatus.WAITING)
                     .build();
         }
@@ -95,10 +89,24 @@ public class StoreDto {
         private String openingHours;
         private String address;
         private String shortAddress;
-        private Long categoryIdx;
-        private Long userIdx;
         private AllowedStatus allowed;
         List<ClosedDayResponseDto> closedDayList = new ArrayList<>();
+
+        public static StoreResponseDto from(Store store) {
+            return StoreResponseDto.builder()
+                    .idx(store.getIdx())
+                    .name(store.getName())
+                    .description(store.getDescription())
+                    .callNumber(store.getCallNumber())
+                    .startTime(store.getStartTime())
+                    .endTime(store.getEndTime())
+                    .openingHours(store.getOpeningHours())
+                    .address(store.getAddress())
+                    .shortAddress(store.getShortAddress())
+                    .allowed(store.getAllowed())
+                    .closedDayList(store.getClosedDayList().stream().map(StoreDto.ClosedDayResponseDto::from).collect(Collectors.toList()))
+                    .build();
+        }
 
         public static StoreResponseDto from(Store store, List<ClosedDayResponseDto> closedDayList) {
             return StoreResponseDto.builder()
@@ -111,8 +119,6 @@ public class StoreDto {
                     .openingHours(store.getOpeningHours())
                     .address(store.getAddress())
                     .shortAddress(store.getShortAddress())
-                    .categoryIdx(store.getCategoryIdx())
-                    .userIdx(store.getUserIdx())
                     .allowed(store.getAllowed())
                     .closedDayList(closedDayList)
                     .build();
@@ -127,14 +133,13 @@ public class StoreDto {
         private Long idx;
         private String name;
         private String shortAddress;
-        private Long categoryIdx;
+        //private String categoryName;
 
         public static StoreSimpleResponseDto from(Store store) {
             return StoreSimpleResponseDto.builder()
                     .idx(store.getIdx())
                     .name(store.getName())
                     .shortAddress(store.getShortAddress())
-                    .categoryIdx(store.getCategoryIdx())
                     .build();
         }
     }

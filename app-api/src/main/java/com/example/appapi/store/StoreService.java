@@ -4,6 +4,9 @@ import com.example.appapi.store.model.AllowedStatus;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.model.StoreClosedDay;
 import com.example.appapi.store.model.StoreDto;
+import com.example.appapi.users.model.Users;
+import com.example.common.BaseResponseStatus;
+import com.example.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +22,8 @@ public class StoreService {
     private final StoreClosedDayRepository storeClosedDayRepository;
 
     @Transactional
-    public StoreDto.StoreResponseDto create(StoreDto.CreateStoreRequestDto dto) {
-        Store store = storeRepository.save(dto.toEntity());
+    public StoreDto.StoreResponseDto create(StoreDto.CreateStoreRequestDto dto, Users user) {
+        Store store = storeRepository.save(dto.toEntity(user));
 
         List<StoreClosedDay> closedDays = dto.getClosedDayList().stream()
                 .map(closedDayRequestDto -> closedDayRequestDto.toEntity(store))
@@ -39,4 +42,11 @@ public class StoreService {
         Page<Store> result = storeRepository.findByAllowed(AllowedStatus.YES, PageRequest.of(page, size));
         return StoreDto.StorePageResponseDto.from(result);
     }
+
+    public StoreDto.StoreResponseDto getStore(Long storeIdx) {
+        Store store = storeRepository.findById(storeIdx).orElseThrow(() ->  new BaseException(BaseResponseStatus.STORE_NOT_FOUND));
+
+        return StoreDto.StoreResponseDto.from(store);
+    }
+
 }

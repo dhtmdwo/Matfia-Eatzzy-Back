@@ -38,6 +38,12 @@ public class Store {
     private List<StoreClosedDay> closedDayList = new ArrayList<>();  // store_closed_days (FK)
 
     private Long userIdx;  // user_idx (FK)
+    @ManyToOne
+    @JoinColumn(name = "user_idx")
+    private Users user;  // user_idx (FK)
 
-    private Long categoryIdx;  // category_idx (FK)
+    @ManyToOne
+    @JoinColumn(name = "category_idx")
+    private Category category;  // category_idx (FK)
+
 }
