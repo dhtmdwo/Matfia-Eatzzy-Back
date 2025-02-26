@@ -51,7 +51,6 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private UserType userType; // ENUM ('ADMIN', 'SELLER', 'CUSTOMER')
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
