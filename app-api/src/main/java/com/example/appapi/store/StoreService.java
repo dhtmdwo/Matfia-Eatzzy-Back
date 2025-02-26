@@ -1,5 +1,7 @@
 package com.example.appapi.store;
 
+import com.example.appapi.category.CategoryRepository;
+import com.example.appapi.category.model.Category;
 import com.example.appapi.store.model.AllowedStatus;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.model.StoreClosedDay;
@@ -14,16 +16,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class StoreService {
     private final StoreRepository storeRepository;
     private final StoreClosedDayRepository storeClosedDayRepository;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public StoreDto.StoreResponseDto create(StoreDto.CreateStoreRequestDto dto, Users user) {
-        Store store = storeRepository.save(dto.toEntity(user));
+        Category category = categoryRepository.findById(dto.getCategoryIdx()).orElseThrow(() ->  new BaseException(BaseResponseStatus.STORE_REGIST_FAILED));
+
+        Store store = storeRepository.save(dto.toEntity(user, category));
 
         List<StoreClosedDay> closedDays = dto.getClosedDayList().stream()
                 .map(closedDayRequestDto -> closedDayRequestDto.toEntity(store))
@@ -35,7 +41,7 @@ public class StoreService {
                 .map(StoreDto.ClosedDayResponseDto::from)
                 .toList();
 
-        return StoreDto.StoreResponseDto.from(store, closedDayResponseList);
+        return StoreDto.StoreResponseDto.fromWithClosedDays(store, closedDayResponseList);
     }
 
     public StoreDto.StorePageResponseDto list(int page, int size) {
@@ -44,7 +50,9 @@ public class StoreService {
     }
 
     public StoreDto.StoreResponseDto getStore(Long storeIdx) {
-        Store store = storeRepository.findById(storeIdx).orElseThrow(() ->  new BaseException(BaseResponseStatus.STORE_NOT_FOUND));
+        Store store = storeRepository.findByIdWithClosedDaysAndUserAndCategory(storeIdx).orElseThrow(
+                () ->  new BaseException(BaseResponseStatus.STORE_NOT_FOUND)
+        );
 
         return StoreDto.StoreResponseDto.from(store);
     }

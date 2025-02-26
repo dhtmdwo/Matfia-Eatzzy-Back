@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> childCategoryList  = new ArrayList<>();
 
-
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "category")
     private List<Store> storeList = new ArrayList<>();
 }
