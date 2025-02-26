@@ -1,5 +1,6 @@
 package com.example.appapi.store.review.model;
 
+import com.example.appapi.store.model.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +31,11 @@ public class StoreReview {
     protected void onCreate() {
         createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
+
+    @OneToMany(mappedBy = "storeReview")
+    List<StoreReviewImage> storeReviewImageList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "store_idx")
+    private Store store;
 }
