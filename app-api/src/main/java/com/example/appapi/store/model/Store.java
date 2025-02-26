@@ -1,6 +1,7 @@
 package com.example.appapi.store.model;
 
 import com.example.appapi.category.model.Category;
+import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.images.model.StoreImages;
 import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
@@ -37,6 +38,9 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<StoreClosedDay> closedDayList = new ArrayList<>();  // store_closed_days (FK)
+
+    @OneToMany
+    private List<Reservation> reservationList = new ArrayList<>();
 
     @BatchSize(size = 6)
     @OneToMany(mappedBy = "store")
