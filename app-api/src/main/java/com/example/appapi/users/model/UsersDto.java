@@ -6,9 +6,10 @@ import lombok.*;
 public class UsersDto {
     @Getter
     public static class SignupRequest {
-        @Size(min=4, max=12, message="아이디는 4~12글자까지 입력 가능합니다.")
+        @Size(min=4, max=20, message="아이디는 4~20글자까지 입력 가능합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]+$", message="아이디는 영어, 숫자만 가능합니다. (대소문자 구분)")
         @NotBlank(message="아이디는 필수 입력값 입니다.")
+        @Setter
         private String userId;
 
         @Size(min=8, message="비밀번호는 8자 이상 입력 해주십시오.")
@@ -25,6 +26,7 @@ public class UsersDto {
 
         @Size(min=2, max=17, message="이름은 2~17글자까지 입력 가능합니다.")
         @Pattern(regexp = "^[가-힣]+$", message="이름은 한글만 입력 가능합니다.")
+        @Setter
         private String name;
 
         @Size(max=254, message="이메일은 254자까지 입력 가능합니다.")
@@ -44,6 +46,7 @@ public class UsersDto {
         private String phone;
 
         @NotNull(message="회원타입은 필수 입력값 입니다.")
+        @Setter
         private UserType userType;
 
         public Users toEntity(String encodedPassword) {
@@ -84,6 +87,37 @@ public class UsersDto {
         public static SignupResponse error(String message) {
             return SignupResponse.builder()
                     .message(message)
+                    .build();
+        }
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Builder
+    public static class UserResponse {
+        private Long idx;
+        private String userId;
+        private String email;
+        private String address;
+        private String addressDetail;
+        private String phone;
+        private UserType userType;
+
+        public static UserResponse from(Users user) {
+            return UserResponse.builder()
+                    .idx(user.getIdx())
+                    .userId(user.getUserId())
+                    .email(user.getEmail())
+                    .address(user.getAddress())
+                    .addressDetail(user.getAddressDetail())
+                    .phone(user.getPhone())
+                    .userType(user.getUserType())
+                    .build();
+        }
+
+        public static UserResponse error(String message) {
+            return UserResponse.builder()
                     .build();
         }
     }
