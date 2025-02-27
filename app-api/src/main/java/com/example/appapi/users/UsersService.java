@@ -55,8 +55,8 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public UsersDto.SignupResponse read(Long userIdx) {
+    public UsersDto.UserResponse read(Long userIdx) {
         Users users = usersRepository.findById(userIdx).orElseThrow();
-        return UsersDto.SignupResponse.from(users);
+        return UsersDto.UserResponse.from(users);
     }
 }
