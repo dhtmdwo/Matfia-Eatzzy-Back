@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -45,5 +46,37 @@ public class UsersController {
         UsersDto.UserResponse response = usersService.read(userIdx);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UsersDto.UserResponse>> list() {
+        List<UsersDto.UserResponse> response = usersService.getList();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/validate")
+    public void validate(HttpServletRequest request) {
+            String token = null;
+
+            // 쿠키에서 토큰 추출
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("ATOKEN".equals(cookie.getName())) {
+                        token = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+
+            // 토큰이 없는 경우 false 반환
+            if (token == null) {
+                System.out.println("ATOKEN 쿠키가 없습니다.");
+//                return false;
+            }
+
+            // 토큰 검증
+        System.out.println(JwtUtil.validate(token));
     }
 }
