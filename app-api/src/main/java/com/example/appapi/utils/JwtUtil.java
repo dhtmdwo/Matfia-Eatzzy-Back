@@ -21,10 +21,7 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
             return Users.builder()
-                    .idx(claims.get("userIdx", Long.class))
                     .userId(claims.get("userId", String.class))
-                    .email(claims.get("userEmail", String.class))
-                    .userType(UserType.valueOf(claims.get("userType", String.class)))
 
                     .build();
 
@@ -34,12 +31,9 @@ public class JwtUtil {
         }
     }
 
-    public static String generateToken(Long userIdx, String userId, String userEmail, String userType) {
+    public static String generateToken(String userId) {
         Claims claims = Jwts.claims();
-        claims.put("userIdx", userIdx);
         claims.put("userId", userId);
-        claims.put("userEmail", userEmail);
-        claims.put("userType", userType);
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

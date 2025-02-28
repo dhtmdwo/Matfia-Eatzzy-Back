@@ -36,7 +36,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 (auth) -> auth
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/login", "/app/users/signup").permitAll()
+                        .requestMatchers("/login", "/app/users/signup", "/app/users/kakao/code/**").permitAll()
                         .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasRole("CUSTOMER")
                         .requestMatchers("/app/mypage/seller/**").hasRole("SELLER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
