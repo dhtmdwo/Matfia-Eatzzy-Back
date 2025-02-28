@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -55,8 +56,14 @@ public class UsersService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public UsersDto.SignupResponse read(Long userIdx) {
+    public UsersDto.UserResponse read(Long userIdx) {
         Users users = usersRepository.findById(userIdx).orElseThrow();
-        return UsersDto.SignupResponse.from(users);
+        return UsersDto.UserResponse.from(users);
+    }
+
+    public List<UsersDto.UserResponse> getList() {
+        List<Users> userList = usersRepository.findAll();
+
+        return userList.stream().map(UsersDto.UserResponse::from).toList();
     }
 }
