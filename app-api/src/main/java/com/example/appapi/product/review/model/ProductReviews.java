@@ -27,11 +27,11 @@ public class ProductReviews {
     private String content;
     private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")
     private Products products;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_idx")
     private Users user;
 

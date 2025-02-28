@@ -3,6 +3,7 @@ package com.example.appapi.config;
 
 import com.example.appapi.config.filter.JwtFilter;
 import com.example.appapi.config.filter.LoginFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,11 +37,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 (auth) -> auth
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/login", "/app/users/signup", "/app/users/kakao/code/**").permitAll()
+                        .requestMatchers("/login", "/app/users/signup", "/error/**", "/app/users/kakao/code/**").permitAll()
                         .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasRole("CUSTOMER")
                         .requestMatchers("/app/mypage/seller/**").hasRole("SELLER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
         );
 
         // 기존에 사용자한테 설정하도록 한 쿠키(JSESSIONID)를 사용하지 않도록 하는 설정

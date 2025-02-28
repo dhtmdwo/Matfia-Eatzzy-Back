@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.stream.Collectors;
 
 public class PaymentDto {
-
     @Getter
     public static class PaymentRegister {
         private String status;
@@ -20,7 +19,6 @@ public class PaymentDto {
                     .build();
         }
     }
-
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
