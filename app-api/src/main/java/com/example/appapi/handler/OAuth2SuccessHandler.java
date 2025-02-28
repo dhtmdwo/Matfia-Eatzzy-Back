@@ -1,0 +1,17 @@
+package com.example.appapi.handler;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import java.io.IOException;
+
+public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth)
+            throws IOException, ServletException {
+        res.sendRedirect("http://localhost:5173/");
+    }
+}

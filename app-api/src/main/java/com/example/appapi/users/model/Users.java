@@ -2,10 +2,7 @@ package com.example.appapi.users.model;
 
 import com.example.appapi.store.model.AllowedStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,34 +14,35 @@ import java.util.Collection;
 @NoArgsConstructor
 @Entity
 @Getter
+@Setter
 @Builder
 public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @Column(nullable = false, length=14, unique = true)
+    @Column(nullable = false, length=20, unique = true)
     private String userId;
 
     @Column(nullable = false, length=254)
     private String password;
 
-    @Column(nullable = false, length=8)
+    @Column(length=8)
     private String birthDate;
 
     @Column(nullable = false, length=10)
     private String name;
 
-    @Column(nullable = false, length=254, unique = true)
+    @Column(length=254, unique = true)
     private String email;
 
-    @Column(nullable = false, length=254)
+    @Column(length=254)
     private String address;
 
-    @Column(nullable = false, length=254)
+    @Column(length=254)
     private String addressDetail;
 
-    @Column(nullable = false, length=13)
+    @Column(length=13)
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -54,7 +52,7 @@ public class Users implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(userType.name());
+        GrantedAuthority authority = new SimpleGrantedAuthority(getUserId());
 
         authorities.add(authority);
         return authorities;

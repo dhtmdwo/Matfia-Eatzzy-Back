@@ -1,5 +1,7 @@
 package com.example.appapi.users;
 
+import com.example.appapi.handler.OAuth2SuccessHandler;
+import com.example.appapi.users.model.Users;
 import com.example.appapi.users.model.UsersDto;
 import com.example.appapi.utils.JwtUtil;
 import jakarta.servlet.ServletException;
@@ -78,5 +80,43 @@ public class UsersController {
 
             // 토큰 검증
         System.out.println(JwtUtil.validate(token));
+    }
+
+    @GetMapping("/kakao/code")
+    protected void code(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String code = request.getParameter("code");
+        String kakaoId = null;
+        kakaoId = kakaoService.kakaoLogin(code);
+
+        try {
+            if(kakaoId != null) {
+                // 로그인 처리
+                try {
+                    // 사용자 회원 여부 확인
+                    boolean isUser = usersRepository.existsByUserId(kakaoId);
+                    if (isUser == false) {
+                        // 사용자 회원 가입 처리
+                        Users user = new Users();
+                        user.setUserId("kakao" + kakaoId);
+                        user.setPassword("kakao@" + kakaoId);
+                        usersRepository.save(user);
+                    }
+
+                    // JWT 발급
+                    String token = JwtUtil.generateToken("kakao" + kakaoId);
+
+                    // JWT 반환
+//                    oAuth2SuccessHandler.onAuthenticationSuccess(request, response, token);
+
+                } catch (Exception e) {
+                    System.out.println("실패");
+                }
+            } else {
+                System.out.println("실패");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
