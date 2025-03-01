@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ProductsRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products p join fetch p.reviews where p.idx = :idx")
     Optional<Products> findByIdxWithReviewsAndImages(Long idx);
+
+    Products findByIdx(Long idx);
 }
