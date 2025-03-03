@@ -8,6 +8,7 @@ public class ProductsDto {
     @Getter
     @Builder
     public static class InfoResponse {
+        private Long idx;
         private String name;
         private String imgPath;
         private double starPoint;
@@ -16,6 +17,7 @@ public class ProductsDto {
 
         public static InfoResponse fromEntity(Products products) {
             return InfoResponse.builder()
+                    .idx(products.getIdx())
                     .name(products.getName())
                     .imgPath(products.getImages().get(0).getImagePath())
                     .price(products.getPrice())
