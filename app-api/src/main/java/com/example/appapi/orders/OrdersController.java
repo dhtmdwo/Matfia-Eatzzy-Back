@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/app/orders")
 public class OrdersController {
     private final OrdersService ordersService;
-    @PostMapping("/register")
-    public String register(@RequestBody OrdersDto.RegisterRequest dto) {
-        ordersService.register(dto);
+    @PostMapping("/register/{idx}")
+    public String register(@PathVariable Long idx, @RequestBody OrdersDto.OrdersRegister dto){
+        ordersService.register(idx, dto);
         return "주문 등록 완료";
     }
     @GetMapping("/list")
@@ -25,6 +25,11 @@ public class OrdersController {
     @GetMapping("{idx}")
     public ResponseEntity<OrdersDto.ReadResponse> getRead(@PathVariable Long idx) {
         OrdersDto.ReadResponse resp = ordersService.getRead(idx);
+        return ResponseEntity.ok(resp);
+    }
+    @GetMapping("/orderlist")
+    public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList() {
+        List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList();
         return ResponseEntity.ok(resp);
     }
 }

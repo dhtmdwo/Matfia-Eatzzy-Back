@@ -23,10 +23,8 @@ public class ProductsService {
     // 리뷰 starPoint, 리뷰 개수, 이미지
     public List<ProductsDto.InfoResponse> list() {
         Page<Products> products = productsRepository.findAll(PageRequest.of(0, 6));
-
         return products.getContent().stream().map(ProductsDto.InfoResponse::fromEntity).collect(Collectors.toList());
     }
-
 
     public ProductsDto.DetailResponse getProduct(Long id) {
         Products products = productsRepository.findByIdxWithReviewsAndImages(id).orElseThrow();

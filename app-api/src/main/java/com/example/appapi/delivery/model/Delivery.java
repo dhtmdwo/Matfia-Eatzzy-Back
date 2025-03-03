@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 @Builder
 @AllArgsConstructor
@@ -20,7 +22,8 @@ public class Delivery {
     private String courier_company; // 택배 회사
     private int tracking_number;    // 운송장 번호
 
-    @OneToOne
-    @JoinColumn(name = "order_idx") // 주문 번호
+    @OneToOne(fetch = FetchType.LAZY)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @JoinColumn(name = "orders_idx", referencedColumnName = "idx") // 주문 번호
     private Orders orders;
 }
