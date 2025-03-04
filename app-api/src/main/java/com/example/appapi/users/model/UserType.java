@@ -1,5 +1,5 @@
 package com.example.appapi.users.model;
 
 public enum UserType {
-    ADMIN, SELLER, CUSTOMER
+    ADMIN, SELLER, CLIENT
 }
