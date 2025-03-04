@@ -16,14 +16,15 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
+    private String paymentId;
+    private String txId;
     private String status;
-    int price;
 
     @OneToOne
     @JoinColumn(name = "PaymentMethod_idx")
     private PaymentMethod paymentMethod;
 
-    @OneToOne(mappedBy = "payment")
+    @ManyToOne
+    @JoinColumn(name = "orders_idx")
     private Orders orders;
-
 }

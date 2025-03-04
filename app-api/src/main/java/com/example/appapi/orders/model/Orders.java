@@ -30,13 +30,13 @@ public class Orders {
     @OneToMany(mappedBy = "orders")
     private List<OrderProducts> orderProducts;
 
-    @OneToOne
-    @JoinColumn(name = "Payment_idx")
-    private Payment payment;
+    @OneToMany(mappedBy = "orders")
+    private List<Payment> payments;
 
     @ManyToOne
     @JoinColumn(name = "user_idx")
     private Users user;
+
 
     @OneToOne(mappedBy = "orders", fetch = FetchType.LAZY)
     @LazyToOne(LazyToOneOption.NO_PROXY)
