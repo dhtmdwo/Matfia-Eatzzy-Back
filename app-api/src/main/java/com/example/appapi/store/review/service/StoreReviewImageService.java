@@ -22,7 +22,9 @@ public class StoreReviewImageService {
     private final StoreReviewImageRepository storeReviewImageRepository;
 
 
+
 //    @Value("${project.upload.path}")    //
+
     private String defaultUploadPath;
 
     private String makeDir() {

@@ -1,5 +1,7 @@
 package com.example.appapi.store.review.service;
 
+import com.example.appapi.reservation.model.Reservation;
+import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.review.model.StoreReview;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -40,5 +43,30 @@ public class StoreReviewService {
         StoreReview storeReview = storeReviewRepository.findById(reviewIdx).orElseThrow();
         return StoreReviewDto.ReviewRes.of(storeReview, storeReview.getStoreReviewImageList().stream().map(StoreReviewImage::getUrl).toList());
     }
+
+    public List<StoreReviewDto.StoreReivewResponse> storeList(Long idx) {
+        List<StoreReview> storeReviews = storeReviewRepository.findReviewBy(idx);
+
+        List<StoreReviewDto.StoreReivewResponse> responseList = new ArrayList<>();
+
+        for (StoreReview storeReview : storeReviews) {
+            List<StoreReviewImage> storeReviewImageList = storeReview.getStoreReviewImageList();
+            List <String> imageUrls = storeReviewImageList.stream().map(StoreReviewImage::getUrl).toList();
+            StoreReviewDto.StoreReivewResponse response = StoreReviewDto.StoreReivewResponse.from(storeReview, imageUrls);
+            responseList.add(response);
+        }
+
+        return responseList;
+    } // 마이페이지 클라이언트 식당 리뷰 보기
+
+    public void deleteReview(Long idx) {
+        storeReviewRepository.findById(idx).ifPresentOrElse(
+                storeReviewRepository::delete,
+                () -> {
+                    throw new IllegalArgumentException("해당 식당이 존재하지 않습니다");
+                }
+        );// idx 값으로 검색후 있으면 삭제 없으면 예외처리
+    } // 마이페이지 클라이언트 식당 리뷰 삭제
+
 }
 

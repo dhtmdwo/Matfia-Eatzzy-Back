@@ -1,6 +1,7 @@
 package com.example.appapi.store.review.model;
 
 import com.example.appapi.store.model.Store;
+import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,4 +39,8 @@ public class StoreReview {
     @ManyToOne
     @JoinColumn(name = "store_idx")
     private Store store;
+
+    @ManyToOne
+    @JoinColumn(name = "users_idx")
+    private Users users;
 }

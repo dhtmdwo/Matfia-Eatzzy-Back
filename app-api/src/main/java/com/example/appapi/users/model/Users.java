@@ -1,5 +1,6 @@
 package com.example.appapi.users.model;
 
+import com.example.appapi.likes.model.Likes;
 import com.example.appapi.store.model.AllowedStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -48,6 +50,9 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserType userType; // ENUM ('ADMIN', 'SELLER', 'CLIENT')
+
+    @OneToMany
+    private List<Likes> likesList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
