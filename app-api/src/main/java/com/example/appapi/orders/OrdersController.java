@@ -32,7 +32,7 @@ public class OrdersController {
         List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList();
         return ResponseEntity.ok(resp);
     }
-    @GetMapping("{orderIdx}")
+    @GetMapping("/{orderIdx}")
     public ResponseEntity<OrdersDto.OrdersResponse> orderRead(@PathVariable Long orderIdx){
         OrdersDto.OrdersResponse resp = ordersService.getOrderRead(orderIdx);
         return ResponseEntity.ok(resp);

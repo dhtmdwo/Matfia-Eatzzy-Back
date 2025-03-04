@@ -19,6 +19,7 @@ public class Payment {
     private String paymentId;
     private String txId;
     private String status;
+    private String transactionType;
 
     @OneToOne
     @JoinColumn(name = "PaymentMethod_idx")
