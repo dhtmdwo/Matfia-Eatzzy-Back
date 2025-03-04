@@ -1,12 +1,10 @@
 package com.example.appapi.orders;
 
-import com.example.appapi.orderProducts.OrderProducts;
-import com.example.appapi.orderProducts.OrderProductsDto;
-import com.example.appapi.orderProducts.OrderProductsRepository;
+import com.example.appapi.orderProducts.model.OrderProducts;
+import com.example.appapi.orderProducts.model.OrderProductsDto;
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.orders.model.OrdersDto;
 import com.example.appapi.product.model.Products;
-import com.example.appapi.product.repository.ProductsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

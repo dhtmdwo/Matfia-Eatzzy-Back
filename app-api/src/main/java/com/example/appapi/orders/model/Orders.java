@@ -1,6 +1,6 @@
 package com.example.appapi.orders.model;
 
-import com.example.appapi.orderProducts.OrderProducts;
+import com.example.appapi.orderProducts.model.OrderProducts;
 import com.example.appapi.payment.model.Payment;
 import com.example.appapi.delivery.model.Delivery;
 import com.example.appapi.users.model.Users;
