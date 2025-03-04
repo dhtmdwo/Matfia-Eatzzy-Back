@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.example.appapi.users.model.UserType.CUSTOMER;
+import static com.example.appapi.users.model.UserType.CLIENT;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +25,7 @@ public class KakaoService {
             } else {
                 UsersDto.SignupRequest dto = new UsersDto.SignupRequest();
                 dto.setUserId("kakao"+userKakaoId);
-                dto.setUserType(CUSTOMER);
+                dto.setUserType(CLIENT);
                 dto.setName(userInfo.split("\"nickname\":\"")[1].split("\"")[0]);
                 Users user = usersRepository.save(dto.toEntity(passwordEncoder.encode("kakao@"+userKakaoId)));
                 UsersDto.SignupResponse.from(user);

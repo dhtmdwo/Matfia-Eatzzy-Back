@@ -47,7 +47,7 @@ public class Users implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserType userType; // ENUM ('ADMIN', 'SELLER', 'CUSTOMER')
+    private UserType userType; // ENUM ('ADMIN', 'SELLER', 'CLIENT')
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
