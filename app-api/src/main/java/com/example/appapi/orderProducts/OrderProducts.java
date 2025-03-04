@@ -1,7 +1,7 @@
-package com.example.appapi.orders.model;
+package com.example.appapi.orderProducts;
 
+import com.example.appapi.orders.model.Orders;
 import com.example.appapi.product.model.Products;
-import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +24,6 @@ public class OrderProducts {
     private Orders orders;
 
     @ManyToOne
-    @JoinColumn(name = "product_idx")
+    @JoinColumn(name = "products_idx")
     private Products products;
 }
