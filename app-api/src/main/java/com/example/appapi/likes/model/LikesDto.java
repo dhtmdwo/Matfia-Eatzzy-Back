@@ -2,6 +2,9 @@ package com.example.appapi.likes.model;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
+import com.example.appapi.reservation.model.Reservation;
+import com.example.appapi.store.images.model.StoreImages;
+import com.example.appapi.store.model.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +17,6 @@ public class LikesDto {
         private String message;
         public Likes toEntity() {
             return Likes.builder()
-                    .message(message)
                     .build();
         }
     }
@@ -27,10 +29,30 @@ public class LikesDto {
 
         public static LikesDto.LikesResponse from(Likes likes) {
             return LikesDto.LikesResponse.builder()
-                    .message(likes.getMessage())
                     .build();
         }
 
     }
-    
+
+    @Builder
+    @Getter
+    public static class StoreLikesResponse {
+        private String storeImage;      // 식당 이미지 (이미지 테이블)
+        private String storeAddress;    // 식당 주소
+        private String storeName;       // 식당 이름
+        private String storecallNumber; // 식당 번호
+
+        public static LikesDto.StoreLikesResponse from(Store store) {
+            String storeImageUrl = store.getImages().get(0).getImagePath();
+
+            return LikesDto.StoreLikesResponse.builder()
+                    .storeImage(storeImageUrl)
+                    .storeAddress(store.getAddress())
+                    .storeName(store.getName())
+                    .storecallNumber(store.getCallNumber())
+                    .build();
+        }
+    } // 마이패이지 클라이언트 좋아요 한 식당 내역 보기
+
+
 }

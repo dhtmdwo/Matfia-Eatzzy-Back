@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
+
     @Query("SELECT s FROM Store s " +
             "JOIN FETCH s.closedDayList cd " +
             "JOIN FETCH s.user u " +
@@ -23,4 +24,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "JOIN FETCH s.category c " +
             "WHERE s.idx = :idx")
     Optional<Store> findByIdWithClosedDaysAndUserAndCategory(Long idx);
+
+
 }

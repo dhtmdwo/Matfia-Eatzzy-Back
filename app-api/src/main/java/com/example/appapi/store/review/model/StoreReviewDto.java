@@ -1,5 +1,7 @@
 package com.example.appapi.store.review.model;
 
+import com.example.appapi.reservation.model.Reservation;
+import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.model.Store;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,4 +55,23 @@ public class StoreReviewDto {
                     .build();
         }
     }
+
+    @Builder
+    @Getter
+    public static class StoreReivewResponse {
+        private String contents; // 내용
+        private int starPoint; // 별점
+        private List<String> reviewImage; // 리뷰 이미지
+        private LocalDateTime createdAt; // 작성 날짜
+        
+        public static StoreReviewDto.StoreReivewResponse from(StoreReview storeReview, List<String> imageUrls) {
+
+            return StoreReviewDto.StoreReivewResponse.builder()
+                    .contents(storeReview.getContents())
+                    .starPoint(storeReview.getStarPoint())
+                    .reviewImage(imageUrls)
+                    .createdAt(storeReview.getCreatedAt())
+                    .build();
+        }
+    } // 마이페이지 클라이언트 내가 작성한 식당 리뷰 보기
 }

@@ -1,6 +1,7 @@
 package com.example.appapi.store.model;
 
 import com.example.appapi.category.model.Category;
+import com.example.appapi.likes.model.Likes;
 import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.images.model.StoreImages;
 import com.example.appapi.users.model.Users;
@@ -41,6 +42,9 @@ public class Store {
 
     @OneToMany
     private List<Reservation> reservationList = new ArrayList<>();
+
+    @OneToMany
+    private List<Likes> likesList = new ArrayList<>();
 
     @BatchSize(size = 6)
     @OneToMany(mappedBy = "store")

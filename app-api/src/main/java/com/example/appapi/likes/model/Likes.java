@@ -1,5 +1,7 @@
 package com.example.appapi.likes.model;
 
+import com.example.appapi.store.model.Store;
+import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,5 +16,13 @@ public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-    private String message;
+
+    @ManyToOne
+    @JoinColumn(name="users_id")
+    private Users users;
+
+    @ManyToOne
+    @JoinColumn(name="store_id")
+    private Store store;
+
 }

@@ -1,7 +1,12 @@
 package com.example.appapi.product.model;
 
+import com.example.appapi.store.review.model.StoreReview;
+import com.example.appapi.store.review.model.StoreReviewDto;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProductsDto {
 
@@ -47,4 +52,5 @@ public class ProductsDto {
                     .build();
         }
     }
+
 }
