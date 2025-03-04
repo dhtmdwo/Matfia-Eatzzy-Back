@@ -16,15 +16,15 @@ public class MypageStoreDto {
         private String rezTime;         // 예약 시간 (예약 테이블)
         private String rezDate;         // 예약 날짜 (예약 테이블)
         private int rezCount;
-
-        public StoreRezRes from(Store store, ,String storeImage,  ) {
-            return Orders.builder()
-                    .quantity(quantity)
-                    .price(price)
-                    .message(message)
-                    .status("Pending")
-                    .build();
-        }
+//
+//        public StoreRezRes from(Store store, ,String storeImage,  ) {
+//            return Orders.builder()
+//                    .quantity(quantity)
+//                    .price(price)
+//                    .message(message)
+//                    .status("Pending")
+//                    .build();
+//        }
     }
     @Getter
     @Builder
@@ -36,15 +36,15 @@ public class MypageStoreDto {
         private String rezTime;
         private String reservation;
 
-        public static OrdersDto.ListResponse from(Store store) {
-            return OrdersDto.ListResponse.builder()
-                    .idx(orders.getIdx())
-                    .quantity(orders.getQuantity())
-                    .price(orders.getPrice())
-                    .message(orders.getMessage())
-                    .status(orders.getStatus())
-                    .build();
-        }
+//        public static OrdersDto.ListResponse from(Store store) {
+//            return OrdersDto.ListResponse.builder()
+//                    .idx(orders.getIdx())
+//                    .quantity(orders.getQuantity())
+//                    .price(orders.getPrice())
+//                    .message(orders.getMessage())
+//                    .status(orders.getStatus())
+//                    .build();
+//        }
     }
 //    @Getter
 //    @Builder
