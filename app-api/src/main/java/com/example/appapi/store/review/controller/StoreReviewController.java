@@ -38,7 +38,7 @@ public class StoreReviewController {
     public ResponseEntity<StoreReviewDto.ReviewRes> read(@PathVariable Long reviewIdx) {
         StoreReviewDto.ReviewRes response = storeReviewService.get(reviewIdx);
         return ResponseEntity.ok(response);
-      
+    }
     @GetMapping("/mypage/store")
     public ResponseEntity<List<StoreReviewDto.StoreReivewResponse>> storeList(@RequestParam("idx") Long idx) {
         List<StoreReviewDto.StoreReivewResponse> responseList = storeReviewService.storeList(idx);
