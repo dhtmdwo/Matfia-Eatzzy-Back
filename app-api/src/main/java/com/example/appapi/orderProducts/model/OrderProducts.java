@@ -1,4 +1,4 @@
-package com.example.appapi.orderProducts;
+package com.example.appapi.orderProducts.model;
 
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.product.model.Products;
@@ -19,11 +19,11 @@ public class OrderProducts {
     private Long idx;
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_idx")
     private Orders orders;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")
     private Products products;
 }

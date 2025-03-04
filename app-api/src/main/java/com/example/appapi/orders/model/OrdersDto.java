@@ -1,6 +1,6 @@
 package com.example.appapi.orders.model;
 
-import com.example.appapi.orderProducts.OrderProductsDto;
+import com.example.appapi.orderProducts.model.OrderProductsDto;
 import lombok.Builder;
 import lombok.Getter;
 
