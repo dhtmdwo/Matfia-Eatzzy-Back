@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 public class PaymentDto {
     @Getter
     public static class PaymentRegister {
-        private String status;
-        private int price;
+        private String paymentId;
+        private String txId;
         public Payment toEntity() {
             return Payment.builder()
-                    .price(price)
-                    .status(status)
+                    .paymentId(paymentId)
+                    .txId(txId)
                     .build();
         }
     }
@@ -25,12 +25,12 @@ public class PaymentDto {
     @Builder
     public static class PaymentResponse {
         private String status;
-        private int price;
+        private String paymentId;
 
         public static PaymentResponse from(Payment payment) {
             return PaymentResponse.builder()
+                    .paymentId(payment.getPaymentId())
                     .status(payment.getStatus())
-                    .price(payment.getPrice())
                     .build();
         }
 
