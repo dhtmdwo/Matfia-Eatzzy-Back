@@ -23,7 +23,7 @@ public class StoreController {
     public ResponseEntity<BaseResponse<StoreDto.StoreResponseDto>> createStore(
             @AuthenticationPrincipal Users user,
             @RequestBody StoreDto.CreateStoreRequestDto dto) {
-        StoreDto.StoreResponseDto createStoreRes = storeService.create(dto, user);
+        StoreDto.StoreResponseDto createStoreRes = storeService.preSigned(dto, user);
 
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, createStoreRes));
     }
