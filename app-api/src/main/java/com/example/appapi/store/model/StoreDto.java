@@ -179,4 +179,18 @@ public class StoreDto {
                     .build();
         }
     }
+
+
+    @Getter
+    public static class UpdateAllowedRequestDto {
+        private Long idx;
+        private AllowedStatus allowed;
+
+        public Store toEntity() {
+            return Store.builder()
+                    .idx(idx)
+                    .allowed(allowed)
+                    .build();
+        }
+    }
 }
