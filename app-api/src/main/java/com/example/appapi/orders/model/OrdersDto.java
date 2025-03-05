@@ -82,4 +82,38 @@ public class OrdersDto {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class OrderMypageList {
+        private Long idx;
+        private String orderDate;
+        private String status;
+        private List<MyOrder> myOrderList;
+
+        public static OrderMypageList from(Orders orders, List<MyOrder> myOrderList) {
+            return OrderMypageList.builder()
+                    .idx(orders.getIdx()) // 주문 번호
+                    .orderDate(orders.getOrderDate()) // 주문 날짜
+                    .status(orders.getStatus()) // 주문 상태
+                    .myOrderList(myOrderList)
+                    .build();
+        }
+    } // 마이페이지 클라이언트 주문 목록
+
+    @Getter
+    @Builder
+    public static class MyOrder {
+        private String name;
+        private int quantity;
+
+        public static MyOrder from(String productName, int quantity) {
+            return MyOrder.builder()
+                    .name(productName) // 주문 상태
+                    .quantity(quantity)
+                    .build();
+        }
+    } // 마이페이지 클라이언트 주문 리스트 => id, 상품 이름, 상품 개수
+
+
 }
