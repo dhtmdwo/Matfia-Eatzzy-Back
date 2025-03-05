@@ -17,7 +17,6 @@ public class ProductReviewImages {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-
     private String imagePath;
 
     @ManyToOne(fetch = FetchType.LAZY)

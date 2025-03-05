@@ -25,6 +25,7 @@ public class Category {
     @JoinColumn(name = "parent_idx", nullable = true)
     private Category parentCategory;
 
+    @Builder.Default
     // 자식 카테고리 목록
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> childCategoryList  = new ArrayList<>();

@@ -1,8 +1,8 @@
-package com.example.appapi.store.review.service;
+package com.example.appapi.product.review.images.service;
 
-import com.example.appapi.store.review.model.StoreReview;
-import com.example.appapi.store.review.model.StoreReviewImage;
-import com.example.appapi.store.review.repository.StoreReviewImageRepository;
+import com.example.appapi.product.review.images.model.ProductReviewImages;
+import com.example.appapi.product.review.images.repository.ProductReviewImagesRepository;
+import com.example.appapi.product.review.model.ProductReviews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,8 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class StoreReviewImageService {
-    private final StoreReviewImageRepository storeReviewImageRepository;
-
-
+public class ProductReviewsImagesService {
+    private final ProductReviewImagesRepository productReviewImagesRepository;
 
     @Value("${project.upload.path}")    //
 
@@ -37,7 +35,7 @@ public class StoreReviewImageService {
         return "/" + date;
     }
 
-    public List<String> upload(MultipartFile[] files, StoreReview storeReview) {
+    public List<String> upload(MultipartFile[] files, ProductReviews productReviews) {
         List<String> uploadFilePaths = new ArrayList<>();
         String uploadPath = makeDir();
 
@@ -54,9 +52,9 @@ public class StoreReviewImageService {
                 throw new RuntimeException("파일 저장 실패", e);
             }
 
-            storeReviewImageRepository.save(StoreReviewImage.builder()
-                    .url(fullPath)
-                    .storeReview(storeReview)
+            productReviewImagesRepository.save(ProductReviewImages.builder()
+                    .imagePath(fullPath)
+                    .productReviews(productReviews)
                     .build());
         }
         return uploadFilePaths;
