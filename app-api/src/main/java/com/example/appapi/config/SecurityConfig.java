@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/app/users/signup", "/error/**", "/app/users/kakao/code/**").permitAll()
                         .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasAuthority("CLIENT")
                         .requestMatchers("/app/mypage/seller/**").hasAuthority("SELLER")
-                        .requestMatchers("/app/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/app/admin/**","/app/category/create").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
         );
 

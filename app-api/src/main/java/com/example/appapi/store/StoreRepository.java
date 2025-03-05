@@ -31,4 +31,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "JOIN FETCH s.images " +
             "WHERE s.user.idx = :userIdx")
     List<Store> findAllByUserIdx(@Param("userIdx") Long userIdx);
+  
+    List<Store> findByCategory_Idx(Long categoryIdx);
+  
+    List<Store> findByCategory_ParentCategory_Idx(Long parentIdx);
 }

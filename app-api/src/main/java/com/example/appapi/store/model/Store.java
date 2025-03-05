@@ -55,6 +55,7 @@ public class Store {
     @JoinColumn(name = "user_idx")
     private Users user;  // user_idx (FK)
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "category_idx")
     private Category category;  // category_idx (FK)

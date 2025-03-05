@@ -15,4 +15,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findRootCategoriesWithChildren();
 
 
+    List<Category> findByParentCategory_Idx(Long categoryIdx);
 }

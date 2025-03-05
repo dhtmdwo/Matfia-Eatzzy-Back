@@ -84,7 +84,11 @@ public enum BaseResponseStatus {
     //-- 7100 : 예약 내역 조회 에러
     RESERVATION_HISTORY_LOOKUP_FAILED(false, 7100, "예약 내역 조회에 실패했습니다."),
     //-- 7200 : 예약 변경 취소 에러
-    RESERVATION_UPDATE_FAILED(false, 7200, "예약 변경/취소에 실패했습니다.");
+    RESERVATION_UPDATE_FAILED(false, 7200, "예약 변경/취소에 실패했습니다."),
+
+
+    /* 8000 ~ 8999 : 관리자 관련 에러 */
+    ADMIN_CATEGORY_DELETE_FAILED_REASON_CONNECT_STORE(false, 8000, "삭제하려는 카테고리는 Store에 하나 이상 연결되어 있는 카테고리 입니다. Store에서 카테고리 수정을 먼저 한 후 삭제해주세요.");
 
     private final boolean isSuccess;
     private final int code;

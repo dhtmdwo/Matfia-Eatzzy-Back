@@ -45,4 +45,19 @@ public class CategoryDto {
 
     }
 
+    @Getter
+    public static class UpdateCategoryRequestDto {
+        private String name;
+        private Long idx;
+
+        public Category toEntity() {
+            return Category.builder()
+                    .name(name)
+                    .idx(idx)
+                    .build();
+        }
+    }
+
+
+
 }
