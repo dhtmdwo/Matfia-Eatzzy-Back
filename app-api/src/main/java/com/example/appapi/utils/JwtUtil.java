@@ -23,6 +23,7 @@ public class JwtUtil {
             return Users.builder()
                     .userId(claims.get("userId", String.class))
                     .idx(claims.get("idx", Long.class))
+                    .userType(UserType.valueOf(claims.get("userType", String.class)))
                     .build();
 
         } catch (ExpiredJwtException e) {
@@ -35,6 +36,7 @@ public class JwtUtil {
         Claims claims = Jwts.claims();
         claims.put("userId", user.getUserId());
         claims.put("idx", user.getIdx());
+        claims.put("userType", user.getUserType());
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

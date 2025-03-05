@@ -38,9 +38,9 @@ public class SecurityConfig {
                 (auth) -> auth
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/login", "/app/users/signup", "/error/**", "/app/users/kakao/code/**").permitAll()
-                        .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasRole("CLIENT")
-                        .requestMatchers("/app/mypage/seller/**").hasRole("SELLER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/app/mypage/client/**", "/app/carts/*").hasAuthority("CLIENT")
+                        .requestMatchers("/app/mypage/seller/**").hasAuthority("SELLER")
+                        .requestMatchers("/app/admin/**").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
         );
 
