@@ -22,7 +22,7 @@ public class JwtUtil {
                     .getBody();
             return Users.builder()
                     .userId(claims.get("userId", String.class))
-
+                    .idx(claims.get("idx", Long.class))
                     .build();
 
         } catch (ExpiredJwtException e) {
@@ -31,9 +31,10 @@ public class JwtUtil {
         }
     }
 
-    public static String generateToken(String userId) {
+    public static String generateToken(Users user) {
         Claims claims = Jwts.claims();
-        claims.put("userId", userId);
+        claims.put("userId", user.getUserId());
+        claims.put("idx", user.getIdx());
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

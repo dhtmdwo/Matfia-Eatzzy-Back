@@ -94,16 +94,17 @@ public class UsersController {
                 try {
                     // 사용자 회원 여부 확인
                     boolean isUser = usersRepository.existsByUserId(kakaoId);
+
+                    Users user = new Users();
                     if (isUser == false) {
                         // 사용자 회원 가입 처리
-                        Users user = new Users();
                         user.setUserId("kakao" + kakaoId);
                         user.setPassword("kakao@" + kakaoId);
                         usersRepository.save(user);
                     }
 
                     // JWT 발급
-                    String token = JwtUtil.generateToken("kakao" + kakaoId);
+                    //String token = JwtUtil.generateToken("kakao" + kakaoId);
 
                     // JWT 반환
 //                    oAuth2SuccessHandler.onAuthenticationSuccess(request, response, token);
