@@ -34,4 +34,20 @@ public class MenusDto {
                     .build();
         }
     }
+
+    @Builder
+    @Getter
+    public static class MenuListResponseDto {
+        private String name;
+        private int price;
+        private String info;
+        public static MenuListResponseDto from(Menus menus) {
+            return MenuListResponseDto.builder()
+                    .name(menus.getName())
+                    .price(menus.getPrice())
+                    .info(menus.getInfo())
+                    .build();
+        }
+
+    }
 }

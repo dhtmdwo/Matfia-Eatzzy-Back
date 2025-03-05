@@ -7,10 +7,9 @@ import com.example.common.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,5 +23,11 @@ public class MenusController {
         MenusDto.MenusResponseDto resp = menusService.create(user, dto);
 
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
+    }
+    @GetMapping("/list/{storeIdx}")
+    public ResponseEntity<BaseResponse<MenusDto.MenuListResponseDto>> getList(@PathVariable Long storeIdx){
+        List<MenusDto.MenuListResponseDto> response = menusService.getList(storeIdx);
+
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
     }
 }
