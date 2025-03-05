@@ -21,5 +21,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0' // swagger
 
     implementation project(":common")
+    implementation project(":app-api")
 
 }
