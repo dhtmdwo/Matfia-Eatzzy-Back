@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,10 +18,11 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-    private String paymentId;
+    private String paymentId; //
     private String txId;
     private String status;
     private String transactionType;
+    private int price; // 금액
 
     @OneToOne
     @JoinColumn(name = "PaymentMethod_idx")

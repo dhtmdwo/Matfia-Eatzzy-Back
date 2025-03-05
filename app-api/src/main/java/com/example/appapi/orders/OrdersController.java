@@ -35,11 +35,18 @@ public class OrdersController {
     }
 
 
-//    @GetMapping("/mypage/orderlist")
-//    public ResponseEntity<List<OrdersDto.OrderMypageList>> storeList(@RequestParam("idx") Long idx) {
-//        List<OrdersDto.OrderMypageList> responseList = ordersService.orderList(idx);
-//        return ResponseEntity.ok(responseList);
-//    } // 마이페이지 클라이언트 주문 리스트 보기
+    @GetMapping("/mypage/orderlist")
+    public ResponseEntity<List<OrdersDto.OrderMypageList>> storeList(@RequestParam("idx") Long idx) {
+        List<OrdersDto.OrderMypageList> responseList = ordersService.orderList(idx);
+        return ResponseEntity.ok(responseList);
+    } // 마이페이지 클라이언트 주문 리스트 보기
+
+    @GetMapping("/mypage/orderdetails")
+    public ResponseEntity<OrdersDto.OrderMypageDetails> storeDetails(@RequestParam("idx") Long idx, @RequestParam("orderIdx") Long orderIdx) {
+        OrdersDto.OrderMypageDetails response = ordersService.orderDetails(idx, orderIdx);
+        return ResponseEntity.ok(response);
+    } // 마이페이지 클라이언트 주문 상세 보기
+    
 
 
     @GetMapping("/{orderIdx}")

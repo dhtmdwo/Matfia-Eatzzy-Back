@@ -1,6 +1,8 @@
 package com.example.appapi.orders.model;
 
 import com.example.appapi.orderProducts.model.OrderProductsDto;
+import com.example.appapi.payment.model.Payment;
+import com.example.appapi.users.model.Users;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -104,16 +106,52 @@ public class OrdersDto {
     @Getter
     @Builder
     public static class MyOrder {
+        private String productImage;
         private String name;
         private int quantity;
 
-        public static MyOrder from(String productName, int quantity) {
+        public static MyOrder from(String productName, int quantity, String productImage) {
             return MyOrder.builder()
                     .name(productName) // 주문 상태
                     .quantity(quantity)
+                    .productImage(productImage)
                     .build();
         }
     } // 마이페이지 클라이언트 주문 리스트 => id, 상품 이름, 상품 개수
 
+    @Getter
+    @Builder
+    public static class OrderMypageDetails {
+//        private Long idx; // 주문 번호
+//        private String orderDate; // 주문 날짜
+//        private String status; // 주문 상태
+//
+//        private List<MyOrder> myOrderList; // 주문 리스트
+        
+        private OrderMypageList orderMypageList; // 위에 네개 합쳐짐
 
+        private int orderPrice; // 주문 금액
+        private int paymentPrice; // 결제 금액
+        private String paymentMethod; // 결제 방법
+
+        private String name; // 유저 이름
+        private String phone; // 유저 전화번호
+        private String address; // 유저 주소 + 상세주소
+        private String message; // 주문 요청사항
+
+        public static OrderMypageDetails from(OrderMypageList orderMypageList, Orders orders, Users users, Payment payment) {
+            String paymentMethod = payment.getPaymentMethod().getName();
+
+            return OrderMypageDetails.builder()
+                    .orderMypageList(orderMypageList) // 네개 합침
+                    .orderPrice(orders.getPrice()) // 주문 금액
+                    .paymentPrice(payment.getPrice()) // 결제 금액
+                    .paymentMethod(paymentMethod) // 결제 방법
+                    .name(users.getName()) // 유저 이름
+                    .phone(users.getPhone()) // 유저 전화번호
+                    .address(users.getAddress() + " "+ users.getAddressDetail()) // 유저 주소 + 상세주소
+                    .message(orders.getMessage()) //
+                    .build();
+        }
+    } // 마이페이지 클라이언트 주문 목록
 }

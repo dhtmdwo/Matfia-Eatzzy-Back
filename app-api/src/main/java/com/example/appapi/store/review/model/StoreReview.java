@@ -33,7 +33,7 @@ public class StoreReview {
         createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
-    @OneToMany(mappedBy = "storeReview")
+    @OneToMany(mappedBy = "storeReview", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<StoreReviewImage> storeReviewImageList = new ArrayList<>();
 
     @ManyToOne
