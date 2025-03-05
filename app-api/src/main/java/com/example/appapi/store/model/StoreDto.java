@@ -193,4 +193,31 @@ public class StoreDto {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class MyStoreResponseDto {
+        private String name;
+        private String description;
+        private String imagePath;
+        private String callNumber;
+        private String openingHours;
+        private LocalTime startTime;
+        private LocalTime endTime;
+        private String address;
+        public static MyStoreResponseDto from(Store store) {
+            String storeImageUrl = store.getImages().get(0).getImagePath();
+
+            return MyStoreResponseDto.builder()
+                    .name(store.getName())
+                    .description(store.getDescription())
+                    .imagePath(storeImageUrl)
+                    .callNumber(store.getCallNumber())
+                    .openingHours(store.getOpeningHours())
+                    .startTime(store.getStartTime())
+                    .endTime(store.getEndTime())
+                    .address(store.getAddress())
+                    .build();
+        }
+    }
 }

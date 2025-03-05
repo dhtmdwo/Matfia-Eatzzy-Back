@@ -6,7 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
@@ -25,5 +27,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "WHERE s.idx = :idx")
     Optional<Store> findByIdWithClosedDaysAndUserAndCategory(Long idx);
 
-
+    @Query("SELECT s FROM Store s " +
+            "JOIN FETCH s.images " +
+            "WHERE s.user.idx = :userIdx")
+    List<Store> findAllByUserIdx(@Param("userIdx") Long userIdx);
 }
