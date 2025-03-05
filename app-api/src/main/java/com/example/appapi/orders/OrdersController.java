@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/app/orders")
 public class OrdersController {
     private final OrdersService ordersService;
-    @PostMapping("/register/{idx}")
+    @PostMapping("/register/{idx}")     // 주문 둥록하기
     public String register(@PathVariable Long idx, @RequestBody OrdersDto.OrdersRegister dto){
         ordersService.register(idx, dto);
         return "주문 등록 완료";
@@ -30,7 +30,7 @@ public class OrdersController {
 //        OrdersDto.ReadResponse resp = ordersService.getRead(idx);
 //        return ResponseEntity.ok(resp);
 //    }
-    @GetMapping("/orderlist")
+    @GetMapping("/orderlist")   // 내 주문 보기
     public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList(@AuthenticationPrincipal Users user) {
         List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList(user.getIdx());
         return ResponseEntity.ok(resp);
@@ -44,7 +44,7 @@ public class OrdersController {
 //    } // 마이페이지 클라이언트 주문 리스트 보기
 
 
-    @GetMapping("/{orderIdx}")
+    @GetMapping("/{orderIdx}")  // 주문 상세보기
     public ResponseEntity<OrdersDto.OrdersResponse> orderRead(@PathVariable Long orderIdx){
         OrdersDto.OrdersResponse resp = ordersService.getOrderRead(orderIdx);
         return ResponseEntity.ok(resp);
