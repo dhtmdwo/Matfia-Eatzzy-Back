@@ -1,8 +1,7 @@
 package com.example.appapi.orders;
 
-import com.example.appapi.orderProducts.OrderProducts;
-import com.example.appapi.orderProducts.OrderProductsDto;
-import com.example.appapi.orderProducts.OrderProductsRepository;
+import com.example.appapi.orderProducts.model.OrderProducts;
+import com.example.appapi.orderProducts.model.OrderProductsDto;
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.orders.model.OrdersDto;
 import com.example.appapi.product.model.Products;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -27,15 +27,15 @@ public class OrdersService {
         ordersRepository.updateOrderMessageAndStatus(idx, dto.getMessage());
     }
 
-    public List<OrdersDto.ListResponse> getList() {
-        List<Orders> dto = ordersRepository.findAll();
-        return dto.stream().map(OrdersDto.ListResponse::from).collect(Collectors.toList());
-    }
-
-    public OrdersDto.ReadResponse getRead(Long idx) {
-        Orders dto = ordersRepository.findByIdx(idx);
-        return OrdersDto.ReadResponse.from(dto);
-    }
+//    public List<OrdersDto.ListResponse> getList() {
+//        List<Orders> dto = ordersRepository.findAll();
+//        return dto.stream().map(OrdersDto.ListResponse::from).collect(Collectors.toList());
+//    }
+//
+//    public OrdersDto.ReadResponse getRead(Long idx) {
+//        Orders dto = ordersRepository.findByIdx(idx);
+//        return OrdersDto.ReadResponse.from(dto);
+//    }
 
     public List<OrdersDto.OrdersResponse> getOrderList() {
         List<Orders> ordersList = ordersRepository.findAllWithOrderProductsAndProducts();
@@ -75,5 +75,19 @@ public class OrdersService {
     } // 마이페이지 클라이언트 주문 리스트 보기
 
 
+    public OrdersDto.OrdersResponse getOrderRead(Long orderIdx) {
+        Optional<Orders> order = ordersRepository.findByIdWithOrderProductsAndProducts(orderIdx);
+
+        if (order.isEmpty()) {
+            return null;
+        }
+        List<OrderProductsDto.OrderProductResponse> orderProductResponses = new ArrayList<>();
+        for (OrderProducts orderProduct : order.get().getOrderProducts()) {
+            Products products = orderProduct.getProducts();
+            OrderProductsDto.ProductsResponse productResponse = OrderProductsDto.ProductsResponse.of(products);
+            orderProductResponses.add(OrderProductsDto.OrderProductResponse.of(orderProduct, productResponse));
+        }
+        return OrdersDto.OrdersResponse.from(order.get(), orderProductResponses);
+    }
 
 }

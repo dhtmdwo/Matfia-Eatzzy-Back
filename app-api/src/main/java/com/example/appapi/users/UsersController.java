@@ -29,7 +29,7 @@ public class UsersController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UsersDto.SignupRequest dto, BindingResult bindingResult) {
-        // 유효성 검사 실패 시 에러 메시지 처리
+        /* 유효성 검사 실패 시 에러 메시지 처리 */
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error ->
