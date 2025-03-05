@@ -34,11 +34,11 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
                                     @Param("message") String message);
 
 
-    @Query("SELECT DISTINCT o FROM Orders o " +
-            "JOIN FETCH o.orderProducts op " +
-            "JOIN FETCH op.products pr " +
-            "JOIN FETCH o.payment p "+
-            "WHERE o.user.idx = :userId")
-    List<Orders> findMyAllOrders(@Param("userId") Long userId); // 마이페이지 클라이언트 주문 목록 보기
+//    @Query("SELECT DISTINCT o FROM Orders o " +
+//            "JOIN FETCH o.orderProducts op " +
+//            "JOIN FETCH op.products pr " +
+//            "JOIN FETCH o.payment p "+
+//            "WHERE o.user.idx = :userId")
+//    List<Orders> findMyAllOrders(@Param("userId") Long userId); // 마이페이지 클라이언트 주문 목록 보기
 
 }
