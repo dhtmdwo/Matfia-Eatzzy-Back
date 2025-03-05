@@ -137,7 +137,7 @@ public class StoreDto {
                     .name(store.getName())
                     .shortAddress(store.getShortAddress())
                     .categoryName(store.getCategory().getName())
-                    .thumbnail(store.getImages().get(0).getImagePath())
+                    .thumbnail(store.getImages().isEmpty() ? null : store.getImages().get(0).getImagePath())
                     .build();
         }
     }
