@@ -11,6 +11,9 @@ import com.example.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class MenusService {
@@ -22,5 +25,14 @@ public class MenusService {
         Menus menu = menusRepository.save(dto.toEntity(store));
 
         return MenusDto.MenusResponseDto.from(menu);
+    }
+
+    public List<MenusDto.MenuListResponseDto> getList(Long storeIdx) {
+        List<Menus> menus = menusRepository.findByStoreIdx(storeIdx);
+        List<MenusDto.MenuListResponseDto> resp = new ArrayList<>();
+        for (Menus menu : menus) {
+            resp.add(MenusDto.MenuListResponseDto.from(menu));
+        }
+        return resp;
     }
 }
