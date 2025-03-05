@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/store")
@@ -41,6 +43,15 @@ public class StoreController {
     public ResponseEntity<BaseResponse<StoreDto.StoreResponseDto>> getStore(@PathVariable Long storeIdx) {
         StoreDto.StoreResponseDto response = storeService.getStore(storeIdx);
 
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
+    }
+
+    // 내 식당 조회(Mypage)
+    @GetMapping("/mypage/storelist")
+    public ResponseEntity<BaseResponse<StoreDto.MyStoreResponseDto>> getMyStoreList(
+            @AuthenticationPrincipal Users user
+    ){
+        List<StoreDto.MyStoreResponseDto> response = storeService.getMyStore(user.getIdx());
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
     }
 

@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -88,6 +89,18 @@ public class StoreService {
         return StoreDto.StoreResponseDto.from(store);
     }
 
+    public List<StoreDto.MyStoreResponseDto> getMyStore(Long userIdx) {
+        // 상점만 존재, 이미지 없을 시 조회 안됨
+        List<Store> stores = storeRepository.findAllByUserIdx(userIdx);
+        if(stores.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.STORE_NOT_FOUND);
+        }
+        List<StoreDto.MyStoreResponseDto> response = new ArrayList<>();
+        for (Store store : stores) {
+            response.add(StoreDto.MyStoreResponseDto.from(store));
+        }
+        return response;
+    }
 
 }
 
