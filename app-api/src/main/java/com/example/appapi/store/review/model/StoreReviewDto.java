@@ -59,6 +59,7 @@ public class StoreReviewDto {
     @Builder
     @Getter
     public static class StoreReivewResponse {
+        private Long idx;          // 테이블 idx
         private String contents; // 내용
         private int starPoint; // 별점
         private List<String> reviewImage; // 리뷰 이미지
@@ -67,6 +68,7 @@ public class StoreReviewDto {
         public static StoreReviewDto.StoreReivewResponse from(StoreReview storeReview, List<String> imageUrls) {
 
             return StoreReviewDto.StoreReivewResponse.builder()
+                    .idx(storeReview.getIdx())
                     .contents(storeReview.getContents())
                     .starPoint(storeReview.getStarPoint())
                     .reviewImage(imageUrls)

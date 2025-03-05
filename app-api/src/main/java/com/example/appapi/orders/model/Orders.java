@@ -9,9 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -32,6 +34,7 @@ public class Orders {
     private List<OrderProducts> orderProducts;
 
     @OneToMany(mappedBy = "orders")
+    @BatchSize(size = 5)
     private List<Payment> payments;
 
     @ManyToOne
