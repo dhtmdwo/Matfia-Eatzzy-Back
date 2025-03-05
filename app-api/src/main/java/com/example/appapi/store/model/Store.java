@@ -33,6 +33,7 @@ public class Store {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AllowedStatus allowed;  // ENUM ('Yes', 'No', 'Waiting')
