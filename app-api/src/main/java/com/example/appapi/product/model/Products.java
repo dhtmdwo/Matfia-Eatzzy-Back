@@ -1,5 +1,6 @@
 package com.example.appapi.product.model;
 
+import com.example.appapi.category.model.Category;
 import com.example.appapi.product.images.model.ProductsImages;
 import com.example.appapi.product.review.model.ProductReviews;
 import com.example.appapi.store.model.Store;
@@ -42,6 +43,10 @@ public class Products {
     @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductReviews> reviews;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_idx")
+    private Category category;
 
     private int reviewCount;
 
