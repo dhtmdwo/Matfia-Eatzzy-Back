@@ -139,6 +139,8 @@ public class OrdersDto {
         private String address; // 유저 주소 + 상세주소
         private String message; // 주문 요청사항
 
+        private Long paymentIdx; // 주문 취소시 사용
+
         public static OrderMypageDetails from(OrderMypageList orderMypageList, Orders orders, Users users, Payment payment) {
             String paymentMethod = payment.getPaymentMethod().getName();
 
@@ -151,6 +153,7 @@ public class OrdersDto {
                     .phone(users.getPhone()) // 유저 전화번호
                     .address(users.getAddress() + " "+ users.getAddressDetail()) // 유저 주소 + 상세주소
                     .message(orders.getMessage()) //
+                    .paymentIdx(payment.getIdx())
                     .build();
         }
     } // 마이페이지 클라이언트 주문 목록

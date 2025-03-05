@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -31,6 +32,13 @@ public class PaymentController {
     @GetMapping("/{paymentIdx}")
     public ResponseEntity<PaymentDto.PaymentResponse> read(@PathVariable Long paymentIdx) {
         PaymentDto.PaymentResponse response = paymentService.read(paymentIdx);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/cancel/{paymentIdx}")
+    public ResponseEntity<Map<String, Object>> cancelPayment(@PathVariable Long paymentIdx) {
+        Map<String, Object> response = paymentService.cancelPayment(paymentIdx);
 
         return ResponseEntity.ok(response);
     }

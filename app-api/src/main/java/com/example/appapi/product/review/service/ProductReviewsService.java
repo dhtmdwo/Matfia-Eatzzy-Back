@@ -4,11 +4,13 @@ import com.example.appapi.product.review.images.model.ProductReviewImages;
 import com.example.appapi.product.review.model.ProductReviews;
 import com.example.appapi.product.review.model.ProductReviewsDto;
 import com.example.appapi.product.review.repository.ProductReviewsRepository;
+import com.example.appapi.store.model.Store;
 import com.example.appapi.store.review.model.StoreReview;
 import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.model.StoreReviewImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;

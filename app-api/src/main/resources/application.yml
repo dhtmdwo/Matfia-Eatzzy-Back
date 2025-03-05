@@ -1,3 +1,7 @@
+project:
+  upload:
+    path: "C:/upload"
+
 server:
   port: 8081
 
