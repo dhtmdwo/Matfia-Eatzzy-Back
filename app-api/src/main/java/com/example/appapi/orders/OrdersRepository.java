@@ -1,6 +1,7 @@
 package com.example.appapi.orders;
 
 import com.example.appapi.orders.model.Orders;
+import com.example.appapi.payment.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -49,6 +50,5 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             "WHERE o.user.idx = :userId AND o.idx = :orderId"
     )
     Orders findOrderWithDetails(@Param("userId") Long userId, @Param("orderId") Long orderId); // 마이페이지 클라이언트 주문 상세 보기
-    
 
 }
