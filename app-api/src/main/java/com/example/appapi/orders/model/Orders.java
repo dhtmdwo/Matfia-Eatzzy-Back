@@ -26,6 +26,7 @@ public class Orders {
     private int price;
     private String message;
     private String status;
+    private String orderDate; // 주문 날짜
 
     @OneToMany(mappedBy = "orders")
     private List<OrderProducts> orderProducts;

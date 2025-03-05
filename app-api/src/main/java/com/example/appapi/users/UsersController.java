@@ -25,7 +25,7 @@ import java.util.Map;
 public class UsersController {
     private final UsersService usersService;
     private final UsersRepository usersRepository;
-    //private final KakaoService kakaoService;
+    private final KakaoService kakaoService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody UsersDto.SignupRequest dto, BindingResult bindingResult) {
