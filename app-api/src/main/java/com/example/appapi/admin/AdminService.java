@@ -1,22 +1,31 @@
 package com.example.appapi.admin;
 
+import com.example.appapi.category.CategoryRepository;
+import com.example.appapi.category.model.Category;
+import com.example.appapi.category.model.CategoryDto;
 import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.AllowedStatus;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.model.StoreDto;
+import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import com.example.common.exception.BaseException;
 import jakarta.persistence.EntityNotFoundException;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class AdminService {
     private final StoreRepository storeRepository;
+    private final CategoryRepository categoryRepository;
 
     public StoreDto.StorePageResponseDto storeListAll(int page, int size) {
         Page<Store> result = storeRepository.findAll(PageRequest.of(page, size));
@@ -32,18 +41,57 @@ public class AdminService {
     }
 
     @Transactional
-    public StoreDto.StoreResponseDto updateStoreAllowed(Long storeIdx, AllowedStatus allowed) {
-        // Store 조회
+    public StoreDto.StoreResponseDto updateStoreStatus(Long storeIdx, Category category, AllowedStatus allowed) {
         Store store = storeRepository.findById(storeIdx)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + storeIdx));
 
-        // AllowedStatus 수정
-        store.setAllowed(allowed);
+        if (!store.getAllowed().equals(allowed)) {
+            store.setAllowed(allowed);
+        }
 
-        // 변경된 Store 저장 (JPA는 @Transactional 내에서 변경 사항을 자동으로 반영)
+        if (!store.getCategory().equals(category)) {
+            store.setCategory(category);
+        }
+
         storeRepository.save(store);
 
-        // 수정된 Store를 DTO로 변환하여 반환
         return StoreDto.StoreResponseDto.from(store);
+    }
+
+
+    @Transactional
+    public CategoryDto.CategoryResponseDto updateCategoryName(Long categoryIdx, String name) {
+        Category category = categoryRepository.findById(categoryIdx)
+                .orElseThrow(() -> new EntityNotFoundException("category not found with id: " + categoryIdx));
+
+        category.setName(name);
+
+        categoryRepository.save(category);
+
+        return CategoryDto.CategoryResponseDto.from(category);
+    }
+
+    @Transactional
+    public BaseResponse<Void> deleteCategoryWithChildren(Long categoryIdx) {
+        // categoryIdx와 parentIdx가 각각 Store와 연결된 카테고리인지 확인
+        List<Store> storesWithCategory = storeRepository.findByCategory_Idx(categoryIdx);
+        List<Store> storesWithParentCategory = storeRepository.findByCategory_ParentCategory_Idx(categoryIdx);
+
+        if (!storesWithCategory.isEmpty() || !storesWithParentCategory.isEmpty()) {
+            // Store와 연결된 카테고리는 삭제할 수 없다는 메시지를 반환
+            return new BaseResponse<>(BaseResponseStatus.ADMIN_CATEGORY_DELETE_FAILED_REASON_CONNECT_STORE);
+        } else {
+            // 하위 카테고리 삭제
+            List<Category> childCategories = categoryRepository.findByParentCategory_Idx(categoryIdx);
+            categoryRepository.deleteAll(childCategories);
+
+            // 카테고리 삭제
+            Category category = categoryRepository.findById(categoryIdx)
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + categoryIdx));
+            categoryRepository.delete(category);
+
+            // 성공적인 삭제 후 응답
+            return new BaseResponse<>(BaseResponseStatus.SUCCESS);
+        }
     }
 }

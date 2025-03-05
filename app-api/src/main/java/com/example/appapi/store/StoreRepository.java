@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
@@ -26,4 +27,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     Optional<Store> findByIdWithClosedDaysAndUserAndCategory(Long idx);
 
 
+    List<Store> findByCategory_Idx(Long categoryIdx);
+    List<Store> findByCategory_ParentCategory_Idx(Long parentIdx);
 }

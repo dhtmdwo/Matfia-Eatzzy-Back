@@ -182,13 +182,15 @@ public class StoreDto {
 
 
     @Getter
-    public static class UpdateAllowedRequestDto {
+    public static class UpdateStoreStatusDto {
         private Long idx;
+        private Category category;
         private AllowedStatus allowed;
 
-        public Store toEntity() {
+        public Store toEntity(Category category) {
             return Store.builder()
                     .idx(idx)
+                    .category(category)
                     .allowed(allowed)
                     .build();
         }
