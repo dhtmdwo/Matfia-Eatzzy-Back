@@ -35,17 +35,22 @@ public class OrderProductsDto {
                     .build();
         }
     }
+    @Builder
+    @Getter
+    public static class OrderRegisterRequest {  // 등록
+        private List<OrderProductRegisterRequest> orderProductRegisterRequest;
+        private int totalPrice;
+    }
 
     @Builder
     @Getter
     public static class OrderProductRegisterRequest {
-        private int quantity;
         private Long productIdx;
-        private int price;
+        private int quantity;
         public OrderProducts toEntity(Orders order, Products product) {
             return OrderProducts.builder()
-                    .quantity(quantity)
                     .orders(order)
+                    .quantity(quantity)
                     .products(product)
                     .build();
         }
