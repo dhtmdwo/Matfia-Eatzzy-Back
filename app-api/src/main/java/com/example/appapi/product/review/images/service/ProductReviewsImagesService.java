@@ -3,7 +3,6 @@ package com.example.appapi.product.review.images.service;
 import com.example.appapi.product.review.images.model.ProductReviewImages;
 import com.example.appapi.product.review.images.repository.ProductReviewImagesRepository;
 import com.example.appapi.product.review.model.ProductReviews;
-import com.example.appapi.product.review.repository.ProductReviewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class ProductReviewsService {
+public class ProductReviewsImagesService {
     private final ProductReviewImagesRepository productReviewImagesRepository;
 
     @Value("${project.upload.path}")    //
