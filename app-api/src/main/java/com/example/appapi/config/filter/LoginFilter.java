@@ -65,7 +65,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         PrintWriter out = response.getWriter();
         out.print("{");
         out.print("\"userId\": \"" + users.getUserId() + "\",");
-        out.print("\"userType\": \"" + users.getUserType().name() + "\"");
+        out.print("\"userType\": \"" + users.getUserType() + "\"");
         out.print("}");
         out.flush();
     }
