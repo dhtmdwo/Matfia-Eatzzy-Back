@@ -2,8 +2,10 @@ package com.example.appapi.orders;
 
 import com.example.appapi.orders.model.OrdersDto;
 import com.example.appapi.reservation.model.ReservationDto;
+import com.example.appapi.users.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class OrdersController {
 //        return ResponseEntity.ok(resp);
 //    }
     @GetMapping("/orderlist")
-    public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList() {
-        List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList();
+    public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList(@AuthenticationPrincipal Users user) {
+        List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList(user.getIdx());
         return ResponseEntity.ok(resp);
     }
 

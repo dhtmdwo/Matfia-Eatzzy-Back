@@ -37,8 +37,8 @@ public class OrdersService {
 //        return OrdersDto.ReadResponse.from(dto);
 //    }
 
-    public List<OrdersDto.OrdersResponse> getOrderList() {
-        List<Orders> ordersList = ordersRepository.findAllWithOrderProductsAndProducts();
+    public List<OrdersDto.OrdersResponse> getOrderList(Long userIdx) {
+        List<Orders> ordersList = ordersRepository.findAllWithOrderProductsAndProducts(userIdx);
         List<OrdersDto.OrdersResponse> ordersResponseList = new ArrayList<>();
 
         for (Orders order : ordersList) {

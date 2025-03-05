@@ -14,8 +14,9 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     @Query("SELECT DISTINCT o FROM Orders o " +
             "JOIN FETCH o.orderProducts op " +
-            "JOIN FETCH op.products p")
-    List<Orders> findAllWithOrderProductsAndProducts();
+            "JOIN FETCH op.products p " +
+            "WHERE o.user.idx = :userIdx")
+    List<Orders> findAllWithOrderProductsAndProducts(@Param("userIdx") Long userIdx);
 
     @Query("SELECT DISTINCT o FROM Orders o " +
             "JOIN FETCH o.orderProducts op " +
