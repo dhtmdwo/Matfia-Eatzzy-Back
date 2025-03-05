@@ -2,10 +2,14 @@ package com.example.appapi.store;
 
 import com.example.appapi.category.CategoryRepository;
 import com.example.appapi.category.model.Category;
+import com.example.appapi.product.model.Products;
+import com.example.appapi.product.model.ProductsDto;
+import com.example.appapi.store.images.StoreImagesService;
 import com.example.appapi.store.model.AllowedStatus;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.model.StoreClosedDay;
 import com.example.appapi.store.model.StoreDto;
+import com.example.appapi.upload.PreSignedCloudImageService;
 import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponseStatus;
 import com.example.common.exception.BaseException;
@@ -16,8 +20,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -25,24 +33,47 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final StoreClosedDayRepository storeClosedDayRepository;
     private final CategoryRepository categoryRepository;
+    private final StoreImagesService storeImagesService;
+    private final PreSignedCloudImageService preSignedCloudImageService;
 
     @Transactional
-    public StoreDto.StoreResponseDto create(StoreDto.CreateStoreRequestDto dto, Users user) {
-        Category category = categoryRepository.findById(dto.getCategoryIdx()).orElseThrow(() ->  new BaseException(BaseResponseStatus.STORE_REGIST_FAILED));
+    public StoreDto.StoreResponseDto preSigned(StoreDto.CreateStoreRequestDto dto, Users user) {
+        Category category = categoryRepository.findById(dto.getCategoryIdx()).orElseThrow(
+                () ->  new BaseException(BaseResponseStatus.STORE_REGIST_FAILED)
+        );
 
         Store store = storeRepository.save(dto.toEntity(user, category));
 
+        // 식당 휴무일 저장
         List<StoreClosedDay> closedDays = dto.getClosedDayList().stream()
                 .map(closedDayRequestDto -> closedDayRequestDto.toEntity(store))
                 .toList();
 
         storeClosedDayRepository.saveAll(closedDays);
 
+        // 식당 휴무일 Response 처리
         List<StoreDto.ClosedDayResponseDto> closedDayResponseList = closedDays.stream()
                 .map(StoreDto.ClosedDayResponseDto::from)
                 .toList();
 
-        return StoreDto.StoreResponseDto.fromWithClosedDays(store, closedDayResponseList);
+        List<String> uploadFilePaths = new ArrayList();
+        List<String> preSignedUrls = new ArrayList();
+        for (String file : dto.getImagePaths()) {
+            String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd/"));
+            String fileName = "store/" + date + UUID.randomUUID() + "_" + file;
+            String preSignedUrl = preSignedCloudImageService.upload(fileName, "image/png");
+            preSignedUrls.add(preSignedUrl);
+            uploadFilePaths.add(fileName);
+        }
+        // 이미지 저장 정보를 DB에 저장
+        storeImagesService.create(uploadFilePaths, store);
+
+
+        StoreDto.StoreResponseDto response = StoreDto.StoreResponseDto.from(store);
+        response.setClosedDayList(closedDayResponseList);
+        response.setImagePaths(uploadFilePaths);
+
+        return response;
     }
 
     public StoreDto.StorePageResponseDto list(int page, int size) {
