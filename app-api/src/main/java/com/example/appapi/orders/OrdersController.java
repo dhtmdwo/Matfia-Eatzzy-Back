@@ -2,6 +2,8 @@ package com.example.appapi.orders;
 
 import com.example.appapi.orders.model.OrdersDto;
 import com.example.appapi.users.model.Users;
+import com.example.common.BaseResponse;
+import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +19,13 @@ import java.util.List;
 @RequestMapping("/app/orders")
 public class OrdersController {
     private final OrdersService ordersService;
-    @Operation(summary = "상품 주문하기", description = "장바구니에서 상품 주문하기 클릭")
-    @PostMapping("/register/{idx}")     // 주문 둥록하기
-    public String register(@PathVariable Long idx, @RequestBody OrdersDto.OrdersRegister dto){
-        ordersService.register(idx, dto);
-        return "주문 등록 완료";
+    @Operation(summary = "주문서 작성하기", description = "장바구니에서 상품 주문하기 클릭")
+    @PostMapping("/register/{idx}")     // 주문서 작성하기
+    public ResponseEntity<BaseResponse<OrdersDto.OrdersRegisterResponse>> register(@PathVariable Long idx, @RequestBody OrdersDto.OrdersRegister dto){
+        OrdersDto.OrdersRegisterResponse resp = ordersService.register(idx, dto);
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
     }
-//    @GetMapping("/list")
-//    public ResponseEntity<List<OrdersDto.ListResponse>> list() {
-//        List<OrdersDto.ListResponse> resp = ordersService.getList();
-//        return ResponseEntity.ok(resp);
-//    }
-//    @GetMapping("{idx}")
-//    public ResponseEntity<OrdersDto.ReadResponse> getRead(@PathVariable Long idx) {
-//        OrdersDto.ReadResponse resp = ordersService.getRead(idx);
-//        return ResponseEntity.ok(resp);
-//    }
+
     @Operation(summary = "내 주문 보기", description = "내 주문 목록 보기")
     @GetMapping("/orderlist")   // 내 주문 보기
     public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList(@AuthenticationPrincipal Users user) {

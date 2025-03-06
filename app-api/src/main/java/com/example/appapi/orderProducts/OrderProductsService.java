@@ -21,7 +21,7 @@ public class OrderProductsService {
     private final OrderProductsRepository orderProductsRepository;
     private final ProductsRepository productsRepository;
     @Transactional
-    public void register(OrderProductsDto.OrderRegisterRequest orderRequest, Users user) {
+    public OrderProductsDto.OrderRegisterResponse register(OrderProductsDto.OrderRegisterRequest orderRequest, Users user) {
         Orders order = Orders.builder()
                 .user(user)
                 .status("Pending")
@@ -49,6 +49,8 @@ public class OrderProductsService {
             throw new IllegalStateException("가격 불일치: " + totalPrice + " ≠ " + orderRequest.getTotalPrice());
         }
         ordersRepository.updateOrderPrice(savedOrder.getIdx(), totalPrice);
+        Orders findOrder = ordersRepository.findByIdx(savedOrder.getIdx());
+        return OrderProductsDto.OrderRegisterResponse.from(findOrder, totalPrice);
     }
 
 

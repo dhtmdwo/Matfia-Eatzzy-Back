@@ -2,6 +2,7 @@ package com.example.appapi.orderProducts.model;
 
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.product.model.Products;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -40,6 +41,21 @@ public class OrderProductsDto {
     public static class OrderRegisterRequest {  // 등록
         private List<OrderProductRegisterRequest> orderProductRegisterRequest;
         private int totalPrice;
+    }
+    @Builder
+    @Getter
+    public static class OrderRegisterResponse {
+        @Schema(description = "주문서 고유 식별자", example = "1")
+        private Long orderIdx;
+        @Schema(description = "주문서 총 금액", example = "150000")
+        private int totalPrice;
+
+        public static OrderRegisterResponse from(Orders savedOrder, int totalPrice) {
+            return OrderRegisterResponse.builder()
+                    .orderIdx(savedOrder.getIdx())
+                    .totalPrice(totalPrice)
+                    .build();
+        }
     }
 
     @Builder
@@ -86,4 +102,6 @@ public class OrderProductsDto {
 
         }
     }
+
+
 }
