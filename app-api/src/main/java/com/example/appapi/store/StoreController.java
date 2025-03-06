@@ -5,6 +5,7 @@ import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import com.example.common.exception.BaseException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/store")
+@Tag(name = "식당 관련 기능")
 public class StoreController {
     private final StoreService storeService;
 

@@ -14,6 +14,12 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+springdoc:
+  api-docs:
+    path: /app/v3/api-docs
+  swagger-ui:
+    path: /app/swagger-ui.html
+
 
 spring:
   application:

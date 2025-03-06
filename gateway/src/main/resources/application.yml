@@ -18,11 +18,25 @@ spring:
     gateway:
       routes:
         - id: app-api
-          uri: http://localhost:8081
+          uri: lb://app-api
           predicates:
             - Path=/login,/app/**
         - id: resv-api
-          uri: http://localhost:8082
+          uri: lb://resv-api
           predicates:
             - Path=/resv/**
+        - id: swagger-redirect
+          uri: no://op
+          predicates:
+            - Path=/swagger-ui/**
+          filters:
+            - RedirectTo=302, /app/swagger-ui/index.html#/
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: app
+        url: /app/v3/api-docs
+      - name: resv
+        url: /resv/v3/api-docs
