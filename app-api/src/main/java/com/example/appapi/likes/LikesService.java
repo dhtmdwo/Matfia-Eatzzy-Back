@@ -2,8 +2,6 @@ package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.reservation.model.Reservation;
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.model.Store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

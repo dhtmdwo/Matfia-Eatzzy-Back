@@ -1,7 +1,5 @@
 package com.example.appapi.store.review.service;
 
-import com.example.appapi.reservation.model.Reservation;
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.store.review.model.StoreReview;

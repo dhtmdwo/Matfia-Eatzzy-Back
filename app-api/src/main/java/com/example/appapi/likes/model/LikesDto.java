@@ -2,7 +2,6 @@ package com.example.appapi.likes.model;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.images.model.StoreImages;
 import com.example.appapi.store.model.Store;
 import lombok.AllArgsConstructor;

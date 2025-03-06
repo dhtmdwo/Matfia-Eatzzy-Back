@@ -1,6 +1,5 @@
 package com.example.appapi.store.review.controller;
 
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.service.StoreReviewService;
 import io.swagger.v3.oas.annotations.Operation;

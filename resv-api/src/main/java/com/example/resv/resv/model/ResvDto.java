@@ -1,7 +1,5 @@
 package com.example.resv.resv.model;
 
-import com.example.appapi.reservation.model.Reservation;
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.users.model.Users;
 import lombok.AllArgsConstructor;
