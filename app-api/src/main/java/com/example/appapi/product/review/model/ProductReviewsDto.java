@@ -1,5 +1,6 @@
 package com.example.appapi.product.review.model;
 
+import com.example.appapi.orderProducts.model.OrderProducts;
 import com.example.appapi.product.model.Products;
 import com.example.appapi.store.model.Store;
 import com.example.appapi.product.model.ProductsDto;
@@ -47,7 +48,7 @@ public class ProductReviewsDto {
 
     @Getter
     @Builder
-    public static class ProductReivewResponse {
+    public static class ProductReviewResponse {
         @Schema(description = "리뷰 내용", example = "이 제품은 정말 훌륭합니다!")
         private String contents;
 
@@ -60,8 +61,8 @@ public class ProductReviewsDto {
         @Schema(description = "리뷰 작성 날짜 및 시간", example = "2025-03-06T09:26:58")
         private LocalDateTime createdAt;
 
-        public static ProductReivewResponse from(ProductReviews productReviews, List<String> imageUrls) {
-            return ProductReivewResponse.builder()
+        public static ProductReviewResponse from(ProductReviews productReviews, List<String> imageUrls) {
+            return ProductReviewResponse.builder()
                     .contents(productReviews.getContent())
                     .starPoint(productReviews.getStarPoint())
                     .reviewImage(imageUrls)
@@ -78,14 +79,17 @@ public class ProductReviewsDto {
         private LocalDateTime createdAt;
         private Long productIdx;
         private List<String> imageUrls;
+        private Long orderProductIdx;
 
-        public ProductReviews toEntity(Products products) {
+        public ProductReviews toEntity(Products products, Users user, OrderProducts orderProducts) {
             return ProductReviews.builder()
                     .title(title)
                     .content(content)
                     .starPoint(starPoint)
                     .createdAt(createdAt)
                     .products(products)
+                    .user(user)
+                    .orderProducts(orderProducts)
                     .build();
         }
     } // 리뷰 작성용 dto
@@ -142,6 +146,21 @@ public class ProductReviewsDto {
                     .content(content)
                     .title(title)
                     .starPoint(starPoint)
+                    .build();
+        }
+    }
+
+    @Builder
+    @Getter
+    public static class ReviewablesResponse {
+        private Long orderProductIdx;
+        private String name;
+        private String imageUrl;
+        public static ReviewablesResponse from(String name, String imageUrl, Long idx) {
+            return ReviewablesResponse.builder()
+                    .orderProductIdx(idx)
+                    .name(name)
+                    .imageUrl(imageUrl)
                     .build();
         }
     }
