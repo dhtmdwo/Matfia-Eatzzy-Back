@@ -7,6 +7,7 @@ import com.example.appapi.store.model.StoreDto;
 import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/admin")
+@Tag(name = "관리자 관련 기능")
 public class AdminController {
     private final AdminService adminService;
 

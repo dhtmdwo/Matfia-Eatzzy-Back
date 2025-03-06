@@ -4,6 +4,7 @@ import com.example.appapi.handler.OAuth2SuccessHandler;
 import com.example.appapi.users.model.UsersDto;
 import com.example.appapi.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/users")
+@Tag(name = "회원 관련 기능")
 public class UsersController {
     private final UsersService usersService;
     private final KakaoService kakaoService;
