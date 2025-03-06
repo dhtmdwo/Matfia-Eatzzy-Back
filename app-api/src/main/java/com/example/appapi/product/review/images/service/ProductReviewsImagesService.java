@@ -1,27 +1,21 @@
 package com.example.appapi.product.review.images.service;
 
-import com.example.appapi.product.images.model.ProductsImages;
-import com.example.appapi.product.model.Products;
-import com.example.appapi.product.model.ProductsDto;
 import com.example.appapi.product.review.images.model.ProductReviewImages;
 import com.example.appapi.product.review.images.repository.ProductReviewImagesRepository;
 import com.example.appapi.product.review.model.ProductReviews;
 import com.example.appapi.product.review.model.ProductReviewsDto;
-import com.example.appapi.product.service.ProductsService;
 import com.example.appapi.upload.PreSignedCloudImageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "ProductReviewsImagesService API", description = "상품 리뷰 이미지 관련 API")
 @RequiredArgsConstructor
 @Service
 public class ProductReviewsImagesService {

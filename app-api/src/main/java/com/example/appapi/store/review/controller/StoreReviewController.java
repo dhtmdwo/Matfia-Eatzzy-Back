@@ -37,6 +37,7 @@ public class StoreReviewController {
     }
 
 
+
     @Operation(summary = "작성한 식당 리뷰 보기(클라이언트)")
     @GetMapping("/mypage/store")
     public ResponseEntity<List<StoreReviewDto.StoreReivewResponse>> storeList(@RequestParam("idx") Long idx) {
@@ -44,7 +45,7 @@ public class StoreReviewController {
         return ResponseEntity.ok(responseList);
     } // 마이페이지 클라이언트 식당 리뷰 보기
 
-    @Operation(summary = "식당 리뷰 삭제하기(클라이언트)")
+    @Operation(summary = "식당 리뷰 삭제하기(클라이언트)", description = "고객이 자신이 작성한 식당 리뷰를 삭제하는 기능")
     @GetMapping("/mypage/storedelete")
     public ResponseEntity<String> deleteLikes(@RequestParam("idx") Long idx) {
         storeReviewService.deleteReview(idx);

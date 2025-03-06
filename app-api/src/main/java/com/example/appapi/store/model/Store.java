@@ -62,4 +62,5 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<StoreReview> storeReviewList;
+
 }
