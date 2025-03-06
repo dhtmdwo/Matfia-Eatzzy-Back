@@ -88,7 +88,17 @@ public enum BaseResponseStatus {
 
 
     /* 8000 ~ 8999 : 관리자 관련 에러 */
-    ADMIN_CATEGORY_DELETE_FAILED_REASON_CONNECT_STORE(false, 8000, "삭제하려는 카테고리는 Store에 하나 이상 연결되어 있는 카테고리 입니다. Store에서 카테고리 수정을 먼저 한 후 삭제해주세요.");
+    ADMIN_CATEGORY_DELETE_FAILED_REASON_CONNECT_STORE(false, 8000, "삭제하려는 카테고리는 Store에 하나 이상 연결되어 있는 카테고리 입니다. Store에서 카테고리 수정을 먼저 한 후 삭제해주세요."),
+
+
+    /* 9000 ~ 9999 : 카테고리 관련 에러 */
+    CATEGORY_NOT_FOUND(false, 9000, "카테고리를 찾을 수 없습니다."),
+    //-- 9100 : 카테고리 등록 에러
+    CATEGORY_REGIST_FAILED(false, 9100, "카테고리 등록에 실패했습니다."),
+    //-- 9200 : 부모 카테고리 조회 에러
+    CATEGORY_NOT_FOUND_PARENT_CATEGORY(false, 9200, "부모 카테고리를 찾을 수 없습니다.");
+
+
 
     private final boolean isSuccess;
     private final int code;

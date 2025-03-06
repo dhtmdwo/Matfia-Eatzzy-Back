@@ -60,6 +60,20 @@ public class AdminService {
 
 
     @Transactional
+    public CategoryDto.CategoryResponseDto createCategory(CategoryDto.CreateCategoryDto dto) {
+        Category parentCategory = null;
+        if (dto.getParentIdx() != null) {
+            parentCategory = categoryRepository.findById(dto.getParentIdx())
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.CATEGORY_NOT_FOUND_PARENT_CATEGORY));
+        }
+
+        Category category = categoryRepository.save(dto.toEntity(parentCategory));
+
+        return CategoryDto.CategoryResponseDto.from(category);
+    }
+
+
+    @Transactional
     public CategoryDto.CategoryResponseDto updateCategoryName(Long categoryIdx, String name) {
         Category category = categoryRepository.findById(categoryIdx)
                 .orElseThrow(() -> new EntityNotFoundException("category not found with id: " + categoryIdx));
