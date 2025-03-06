@@ -3,10 +3,7 @@ package com.example.appapi.store.model;
 import com.example.appapi.category.model.Category;
 import com.example.appapi.users.model.Users;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalTime;
@@ -30,6 +27,7 @@ public class StoreDto {
         private Long categoryIdx;
 
         List<ClosedDayRequestDto> closedDayList = new ArrayList<>();
+        private List<String> imagePaths;
 
         public Store toEntity(Users user, Category category) {
             return Store.builder()
@@ -94,7 +92,10 @@ public class StoreDto {
         private String shortAddress;
         private AllowedStatus allowed;
         private String categoryName;
+        @Setter
         List<ClosedDayResponseDto> closedDayList = new ArrayList<>();
+        @Setter
+        private List<String> imagePaths;
 
 
         public static StoreResponseDto from(Store store) {
@@ -111,24 +112,10 @@ public class StoreDto {
                     .allowed(store.getAllowed())
                     .categoryName(store.getCategory().getName())
                     .closedDayList(store.getClosedDayList().stream().map(StoreDto.ClosedDayResponseDto::from).collect(Collectors.toList()))
-                    .build();
-        }
-
-        public static StoreResponseDto fromWithClosedDays(Store store, List<ClosedDayResponseDto> closedDayList) {
-            System.out.println(store.getCategory());
-            return StoreResponseDto.builder()
-                    .idx(store.getIdx())
-                    .name(store.getName())
-                    .description(store.getDescription())
-                    .callNumber(store.getCallNumber())
-                    .startTime(store.getStartTime())
-                    .endTime(store.getEndTime())
-                    .openingHours(store.getOpeningHours())
-                    .address(store.getAddress())
-                    .shortAddress(store.getShortAddress())
-                    .allowed(store.getAllowed())
-                    .categoryName(store.getCategory().getName())
-                    .closedDayList(closedDayList)
+                    .imagePaths(
+                            store.getImages() == null ? List.of() : store.getImages().stream()
+                                    .map(image -> image.getImagePath()).toList()
+                    )
                     .build();
         }
     }
@@ -142,6 +129,7 @@ public class StoreDto {
         private String name;
         private String shortAddress;
         private String categoryName;
+        private String thumbnail;
 
         public static StoreSimpleResponseDto from(Store store) {
             return StoreSimpleResponseDto.builder()
@@ -149,6 +137,7 @@ public class StoreDto {
                     .name(store.getName())
                     .shortAddress(store.getShortAddress())
                     .categoryName(store.getCategory().getName())
+                    .thumbnail(store.getImages().isEmpty() ? null : store.getImages().get(0).getImagePath())
                     .build();
         }
     }
@@ -182,13 +171,15 @@ public class StoreDto {
 
 
     @Getter
-    public static class UpdateAllowedRequestDto {
+    public static class UpdateStoreStatusDto {
         private Long idx;
+        private Category category;
         private AllowedStatus allowed;
 
-        public Store toEntity() {
+        public Store toEntity(Category category) {
             return Store.builder()
                     .idx(idx)
+                    .category(category)
                     .allowed(allowed)
                     .build();
         }
