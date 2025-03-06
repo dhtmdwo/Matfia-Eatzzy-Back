@@ -35,6 +35,28 @@ public class StoreQueryRepository {
         this.users = QUsers.users;
     }
 
+    public Page<Store> searchWithAllowed(int page, int size, String allowed) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (allowed != null) {
+            builder.and(store.allowed.eq(AllowedStatus.valueOf(allowed)));
+        }
+
+        List<Store> storeList = queryFactory
+                .selectFrom(store)
+                .where(builder)
+                .offset((long) page * size)
+                .limit(size)
+                .fetch();
+
+        long total = Optional.ofNullable(
+                queryFactory.select(store.idx.countDistinct()) // ✅ 중복 방지
+                        .from(store)
+                        .where(builder)
+                        .fetchOne()
+        ).orElse(0L);
+        return new PageImpl<>(storeList, PageRequest.of(page, size), total);
+    }
+
     public Page<Store> search(int page, int size, String sort, Long categoryIdx) {
         BooleanBuilder builder = new BooleanBuilder();
 

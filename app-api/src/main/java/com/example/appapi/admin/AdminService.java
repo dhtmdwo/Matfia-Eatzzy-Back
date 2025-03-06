@@ -3,6 +3,7 @@ package com.example.appapi.admin;
 import com.example.appapi.category.CategoryRepository;
 import com.example.appapi.category.model.Category;
 import com.example.appapi.category.model.CategoryDto;
+import com.example.appapi.store.StoreQueryRepository;
 import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.AllowedStatus;
 import com.example.appapi.store.model.Store;
@@ -25,11 +26,13 @@ import java.util.List;
 @Service
 public class AdminService {
     private final StoreRepository storeRepository;
+    private final StoreQueryRepository storeQueryRepository;
     private final CategoryRepository categoryRepository;
 
-    public StoreDto.StorePageResponseDto storeListAll(int page, int size) {
-        Page<Store> result = storeRepository.findAll(PageRequest.of(page, size));
-        return StoreDto.StorePageResponseDto.from(result);
+    // 관리자 식당 조회
+    public StoreDto.StorePageResponseDto<StoreDto.AdminStoreResponse> storeListAll(int page, int size, String allowed) {
+        Page<Store> result = storeQueryRepository.searchWithAllowed(page, size, allowed);
+        return StoreDto.StorePageResponseDto.from(result, StoreDto.AdminStoreResponse::from);
     }
 
     public StoreDto.StoreResponseDto getStore(Long storeIdx) {
@@ -41,13 +44,17 @@ public class AdminService {
     }
 
     @Transactional
-    public StoreDto.StoreResponseDto updateStoreStatus(Long storeIdx, Category category, AllowedStatus allowed) {
+    public StoreDto.StoreResponseDto updateStoreStatus(Long storeIdx, StoreDto.UpdateStoreStatusDto dto) {
         Store store = storeRepository.findById(storeIdx)
-                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + storeIdx));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.STORE_NOT_FOUND));
 
-        if (!store.getAllowed().equals(allowed)) {
-            store.setAllowed(allowed);
+
+        if (!store.getAllowed().equals(dto.getAllowed())) {
+            store.setAllowed(dto.getAllowed());
         }
+
+        Category category = categoryRepository.findById(dto.getCategoryIdx())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.CATEGORY_NOT_FOUND));
 
         if (!store.getCategory().equals(category)) {
             store.setCategory(category);
@@ -56,6 +63,20 @@ public class AdminService {
         storeRepository.save(store);
 
         return StoreDto.StoreResponseDto.from(store);
+    }
+
+
+    @Transactional
+    public CategoryDto.CategoryResponseDto createCategory(CategoryDto.CreateCategoryDto dto) {
+        Category parentCategory = null;
+        if (dto.getParentIdx() != null) {
+            parentCategory = categoryRepository.findById(dto.getParentIdx())
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.CATEGORY_NOT_FOUND_PARENT_CATEGORY));
+        }
+
+        Category category = categoryRepository.save(dto.toEntity(parentCategory));
+
+        return CategoryDto.CategoryResponseDto.from(category);
     }
 
 

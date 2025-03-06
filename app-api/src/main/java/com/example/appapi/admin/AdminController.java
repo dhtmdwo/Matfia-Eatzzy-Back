@@ -21,15 +21,17 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
+
     // 식당 목록 조회
     @Operation(summary = "식당 목록 조회", description = "식당 등록 요청된 모든 목록 조회")
     @GetMapping("/store/list")
     public ResponseEntity<BaseResponse<StoreDto.StorePageResponseDto>> getStoreList(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        StoreDto.StorePageResponseDto response = adminService.storeListAll(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String allowed) {
+        StoreDto.StorePageResponseDto response = adminService.storeListAll(page, size, allowed);
 
-        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, response));
     }
 
     // 식당 상세 조회
@@ -38,7 +40,7 @@ public class AdminController {
     public ResponseEntity<BaseResponse<StoreDto.StoreResponseDto>> getStore(@PathVariable Long storeIdx) {
         StoreDto.StoreResponseDto response = adminService.getStore(storeIdx);
 
-        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, response));
     }
 
     // 식당 등록 수락 & 카테고리 배정 수정
@@ -48,9 +50,17 @@ public class AdminController {
             @PathVariable Long storeIdx,
             @RequestBody StoreDto.UpdateStoreStatusDto requestDto) {
 
-        StoreDto.StoreResponseDto response = adminService.updateStoreStatus(storeIdx, requestDto.getCategory(), requestDto.getAllowed());
+        StoreDto.StoreResponseDto response = adminService.updateStoreStatus(storeIdx, requestDto);
 
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, response));
+    }
+
+
+    @PostMapping("/category/create")
+    @Operation(summary = "카테고리 등록")
+    public ResponseEntity<CategoryDto.CategoryResponseDto> createCategory(@RequestBody CategoryDto.CreateCategoryDto dto) {
+        CategoryDto.CategoryResponseDto category = adminService.createCategory(dto);
+        return ResponseEntity.ok(category);
     }
 
     // 카테고리 수정
