@@ -1,5 +1,6 @@
 package com.example.appapi.product.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,20 @@ public class ProductsDto {
 
     @Getter
     @Builder
-    public static class Create{
+    public static class Create {
+        @Schema(description = "상품의 이름", example = "스마트폰")
         private String name;
+
+        @Schema(description = "상품의 설명", example = "최신 모델의 고급 기능을 갖춘 스마트폰")
         private String description;
+
+        @Schema(description = "상품의 가격 (원 단위)", example = "999000")
         private int price;
+
+        @Schema(description = "재고 수량", example = "50")
         private int stock;
+
+        @Schema(description = "상품 이미지 경로들의 리스트")
         private List<String> imagePaths;
 
         public Products toEntity() {
@@ -30,11 +40,22 @@ public class ProductsDto {
     @Getter
     @Builder
     public static class InfoResponse {
+        @Schema(description = "상품의 고유 식별자", example = "1")
         private Long idx;
+
+        @Schema(description = "상품의 이름", example = "스마트폰")
         private String name;
+
+        @Schema(description = "대표 이미지 경로", example = "/images/product1.jpg")
         private String imgPath;
+
+        @Schema(description = "평균 별점", example = "4.5")
         private double starPoint;
+
+        @Schema(description = "리뷰 수", example = "150")
         private int reviewCnt;
+
+        @Schema(description = "상품의 가격 (원 단위)", example = "999000")
         private int price;
 
         public static InfoResponse fromEntity(Products products) {
@@ -49,15 +70,25 @@ public class ProductsDto {
         }
     }
 
-
-    @Builder
     @Getter
+    @Builder
     public static class DetailResponse {
+        @Schema(description = "대표 이미지 경로", example = "/images/product1.jpg")
         private String image;
+
+        @Schema(description = "평균 별점", example = "4.5")
         private double starPoint;
+
+        @Schema(description = "리뷰 수", example = "150")
         private int reviewCnt;
+
+        @Schema(description = "상품의 이름", example = "스마트폰")
         private String productName;
+
+        @Schema(description = "상품의 가격 (원 단위)", example = "999000")
         private int price;
+
+        @Schema(description = "상품의 상세 설명", example = "이 스마트폰은 6.5인치 디스플레이를 특징으로 합니다...")
         private String description;
 
         public static DetailResponse fromEntity(Products products) {
@@ -72,14 +103,20 @@ public class ProductsDto {
         }
     }
 
-
     @Getter
     @Builder
     public static class ProductRes {
+        @Schema(description = "상품의 고유 식별자", example = "1")
         private Long idx;
+
+        @Schema(description = "상품의 이름", example = "스마트폰")
         private String name;
+
+        @Schema(description = "상품의 가격 (원 단위)", example = "999000")
         private int price;
+
         @Setter
+        @Schema(description = "상품 이미지 URL들의 리스트")
         private List<String> imageUrls;
 
         public static ProductRes of(Products entity) {
@@ -94,5 +131,4 @@ public class ProductsDto {
                     .build();
         }
     }
-
 }

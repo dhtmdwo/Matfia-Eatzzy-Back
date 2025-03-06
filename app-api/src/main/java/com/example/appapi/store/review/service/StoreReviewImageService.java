@@ -23,7 +23,7 @@ public class StoreReviewImageService {
 
 
 
-    @Value("${project.upload.path}")    //
+    //@Value("${project.upload.path}")    //
 
     private String defaultUploadPath;
 
