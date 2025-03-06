@@ -2,6 +2,7 @@ package com.example.resv.resv.model;
 
 import com.example.appapi.store.model.Store;
 import com.example.appapi.users.model.Users;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +16,17 @@ public class ResvDto {
 
     @Getter
     public static class CreateResvRequest {
+        @Schema(description = "예약 날짜", example = "2025-03-22")
         private String date;
+        @Schema(description = "예약 시간", example = "17:30")
         private String time;
+        @Schema(description = "예약자 이름", example = "홍길동")
         private String name;
+        @Schema(description = "예약 인원", example = "2")
         private int headCount;
+        @Schema(description = "요청사항", example = "주차 등록해주세요")
         private String request;
+        @Schema(description = "식당 번호", example = "1")
         private Long storeIdx;
 
         public Resv toEntity(Users user, Store store) {
@@ -40,11 +47,17 @@ public class ResvDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ResvResponse {
+        @Schema(description = "예약 번호", example = "1")
         private Long idx;
+        @Schema(description = "예약 날짜", example = "2025-03-22")
         private String date;
+        @Schema(description = "예약 시간", example = "17:30")
         private String time;
+        @Schema(description = "예약자 이름", example = "홍길동")
         private String name;
+        @Schema(description = "예약 인원", example = "2")
         private int headCount;
+        @Schema(description = "요청사항", example = "주차 등록해주세요")
         private String request;
 
         public static ResvResponse from(Resv entity) {
@@ -62,16 +75,22 @@ public class ResvDto {
 
     @Builder
     @Getter
-    public static class StoreRezResponse { // 마이페이지 식당 예약 내역
-        private Long idx;               // 테이블 idx 값
-        private String storeImage;      // 식당 이미지 (이미지 테이블)
-        private String storeAddress;    // 식당 주소
-        private String storeName;       // 식당 이름
-        private String time;         // 예약 시간 (예약 테이블)
-        private String date;         // 예약 날짜 (예약 테이블)
-        private int headCount;           // 예약 인원 (예약 테이블)
+    public static class StoreRezResponse {
+        @Schema(description = "예약 번호", example = "1")
+        private Long idx;
+        @Schema(description = "식당 이미지", example = "image_01.png")
+        private String storeImage;
+        @Schema(description = "식당 주소", example = "서울 강남구 논현로")
+        private String storeAddress;
+        @Schema(description = "식당 이름", example = "맛있는 식당")
+        private String storeName;
+        @Schema(description = "예약 시간", example = "17:30")
+        private String time;
+        @Schema(description = "예약 날짜", example = "2025-03-22")
+        private String date;
+        @Schema(description = "예약 인원", example = "2")
+        private int headCount;
 
-        // 카테고리 안써서 뺏다
         public static StoreRezResponse from(Store store, Resv resv) {
             String storeImageUrl = store.getImages().isEmpty() ? null : store.getImages().get(0).getImagePath();
 
