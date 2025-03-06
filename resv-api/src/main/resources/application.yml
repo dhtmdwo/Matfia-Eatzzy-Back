@@ -10,6 +10,12 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+springdoc:
+  api-docs:
+    path: /resv/v3/api-docs
+  swagger-ui:
+    path: /resv/swagger-ui.html
+
 
 spring:
   application:
@@ -26,6 +32,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  autoconfigure:
+    exclude: io.awspring.cloud.autoconfigure.s3.S3AutoConfiguration
+
 
 logging:
   level:
