@@ -4,6 +4,7 @@ import com.example.appapi.handler.OAuth2SuccessHandler;
 import com.example.appapi.users.model.UsersDto;
 import com.example.appapi.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/users")
+@Tag(name = "회원 관련 기능")
 public class UsersController {
     private final UsersService usersService;
     private final KakaoService kakaoService;
@@ -59,31 +61,7 @@ public class UsersController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/validate")
-    public void validate(HttpServletRequest request) {
-            String token = null;
-
-            // 쿠키에서 토큰 추출
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("ATOKEN".equals(cookie.getName())) {
-                        token = cookie.getValue();
-                        break;
-                    }
-                }
-            }
-
-            // 토큰이 없는 경우 false 반환
-            if (token == null) {
-                System.out.println("ATOKEN 쿠키가 없습니다.");
-//                return false;
-            }
-
-            // 토큰 검증
-        System.out.println(JwtUtil.validate(token));
-    }
-
+    @Operation(summary = "카카오 로그인 Redirect")
     @GetMapping("/kakao/code")
     protected void code(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");

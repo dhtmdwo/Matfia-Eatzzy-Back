@@ -2,6 +2,7 @@ package com.example.appapi.users.model;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.store.model.AllowedStatus;
+import com.example.appapi.store.review.model.StoreReview;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,6 +64,8 @@ public class Users implements UserDetails {
         return authorities;
     }
 
+    @OneToMany
+    private List<StoreReview> storeReviewList = new ArrayList<>();
 
     @Override
     public String getPassword() {

@@ -2,12 +2,15 @@ package com.example.resv.resv;
 
 import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.Store;
+import com.example.appapi.store.model.StoreDto;
 import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponseStatus;
 import com.example.common.exception.BaseException;
 import com.example.resv.resv.model.Resv;
 import com.example.resv.resv.model.ResvDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +35,8 @@ public class ResvService {
         return ResvDto.ResvResponse.from(resv);
     }
 
-    public List<ResvDto.StoreRezResponse> storeList(Long idx) {
-        List<Resv> reservations = resvRepository.findReservationsByUserId(idx);
+    public List<ResvDto.StoreRezResponse> myResvList(Users user) {
+        List<Resv> reservations = resvRepository.findReservationsByUserId(user.getIdx());
 
         List<ResvDto.StoreRezResponse> responseList = new ArrayList<>();
 
@@ -50,10 +53,21 @@ public class ResvService {
         resvRepository.findById(idx).ifPresentOrElse(
                 resvRepository::delete,
                 () -> {
-                    throw new IllegalArgumentException("해당 예약이 존재하지 않습니다");
+                    throw new BaseException(BaseResponseStatus.RESERVATION_UPDATE_FAILED);
                 }
         );// idx 값으로 검색후 있으면 삭제 없으면 예외처리
     } // 마이페이지 클라이언트 예약 취소
 
+    public ResvDto.ResvPageResponseDto myStoreResv(Users user, Long storeIdx, int page, int size) {
+        Store store = storeRepository.findById(storeIdx)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.STORE_NOT_FOUND));
+
+        if(store.getUser().getIdx() != user.getIdx()) {
+            throw new BaseException(BaseResponseStatus.RESERVATION_HISTORY_LOOKUP_FAILED);
+        }
+
+        Page<Resv> result = resvRepository.findAllByStore(storeIdx, PageRequest.of(page, size));
+        return ResvDto.ResvPageResponseDto.from(result);
+    }
 
 }

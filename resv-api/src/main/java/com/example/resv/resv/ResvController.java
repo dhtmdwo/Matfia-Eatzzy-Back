@@ -1,8 +1,11 @@
 package com.example.resv.resv;
 
 import com.example.appapi.users.model.Users;
+import com.example.common.BaseResponse;
+import com.example.common.BaseResponseStatus;
 import com.example.resv.resv.model.ResvDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,29 +16,41 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/resv")
+@Tag(name = "예약 기능")
 public class ResvController {
     private final ResvService resvService;
 
+    @Operation(summary = "식당 예약하기 (CLIENT)")
     @PostMapping("/create")
-    public ResponseEntity<ResvDto.ResvResponse> create(@AuthenticationPrincipal Users user, @RequestBody ResvDto.CreateResvRequest dto) {
+    public ResponseEntity<BaseResponse<ResvDto.ResvResponse>> create(@AuthenticationPrincipal Users user, @RequestBody ResvDto.CreateResvRequest dto) {
         ResvDto.ResvResponse resv = resvService.create(dto, user);
 
-        return ResponseEntity.ok(resv);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, resv));
     }
 
-    @Operation(summary = "예약한 식당 내역 보기(클라이언트)", description = "고객이 자신이 예약한 식당 내역을 보는 기능")
-    @GetMapping("/mypage/store")
-    public ResponseEntity<List<ResvDto.StoreRezResponse>> storeList(@RequestParam("idx") Long idx) {
-        List<ResvDto.StoreRezResponse> responseList = resvService.storeList(idx);
-        return ResponseEntity.ok(responseList);
-    } // 마이페이지 클라이언트 예약한 식당 내역 보기
+    @Operation(summary = "예약한 식당 내역 보기 (CLIENT)")
+    @GetMapping("/mypage")
+    public ResponseEntity<BaseResponse<List<ResvDto.StoreRezResponse>>> getResvList(@AuthenticationPrincipal Users user) {
+        List<ResvDto.StoreRezResponse> responseList = resvService.myResvList(user);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+    }
 
-    @Operation(summary = "예약 취소하기(클라이언트)", description = "고객이 자신의 예약을 취소하는 기능")
-    @PostMapping("/mypage/deletestore")
-    public ResponseEntity<String> deleteReservation(@AuthenticationPrincipal Users user, @RequestBody Long store_idx) {
-        Long userIdx = user.getIdx();
-        resvService.deleteReservation(store_idx);
-        return ResponseEntity.ok("삭제 완료");
-    } // 마이페이지 클라이언트 예약 취소
+    @Operation(summary = "예약 취소하기 (CLIENT)")
+    @GetMapping("/mypage/delete")
+    public ResponseEntity<BaseResponse<String>> deleteResv(@RequestParam("idx") Long idx) {
+        resvService.deleteReservation(idx);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, "예약이 성공적으로 취소되었습니다."));
+    }
+
+    @Operation(summary = "내 식당의 예약 정보 (SELLER)")
+    @GetMapping("/mypage/store/{storeIdx}")
+    public ResponseEntity<BaseResponse<ResvDto.ResvPageResponseDto>> getStoreResvList(
+            @AuthenticationPrincipal Users user,
+            @PathVariable Long storeIdx,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        ResvDto.ResvPageResponseDto responseList = resvService.myStoreResv(user, storeIdx, page, size);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+    }
 
 }
