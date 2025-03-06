@@ -26,4 +26,7 @@ public class OrderProducts {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")
     private Products products;
+    
+    // 리뷰 상태
+    private String reviewStatus;
 }

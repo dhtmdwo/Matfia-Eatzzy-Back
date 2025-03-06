@@ -52,6 +52,7 @@ public class OrderProductsDto {
                     .orders(order)
                     .quantity(quantity)
                     .products(product)
+                    .reviewStatus("Not Reviewed")
                     .build();
         }
     }
