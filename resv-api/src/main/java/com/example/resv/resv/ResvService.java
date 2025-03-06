@@ -32,8 +32,8 @@ public class ResvService {
         return ResvDto.ResvResponse.from(resv);
     }
 
-    public List<ResvDto.StoreRezResponse> storeList(Long idx) {
-        List<Resv> reservations = resvRepository.findReservationsByUserId(idx);
+    public List<ResvDto.StoreRezResponse> storeList(Users user) {
+        List<Resv> reservations = resvRepository.findReservationsByUserId(user.getIdx());
 
         List<ResvDto.StoreRezResponse> responseList = new ArrayList<>();
 
