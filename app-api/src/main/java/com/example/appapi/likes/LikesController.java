@@ -5,6 +5,7 @@ import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name="좋아요 관련 기능")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/likes")

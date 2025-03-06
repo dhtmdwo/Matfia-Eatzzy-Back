@@ -73,13 +73,20 @@ public class ProductReviewsDto {
 
     @Getter
     public static class CreateReq {
+        @Schema(description = "리뷰 제목", example = "나쁘지 않아요")
         private String title;
+        @Schema(description = "리뷰 내용", example = "쏘쏘합니다")
         private String content;
+        @Schema(description = "별점", example = "4")
         private int starPoint;
-        private LocalDateTime createdAt;
+        @Schema(description = "상품 idx 값", example = "2")
         private Long productIdx;
+        @Schema(description = "이미지 링크", example = "[\"C:\\\\upload\\\\test01.png\", \"C:\\\\upload\\\\test02.png\"]")
         private List<String> imageUrls;
+        @Schema(description = "상품 주문 테이블 idx 값", example = "1")
         private Long orderProductIdx;
+
+        private LocalDateTime createdAt;
 
         public ProductReviews toEntity(Products products, Users user, OrderProducts orderProducts) {
             return ProductReviews.builder()

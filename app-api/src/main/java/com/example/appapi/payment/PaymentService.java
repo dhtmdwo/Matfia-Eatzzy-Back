@@ -29,16 +29,16 @@ public class PaymentService {
         Payment payment = paymentRepository.save(dto.toEntity(orders.getIdx()));
     }
 
-    public List<PaymentDto.PaymentResponse> list() {
-        List<Payment> paymentList = paymentRepository.findAll();
+//    public List<PaymentDto.PaymentResponse> list() {
+//        List<Payment> paymentList = paymentRepository.findAll();
+//
+//        return paymentList.stream().map(PaymentDto.PaymentResponse::from).collect(Collectors.toList());
+//    }
 
-        return paymentList.stream().map(PaymentDto.PaymentResponse::from).collect(Collectors.toList());
-    }
-
-    public PaymentDto.PaymentResponse read(Long paymentIdx) {
-        Payment payment = paymentRepository.findById(paymentIdx).orElseThrow();
-        return PaymentDto.PaymentResponse.from(payment);
-    }
+//    public PaymentDto.PaymentResponse read(Long paymentIdx) {
+//        Payment payment = paymentRepository.findById(paymentIdx).orElseThrow();
+//        return PaymentDto.PaymentResponse.from(payment);
+//    }
 
     public Map<String, Object> cancelPayment(Long paymentIdx) {
         Payment payment = paymentRepository.findById(paymentIdx).orElseThrow();
