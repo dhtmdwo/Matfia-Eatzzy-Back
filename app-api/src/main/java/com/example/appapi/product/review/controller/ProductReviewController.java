@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/app/products/reviews")
+@RequestMapping("/products/reviews")
 @RequiredArgsConstructor
 public class ProductReviewController {
     private final ProductReviewsService productReviewsService;
