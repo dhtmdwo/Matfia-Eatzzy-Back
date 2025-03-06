@@ -2,6 +2,7 @@ package com.example.appapi.store.model;
 
 import com.example.appapi.category.model.Category;
 import com.example.appapi.users.model.Users;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class StoreDto {
@@ -147,7 +149,7 @@ public class StoreDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class StorePageResponseDto {
+    public static class StorePageResponseDto<T> {  // DTO만 제네릭화
         private int page;
         private int size;
         private long totalElements;
@@ -155,35 +157,54 @@ public class StoreDto {
         private boolean hasNext;
         private boolean hasPrevious;
 
-        private List<StoreSimpleResponseDto> stores;
+        private List<T> stores; // DTO 타입을 제네릭으로 변환
 
-        public static StorePageResponseDto from(Page<Store> storePage) {
-            return StorePageResponseDto.builder()
+        public static <T> StorePageResponseDto<T> from(Page<Store> storePage, Function<Store, T> dtoConverter) {
+            return StorePageResponseDto.<T>builder()
                     .page(storePage.getNumber())
                     .size(storePage.getSize())
                     .totalElements(storePage.getTotalElements())
                     .totalPages(storePage.getTotalPages())
                     .hasNext(storePage.hasNext())
                     .hasPrevious(storePage.hasPrevious())
-                    .stores(storePage.stream().map(StoreDto.StoreSimpleResponseDto::from).collect(Collectors.toList()))
+                    .stores(storePage.stream().map(dtoConverter).collect(Collectors.toList()))
                     .build();
         }
     }
 
 
     @Getter
-    public static class UpdateStoreStatusDto {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class AdminStoreResponse {
         private Long idx;
-        private Category category;
+        private String name;
+        private String shortAddress;
+        private String categoryName;
+        private String thumbnail;
         private AllowedStatus allowed;
 
-        public Store toEntity(Category category) {
-            return Store.builder()
-                    .idx(idx)
-                    .category(category)
-                    .allowed(allowed)
+        public static AdminStoreResponse from(Store store) {
+            return AdminStoreResponse.builder()
+                    .idx(store.getIdx())
+                    .name(store.getName())
+                    .shortAddress(store.getShortAddress())
+                    .categoryName(store.getCategory().getName())
+                    .thumbnail(store.getImages().isEmpty() ? null : store.getImages().get(0).getImagePath())
+                    .allowed(store.getAllowed())
                     .build();
         }
+    }
+
+
+
+    @Getter
+    public static class UpdateStoreStatusDto {
+        @Schema(description = "카테고리 번호", example = "1")
+        private Long categoryIdx;
+        @Schema(description = "식당 상태", example = "YES")
+        private AllowedStatus allowed;
     }
 
     @Getter

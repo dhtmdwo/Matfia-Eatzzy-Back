@@ -77,9 +77,9 @@ public class StoreService {
         return response;
     }
 
-    public StoreDto.StorePageResponseDto list(int page, int size, String sort, Long categoryIdx) {
+    public StoreDto.StorePageResponseDto<StoreDto.StoreSimpleResponseDto> list(int page, int size, String sort, Long categoryIdx) {
         Page<Store> result = storeQueryRepository.search(page, size, sort, categoryIdx);
-        return StoreDto.StorePageResponseDto.from(result);
+        return StoreDto.StorePageResponseDto.from(result, StoreDto.StoreSimpleResponseDto::from);
     }
 
     public StoreDto.StoreResponseDto getStore(Long storeIdx) {
