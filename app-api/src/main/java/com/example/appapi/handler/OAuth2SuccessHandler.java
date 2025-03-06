@@ -1,17 +1,15 @@
 package com.example.appapi.handler;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.io.IOException;
 
-public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth)
-            throws IOException, ServletException {
-        res.sendRedirect("http://localhost:5173/");
+public class OAuth2SuccessHandler {
+    public static void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res, String kakaoId)
+            throws IOException {
+
+        // 리다이렉트
+        res.sendRedirect("http://localhost:5173/login/kakao/"+kakaoId);
     }
 }
