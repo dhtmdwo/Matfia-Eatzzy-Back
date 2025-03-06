@@ -25,21 +25,32 @@ public class ResvController {
     public ResponseEntity<BaseResponse<ResvDto.ResvResponse>> create(@AuthenticationPrincipal Users user, @RequestBody ResvDto.CreateResvRequest dto) {
         ResvDto.ResvResponse resv = resvService.create(dto, user);
 
-        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resv));
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, resv));
     }
 
     @Operation(summary = "예약한 식당 내역 보기 (CLIENT)")
-    @GetMapping("/mypage/store")
-    public ResponseEntity<BaseResponse<List<ResvDto.StoreRezResponse>>> storeList(@AuthenticationPrincipal Users user) {
-        List<ResvDto.StoreRezResponse> responseList = resvService.storeList(user);
-        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, responseList));
-    } // 마이페이지 클라이언트 예약한 식당 내역 보기
+    @GetMapping("/mypage")
+    public ResponseEntity<BaseResponse<List<ResvDto.StoreRezResponse>>> getResvList(@AuthenticationPrincipal Users user) {
+        List<ResvDto.StoreRezResponse> responseList = resvService.myResvList(user);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+    }
 
     @Operation(summary = "예약 취소하기 (CLIENT)")
-    @GetMapping("/mypage/deletestore")
-    public ResponseEntity<BaseResponse<String>> deleteReservation(@RequestParam("idx") Long idx) {
+    @GetMapping("/mypage/delete")
+    public ResponseEntity<BaseResponse<String>> deleteResv(@RequestParam("idx") Long idx) {
         resvService.deleteReservation(idx);
-        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, "예약이 성공적으로 취소되었습니다."));
-    } // 마이페이지 클라이언트 예약 취소
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, "예약이 성공적으로 취소되었습니다."));
+    }
+
+    @Operation(summary = "내 식당의 예약 정보 (SELLER)")
+    @GetMapping("/mypage/store/{storeIdx}")
+    public ResponseEntity<BaseResponse<ResvDto.ResvPageResponseDto>> getStoreResvList(
+            @AuthenticationPrincipal Users user,
+            @PathVariable Long storeIdx,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        ResvDto.ResvPageResponseDto responseList = resvService.myStoreResv(user, storeIdx, page, size);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+    }
 
 }
