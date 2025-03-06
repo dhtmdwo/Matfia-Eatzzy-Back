@@ -20,6 +20,7 @@ import java.util.List;
 public class StoreReviewController {
     private final StoreReviewService storeReviewService;
 
+    @Operation(summary = "리뷰 작성하기(클라이언트)", description = "마이 페이지에서 리뷰를 작성하는 기능")
     @PostMapping("/create")
     public ResponseEntity<StoreReviewDto.ReviewRes> create(
             @RequestPart StoreReviewDto.CreateReq dto,
@@ -28,6 +29,7 @@ public class StoreReviewController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "식당의 리뷰 목록 조회", description = "식당 정보에서 리뷰를 클릭하여 작성된 리뷰 목록을 보는 기능")
     @GetMapping("/list")
     public ResponseEntity<List<StoreReviewDto.ReviewRes>> list() {
         List<StoreReviewDto.ReviewRes> response = storeReviewService.getList();

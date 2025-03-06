@@ -115,6 +115,7 @@ public class ProductReviewsDto {
         }
     }
 
+    @Getter
     @Builder
     public static class RegisterRequest {
         @Schema(description = "상품의 고유 식별자", example = "1")
