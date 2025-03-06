@@ -17,8 +17,9 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("Eatzzy 예약 API")
-                .description("식당 예약 관련 API 문서 페이지")
+                .title("Eatzzy 식당 예약 API 명세서")
+                .description("식당 예약 관련 API 명세서 페이지입니다.<br><br>" +
+                        "<a href='http://localhost:8080/app/swagger-ui/index.html#/'>Eatzzy API 명세서 페이지 바로가기</a>")
                 .version("1.0.0");
     }
 }
