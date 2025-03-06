@@ -1,6 +1,7 @@
 package com.example.appapi.store.model;
 
 import com.example.appapi.category.model.Category;
+import com.example.appapi.likes.model.Likes;
 import com.example.appapi.users.model.Users;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -97,6 +98,7 @@ public class StoreDto {
         @Setter
         private List<String> imagePaths;
 
+        List<Likes> likesList;
 
         public static StoreResponseDto from(Store store) {
             return StoreResponseDto.builder()

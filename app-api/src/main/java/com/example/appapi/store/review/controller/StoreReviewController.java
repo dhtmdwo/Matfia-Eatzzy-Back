@@ -2,9 +2,13 @@ package com.example.appapi.store.review.controller;
 
 import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.service.StoreReviewService;
+import com.example.appapi.users.model.Users;
+import com.example.common.BaseResponse;
+import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +27,9 @@ public class StoreReviewController {
     @Operation(summary = "리뷰 작성하기(클라이언트)", description = "마이 페이지에서 리뷰를 작성하는 기능")
     @PostMapping("/create")
     public ResponseEntity<StoreReviewDto.ReviewRes> create(
-            @RequestPart StoreReviewDto.CreateReq dto,
-            @RequestPart MultipartFile[] files) {
-        StoreReviewDto.ReviewRes response = storeReviewService.create(dto, files);
+            @RequestBody StoreReviewDto.CreateReq dto,
+            @AuthenticationPrincipal Users user) {
+        StoreReviewDto.ReviewRes response = storeReviewService.create(dto, user);
         return ResponseEntity.ok(response);
     }
 
@@ -38,14 +42,18 @@ public class StoreReviewController {
 
 
 
-    @Operation(summary = "작성한 식당 리뷰 보기(클라이언트)")
+    @Operation(summary = "작성한 식당 리뷰 보기 (CLIENT)")
     @GetMapping("/mypage/store")
-    public ResponseEntity<List<StoreReviewDto.StoreReivewResponse>> storeList(@RequestParam("idx") Long idx) {
-        List<StoreReviewDto.StoreReivewResponse> responseList = storeReviewService.storeList(idx);
-        return ResponseEntity.ok(responseList);
-    } // 마이페이지 클라이언트 식당 리뷰 보기
+    public ResponseEntity<BaseResponse<List<StoreReviewDto.StoreReivewResponse>>> storeList(
+            @AuthenticationPrincipal Users users
+    )
+    {
+        Long userIdx = users.getIdx();
+        List<StoreReviewDto.StoreReivewResponse> responseList = storeReviewService.storeList(userIdx);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+    }
 
-    @Operation(summary = "식당 리뷰 삭제하기(클라이언트)", description = "고객이 자신이 작성한 식당 리뷰를 삭제하는 기능")
+    @Operation(summary = "식당 리뷰 삭제하기 (CLIENT)", description = "고객이 자신이 작성한 식당 리뷰를 삭제하는 기능")
     @GetMapping("/mypage/storedelete")
     public ResponseEntity<String> deleteLikes(@RequestParam("idx") Long idx) {
         storeReviewService.deleteReview(idx);

@@ -1,8 +1,13 @@
 package com.example.appapi.store.review.service;
 
+import com.example.appapi.product.review.images.model.ProductReviewImages;
+import com.example.appapi.product.review.model.ProductReviews;
+import com.example.appapi.product.review.model.ProductReviewsDto;
 import com.example.appapi.store.review.model.StoreReview;
+import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.model.StoreReviewImage;
 import com.example.appapi.store.review.repository.StoreReviewImageRepository;
+import com.example.appapi.upload.PreSignedCloudImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,45 +25,35 @@ import java.util.UUID;
 @Service
 public class StoreReviewImageService {
     private final StoreReviewImageRepository storeReviewImageRepository;
-
-
-
+    private final PreSignedCloudImageService preSignedCloudImageService;
     //@Value("${project.upload.path}")    //
 
-    private String defaultUploadPath;
+    public StoreReviewDto.ReviewRes preSigned(StoreReviewDto.CreateReq dto, StoreReview storeReview) {
 
-    private String makeDir() {
-        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-        String uploadPath = defaultUploadPath + "/" + date;
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+        List<String> uploadFilePaths = new ArrayList();
+        List<String> preSignedUrls = new ArrayList();
+        for (String file : dto.getImageUrls()) {
+            String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd/"));
+            String fileName = date + UUID.randomUUID() + "_" + file;
+            String preSignedUrl = preSignedCloudImageService.upload(fileName, "image/png");
+            preSignedUrls.add(preSignedUrl);
+            uploadFilePaths.add(fileName);
         }
-        return "/" + date;
+        // 이미지 저장 정보를 DB에 저장
+        create(uploadFilePaths, storeReview);
+
+        return StoreReviewDto.ReviewRes.of(storeReview,preSignedUrls);
     }
 
-    public List<String> upload(MultipartFile[] files, StoreReview storeReview) {
-        List<String> uploadFilePaths = new ArrayList<>();
-        String uploadPath = makeDir();
 
-        for (MultipartFile file : files) {
-            String originalFilename = file.getOriginalFilename();
-            String fileName = UUID.randomUUID().toString() + "_" + originalFilename;
-            String fullPath = uploadPath + "/" + fileName;
-            uploadFilePaths.add(fullPath);
-
-            File uploadFile = new File(defaultUploadPath + fullPath);
-            try {
-                file.transferTo(uploadFile);
-            } catch (IOException e) {
-                throw new RuntimeException("파일 저장 실패", e);
-            }
-
-            storeReviewImageRepository.save(StoreReviewImage.builder()
-                    .url(fullPath)
-                    .storeReview(storeReview)
-                    .build());
+    public void create(List<String> uploadFilePaths, StoreReview storeReview) {
+        for(String uploadFilePath: uploadFilePaths) {
+            storeReviewImageRepository.save(
+                    StoreReviewImage.builder()
+                            .url(uploadFilePath)
+                            .storeReview(storeReview)
+                            .build())
+            ;
         }
-        return uploadFilePaths;
     }
 }

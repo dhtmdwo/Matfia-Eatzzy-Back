@@ -14,6 +14,7 @@ import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,11 @@ public class ProductReviews {
     private int starPoint;
     private String content;
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")

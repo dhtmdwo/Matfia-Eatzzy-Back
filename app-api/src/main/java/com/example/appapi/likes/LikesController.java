@@ -2,6 +2,8 @@ package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.LikesDto;
 import com.example.appapi.users.model.Users;
+import com.example.common.BaseResponse;
+import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +18,29 @@ import java.util.List;
 public class LikesController {
     private final LikesService likesService;
 
-    @Operation(summary = "좋아요 한 식당 보기(클라이언트)")
+    @Operation(summary = "좋아요 한 식당 보기 (CLIENT)")
     @GetMapping("/mypage/store")
-    public ResponseEntity<List<LikesDto.StoreLikesResponse>> storeList(@AuthenticationPrincipal Users users) {
+    public ResponseEntity<BaseResponse<List<LikesDto.StoreLikesResponse>>> storeList(@AuthenticationPrincipal Users users) {
         Long idx = users.getIdx();
         List<LikesDto.StoreLikesResponse> responseList = likesService.storeList(idx);
-        return ResponseEntity.ok(responseList);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS,responseList));
     } // 마이페이지 클라이언트 좋아요 한 식당 내역 보기
 
-    @Operation(summary = "식당 좋아요, 좋아요 취소(클라이언트)")
+    @Operation(summary = "식당 좋아요, 식당 좋아요 취소하기 (CLIENT)")
     @GetMapping("/mypage/deletestore/{storeIdx}")
-    public ResponseEntity<String> deleteLikes(@AuthenticationPrincipal Users users, @PathVariable Long storeIdx) {
+    public ResponseEntity<BaseResponse<String>> deleteLikes(@AuthenticationPrincipal Users users, @PathVariable Long storeIdx) {
         Long userIdx = users.getIdx();
         likesService.deleteLikes(userIdx, storeIdx);
-        return ResponseEntity.ok("작업 완료");
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS,"작업 완료"));
     } // 마이페이지 클라이언트 식당 좋아요 삭제
+
+
+    @Operation(summary = "식당 좋아요 개수 세기")
+    @GetMapping("/mypage/count/{storeIdx}")
+    public ResponseEntity<BaseResponse<Long>> countLikes(@PathVariable Long storeIdx) {
+        Long count = likesService.countLikes(storeIdx);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS,count));
+    } // 마이페이지 클라이언트 식당 좋아요 삭제
+
+
 }

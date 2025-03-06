@@ -41,7 +41,7 @@ public class ProductsService {
         // 이미지 저장 정보를 DB에 저장
         productsImagesService.create(uploadFilePaths, product);
 
-        ProductsDto.ProductRes response =  ProductsDto.ProductRes.of(product);
+        ProductsDto.ProductRes response =  ProductsDto.ProductRes.fromEntity(product);
         response.setImageUrls(preSignedUrls);
 
         return response;
