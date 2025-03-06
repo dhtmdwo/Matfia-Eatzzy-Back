@@ -36,11 +36,7 @@ public class StoreReviewController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/read/{reviewIdx}")
-    public ResponseEntity<StoreReviewDto.ReviewRes> read(@PathVariable Long reviewIdx) {
-        StoreReviewDto.ReviewRes response = storeReviewService.get(reviewIdx);
-        return ResponseEntity.ok(response);
-    }
+
     @Operation(summary = "작성한 식당 리뷰 보기(클라이언트)")
     @GetMapping("/mypage/store")
     public ResponseEntity<List<StoreReviewDto.StoreReivewResponse>> storeList(@RequestParam("idx") Long idx) {
