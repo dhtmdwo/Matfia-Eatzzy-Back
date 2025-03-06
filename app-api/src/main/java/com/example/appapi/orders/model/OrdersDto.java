@@ -157,4 +157,18 @@ public class OrdersDto {
                     .build();
         }
     } // 마이페이지 클라이언트 주문 목록
+
+    @Getter
+    @Builder
+    public static class OrdersRegisterResponse {
+        private Long idx;
+        private String message;
+
+        public static OrdersRegisterResponse from(Orders order) {
+            return OrdersRegisterResponse.builder()
+                    .idx(order.getIdx())
+                    .message(order.getMessage())
+                    .build();
+        }
+    }
 }

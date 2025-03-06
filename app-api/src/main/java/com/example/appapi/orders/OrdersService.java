@@ -21,19 +21,11 @@ import java.util.stream.Collectors;
 public class OrdersService {
     private final OrdersRepository ordersRepository;
     @Transactional
-    public void register(Long idx, OrdersDto.OrdersRegister dto) {
+    public OrdersDto.OrdersRegisterResponse register(Long idx, OrdersDto.OrdersRegister dto) {
         ordersRepository.updateOrderMessageAndStatus(idx, dto.getMessage());
+        Orders order = ordersRepository.findByIdx(idx);
+        return OrdersDto.OrdersRegisterResponse.from(order);
     }
-
-//    public List<OrdersDto.ListResponse> getList() {
-//        List<Orders> dto = ordersRepository.findAll();
-//        return dto.stream().map(OrdersDto.ListResponse::from).collect(Collectors.toList());
-//    }
-//
-//    public OrdersDto.ReadResponse getRead(Long idx) {
-//        Orders dto = ordersRepository.findByIdx(idx);
-//        return OrdersDto.ReadResponse.from(dto);
-//    }
 
     public List<OrdersDto.OrdersResponse> getOrderList(Long userIdx) {
         List<Orders> ordersList = ordersRepository.findAllWithOrderProductsAndProducts(userIdx);
