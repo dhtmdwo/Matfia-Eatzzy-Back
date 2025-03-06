@@ -1,9 +1,9 @@
 package com.example.appapi.users;
 
 import com.example.appapi.handler.OAuth2SuccessHandler;
-import com.example.appapi.users.model.Users;
 import com.example.appapi.users.model.UsersDto;
 import com.example.appapi.utils.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,10 +24,10 @@ import java.util.Map;
 @RequestMapping("/app/users")
 public class UsersController {
     private final UsersService usersService;
-    private final UsersRepository usersRepository;
     private final KakaoService kakaoService;
 
     @PostMapping("/signup")
+    @Operation(summary = "회원 가입")
     public ResponseEntity<?> signup(@Valid @RequestBody UsersDto.SignupRequest dto, BindingResult bindingResult) {
         /* 유효성 검사 실패 시 에러 메시지 처리 */
         if (bindingResult.hasErrors()) {
@@ -43,6 +43,7 @@ public class UsersController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "회원 정보 조회")
     @GetMapping("/info/{userIdx}")
     public ResponseEntity<UsersDto.UserResponse> info(@PathVariable Long userIdx) {
         UsersDto.UserResponse response = usersService.read(userIdx);
@@ -50,6 +51,7 @@ public class UsersController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "회원 리스트 조회")
     @GetMapping("/list")
     public ResponseEntity<List<UsersDto.UserResponse>> list() {
         List<UsersDto.UserResponse> response = usersService.getList();
@@ -85,39 +87,24 @@ public class UsersController {
     @GetMapping("/kakao/code")
     protected void code(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
-        String kakaoId = null;
-        kakaoId = kakaoService.kakaoLogin(code);
+
+        if (code == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Authorization code is missing.");
+            return;
+        }
 
         try {
-            if(kakaoId != null) {
-                // 로그인 처리
-                try {
-                    // 사용자 회원 여부 확인
-                    boolean isUser = usersRepository.existsByUserId(kakaoId);
+            String kakaoId = kakaoService.kakaoLogin(code);
 
-                    Users user = new Users();
-                    if (isUser == false) {
-                        // 사용자 회원 가입 처리
-                        user.setUserId("kakao" + kakaoId);
-                        user.setPassword("kakao@" + kakaoId);
-                        usersRepository.save(user);
-                    }
-
-                    // JWT 발급
-                    //String token = JwtUtil.generateToken("kakao" + kakaoId);
-
-                    // JWT 반환
-//                    oAuth2SuccessHandler.onAuthenticationSuccess(request, response, token);
-
-                } catch (Exception e) {
-                    System.out.println("실패");
-                }
+            if (kakaoId != null) {
+                OAuth2SuccessHandler.onAuthenticationSuccess(request, response, kakaoId);
             } else {
-                System.out.println("실패");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Kakao login failed.");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred during login.");
         }
     }
+
 }

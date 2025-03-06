@@ -23,14 +23,15 @@ public class KakaoService {
             if (usersRepository.existsByUserId("kakao"+userKakaoId)) {
                 return userKakaoId;
             } else {
-                UsersDto.SignupRequest dto = new UsersDto.SignupRequest();
-                dto.setUserId("kakao"+userKakaoId);
-                dto.setUserType(CLIENT);
-                dto.setName(userInfo.split("\"nickname\":\"")[1].split("\"")[0]);
-                Users user = usersRepository.save(dto.toEntity(passwordEncoder.encode("kakao@"+userKakaoId)));
-                UsersDto.SignupResponse.from(user);
+                Users user = new Users();
 
-                String kakaoId = UsersDto.SignupResponse.from(user).getUserId();
+                user.setUserId("kakao"+userKakaoId);
+                user.setUserType(CLIENT);
+                user.setName(userInfo.split("\"nickname\":\"")[1].split("\"")[0]);
+                user.setPassword(passwordEncoder.encode("kakao@" + userKakaoId));
+                usersRepository.save(user);
+
+                String kakaoId = "kakao"+userKakaoId;
                 if(usersRepository.existsByUserId(kakaoId)) {
                     return userKakaoId;
                 } else {
