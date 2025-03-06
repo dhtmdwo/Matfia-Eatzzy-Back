@@ -1,6 +1,5 @@
 package com.example.resv.resv;
 
-import com.example.appapi.reservation.model.Reservation;
 import com.example.resv.resv.model.Resv;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

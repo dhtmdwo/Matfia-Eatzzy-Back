@@ -39,7 +39,7 @@ public class ProductReviewController {
     @Operation(summary = "상품 리뷰 등록", description = "상품의 리뷰를 등록하는 기능입니다.")
     @PostMapping("/register")
     public ResponseEntity<String> registerReview(@RequestBody ProductReviewsDto.RegisterRequest request, @AuthenticationPrincipal Users users) {
-        productReviewsService.save(request,users);
+        //productReviewsService.save(request,users);
         return ResponseEntity.ok("ok");
     }
 

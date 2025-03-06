@@ -1,7 +1,6 @@
 package com.example.appapi.orders;
 
 import com.example.appapi.orders.model.OrdersDto;
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.users.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,6 @@ package com.example.appapi.store.model;
 
 import com.example.appapi.category.model.Category;
 import com.example.appapi.likes.model.Likes;
-import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.images.model.StoreImages;
 import com.example.appapi.store.review.model.StoreReview;
 import com.example.appapi.users.model.Users;
@@ -42,8 +41,8 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<StoreClosedDay> closedDayList = new ArrayList<>();  // store_closed_days (FK)
 
-    @OneToMany
-    private List<Reservation> reservationList = new ArrayList<>();
+    //@OneToMany
+    //private List<Resv> reservationList = new ArrayList<>();
 
     @OneToMany
     private List<Likes> likesList = new ArrayList<>();
