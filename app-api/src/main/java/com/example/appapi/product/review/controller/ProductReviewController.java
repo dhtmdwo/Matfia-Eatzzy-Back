@@ -36,13 +36,6 @@ public class ProductReviewController {
     } // 마이페이지 클라이언트 상품 리뷰 삭제
 
 
-    @Operation(summary = "상품 리뷰 등록", description = "상품의 리뷰를 등록하는 기능입니다.")
-    @PostMapping("/register")
-    public ResponseEntity<String> registerReview(@RequestBody ProductReviewsDto.RegisterRequest request, @AuthenticationPrincipal Users users) {
-        productReviewsService.save(request,users);
-        return ResponseEntity.ok("ok");
-    }
-
     @Operation(summary = "상품 리뷰 작성하기(클라이언트)")
     @PostMapping("/create")
     public ResponseEntity<ProductReviewsDto.ReviewRes> create(
