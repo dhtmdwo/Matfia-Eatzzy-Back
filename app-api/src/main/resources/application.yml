@@ -5,14 +5,14 @@ project:
 server:
   port: 8081
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8001/eureka/
-    register-with-eureka: true
-    fetch-registry: true
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    service-url:
+#      defaultZone: http://15.:8001/eureka/
+#    register-with-eureka: true
+#    fetch-registry: true
 
 springdoc:
   api-docs:
@@ -45,6 +45,9 @@ spring:
         static: ${AWS_REGION} # AWS_REGION 환경 변수 사용
       s3:
         bucket: eatzzy
+eureka:
+  client:
+    enabled: false
 
 logging:
   level:

@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SwaggerConfig {
+public class ResvSwaggerConfig {
     @Bean
-    public OpenAPI openAPI() {
+    public OpenAPI ResvOpenAPI() {
         return new OpenAPI()
                 .components(new Components())
                 .info(apiInfo());
@@ -18,8 +18,7 @@ public class SwaggerConfig {
     private Info apiInfo() {
         return new Info()
                 .title("Eatzzy 식당 예약 API 명세서")
-                .description("식당 예약 관련 API 명세서 페이지입니다.<br><br>" +
-                        "<a href='http://localhost:8080/app/swagger-ui/index.html#/'>Eatzzy API 명세서 페이지 바로가기</a>")
+                .description("식당 예약 관련 API 명세서 페이지입니다.<br><br>")
                 .version("1.0.0");
     }
 }

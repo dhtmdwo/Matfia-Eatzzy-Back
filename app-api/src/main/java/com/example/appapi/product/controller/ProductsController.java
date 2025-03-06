@@ -16,7 +16,7 @@ import java.util.List;
 
 @Tag(name = "상품 기능")
 @RestController
-@RequestMapping("/app/products")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductsService productsService;
@@ -44,4 +44,12 @@ public class ProductsController {
     public ResponseEntity<BaseResponse<List<ProductReviewsDto.InfoResponse>>> getProductReviews(@PathVariable Long id) {
         return ResponseEntity.ok(new BaseResponse(productsService.getProductReviews(id)));
     }
+
+    @Operation(summary = "상품 카테고리 조회", description = "카테고리로 상품을 조회하는 기능")
+    @GetMapping("/{categoryIdx}/list")
+    public ResponseEntity<BaseResponse<List<ProductsDto.InfoResponse>>> getProductsWithCategory(@PathVariable Long categoryIdx) {
+//        return ResponseEntity.ok(new BaseResponse(productsService.listWithCategory(categoryIdx)));
+        return null;
+    }
+
 }

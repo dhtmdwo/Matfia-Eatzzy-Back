@@ -1,5 +1,6 @@
 package com.example.appapi.product.model;
 
+import com.example.appapi.product.review.model.ProductReviews;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -96,8 +97,13 @@ public class ProductsDto {
                     .productName(products.getName())
                     .image(products.getImages().get(0).getImagePath())
                     .price(products.getPrice())
-                    .reviewCnt(products.getReviewCount())
-                    .starPoint(products.getStarPoint())
+                    //반정규화 전
+                    .reviewCnt(products.getReviews().size())
+                    .starPoint(products.getReviews().stream()
+                            .mapToInt(ProductReviews::getStarPoint)
+                            .average()
+                            .orElse(0.0))
+                    //반정규화 전
                     .description(products.getDescription())
                     .build();
         }
@@ -119,7 +125,7 @@ public class ProductsDto {
         @Schema(description = "상품 이미지 URL들의 리스트")
         private List<String> imageUrls;
 
-        public static ProductRes of(Products entity) {
+        public static ProductRes fromEntity(Products entity) {
             return ProductRes.builder()
                     .idx(entity.getIdx())
                     .name(entity.getName())
