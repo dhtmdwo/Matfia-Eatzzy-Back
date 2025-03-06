@@ -16,15 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products/reviews")
+@RequestMapping("/app/products/reviews")
 @RequiredArgsConstructor
 public class ProductReviewController {
     private final ProductReviewsService productReviewsService;
 
     @Operation(summary = "작성한 상품 리뷰 보기(클라이언트)")
     @GetMapping("/mypage/store")
-    public ResponseEntity<List<ProductReviewsDto.ProductReivewResponse>> storeList(@RequestParam("idx") Long idx) {
-        List<ProductReviewsDto.ProductReivewResponse> responseList = productReviewsService.productList(idx);
+    public ResponseEntity<List<ProductReviewsDto.ProductReviewResponse>> storeList
+            (@AuthenticationPrincipal Users user)
+    {
+        List<ProductReviewsDto.ProductReviewResponse> responseList = productReviewsService.productList(user.getIdx());
         return ResponseEntity.ok(responseList);
     } // 마이페이지 클라이언트 식당 리뷰 보기
 
@@ -35,21 +37,21 @@ public class ProductReviewController {
         return ResponseEntity.ok("삭제 완료");
     } // 마이페이지 클라이언트 상품 리뷰 삭제
 
-
-    @Operation(summary = "상품 리뷰 등록", description = "상품의 리뷰를 등록하는 기능입니다.")
-    @PostMapping("/register")
-    public ResponseEntity<String> registerReview(@RequestBody ProductReviewsDto.RegisterRequest request, @AuthenticationPrincipal Users users) {
-        //productReviewsService.save(request,users);
-        return ResponseEntity.ok("ok");
-    }
-
     @Operation(summary = "상품 리뷰 작성하기(클라이언트)")
     @PostMapping("/create")
     public ResponseEntity<ProductReviewsDto.ReviewRes> create(
-            @RequestBody ProductReviewsDto.CreateReq dto) {
-        ProductReviewsDto.ReviewRes response = productReviewsService.create(dto);
+            @RequestBody ProductReviewsDto.CreateReq dto,
+            @AuthenticationPrincipal Users user) {
+        ProductReviewsDto.ReviewRes response = productReviewsService.create(dto, user);
         return ResponseEntity.ok(response);
     } // 상품 리뷰 작성하기
-    
 
+    @Operation(summary = "작성 가능한 리뷰(클라이언트)")
+    @GetMapping("/reviewable")
+    public ResponseEntity<List<ProductReviewsDto.ReviewablesResponse>> getReviewables
+            (@AuthenticationPrincipal Users user)
+    {
+        List<ProductReviewsDto.ReviewablesResponse> resp = productReviewsService.getReviewables(user.getIdx());
+        return ResponseEntity.ok(resp);
+    }
 }

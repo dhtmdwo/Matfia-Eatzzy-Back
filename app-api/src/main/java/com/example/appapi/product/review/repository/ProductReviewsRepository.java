@@ -1,6 +1,7 @@
 package com.example.appapi.product.review.repository;
 
 import com.example.appapi.product.review.model.ProductReviews;
+import com.example.appapi.product.review.model.ProductReviewsDto;
 import com.example.appapi.store.review.model.StoreReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,10 @@ public interface ProductReviewsRepository extends JpaRepository<ProductReviews, 
 
     @Query("SELECT DISTINCT r FROM ProductReviews r " +
             "LEFT JOIN FETCH r.images s " +
-            "WHERE r.user.idx = :userId")
-    List<ProductReviews> findReviewBy(@Param("userId") Long userId); //내가 작성한 상품 리뷰 보기
+            "JOIN r.orderProducts op " +
+            "WHERE r.user.idx = :userIdx " +
+            "AND op.reviewStatus = 'Reviewed'")
+    List<ProductReviews> findReviewByUserIdx(@Param("userIdx") Long userIdx); //내가 작성한 상품 리뷰 보기
+
+
 }
