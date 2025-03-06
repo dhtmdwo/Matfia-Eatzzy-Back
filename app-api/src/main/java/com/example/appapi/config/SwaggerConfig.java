@@ -76,15 +76,13 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .components(new Components())
-                .servers(List.of(new Server().url("http://localhost:8080")))
                 .info(apiInfo());
     }
 
     private Info apiInfo() {
         return new Info()
                 .title("Eatzzy API 명세서")
-                .description("Eatzzy API 명세서 페이지입니다.<br><br>" +
-                        "<a href='http://localhost:8080/resv/swagger-ui/index.html#/'>식당 예약 API 명세서 페이지 바로가기</a>")
+                .description("Eatzzy API 명세서 페이지입니다.<br><br>")
                 .version("1.0.0");
     }
 }
