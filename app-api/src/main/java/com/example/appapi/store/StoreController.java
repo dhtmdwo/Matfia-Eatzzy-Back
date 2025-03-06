@@ -5,6 +5,7 @@ import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import com.example.common.exception.BaseException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,7 +49,7 @@ public class StoreController {
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
     }
 
-    // 내 식당 조회(Mypage)
+    @Operation(summary = "Seller 마이페이지 내 식당보기", description = "마이페이지에서 내 식당 목록 보기")
     @GetMapping("/mypage/storelist")
     public ResponseEntity<BaseResponse<StoreDto.MyStoreResponseDto>> getMyStoreList(
             @AuthenticationPrincipal Users user
