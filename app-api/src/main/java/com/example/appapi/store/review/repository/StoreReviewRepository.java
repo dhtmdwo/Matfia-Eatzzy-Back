@@ -1,6 +1,5 @@
 package com.example.appapi.store.review.repository;
 
-import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.review.model.StoreReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,7 +1,6 @@
 package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.Likes;
-import com.example.appapi.reservation.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

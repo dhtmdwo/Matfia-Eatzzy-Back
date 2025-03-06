@@ -1,6 +1,5 @@
 package com.example.resv.resv;
 
-import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.users.model.Users;
 import com.example.resv.resv.model.ResvDto;
 import io.swagger.v3.oas.annotations.Operation;

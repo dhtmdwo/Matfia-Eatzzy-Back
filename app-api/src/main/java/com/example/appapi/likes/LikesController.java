@@ -1,7 +1,6 @@
 package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.LikesDto;
-import com.example.appapi.reservation.model.ReservationDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
