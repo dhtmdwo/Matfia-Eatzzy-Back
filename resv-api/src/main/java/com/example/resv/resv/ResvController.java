@@ -23,17 +23,18 @@ public class ResvController {
         return ResponseEntity.ok(resv);
     }
 
-    @Operation(summary = "예약한 식당 내역 보기(클라이언트)")
+    @Operation(summary = "예약한 식당 내역 보기(클라이언트)", description = "고객이 자신이 예약한 식당 내역을 보는 기능")
     @GetMapping("/mypage/store")
     public ResponseEntity<List<ResvDto.StoreRezResponse>> storeList(@RequestParam("idx") Long idx) {
         List<ResvDto.StoreRezResponse> responseList = resvService.storeList(idx);
         return ResponseEntity.ok(responseList);
     } // 마이페이지 클라이언트 예약한 식당 내역 보기
 
-    @Operation(summary = "예약 취소하기(클라이언트)")
-    @GetMapping("/mypage/deletestore")
-    public ResponseEntity<String> deleteReservation(@RequestParam("idx") Long idx) {
-        resvService.deleteReservation(idx);
+    @Operation(summary = "예약 취소하기(클라이언트)", description = "고객이 자신의 예약을 취소하는 기능")
+    @PostMapping("/mypage/deletestore")
+    public ResponseEntity<String> deleteReservation(@AuthenticationPrincipal Users user, @RequestBody Long store_idx) {
+        Long userIdx = user.getIdx();
+        resvService.deleteReservation(store_idx);
         return ResponseEntity.ok("삭제 완료");
     } // 마이페이지 클라이언트 예약 취소
 

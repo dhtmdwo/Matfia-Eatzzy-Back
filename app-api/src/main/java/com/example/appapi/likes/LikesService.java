@@ -2,32 +2,25 @@ package com.example.appapi.likes;
 
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.likes.model.LikesDto;
+import com.example.appapi.store.StoreRepository;
 import com.example.appapi.store.model.Store;
+import com.example.appapi.users.UsersRepository;
+import com.example.appapi.users.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class LikesService {
     private final LikesRepository likesRepository;
-    public void register(LikesDto.LikeRegister dto) {
-        Likes like = likesRepository.save(dto.toEntity());
-    }
-
-    public List<LikesDto.LikesResponse> list() {
-        List<Likes> likesList = likesRepository.findAll();
-
-        return likesList.stream().map(LikesDto.LikesResponse::from).collect(Collectors.toList());
-    }
-
-    public LikesDto.LikesResponse read(Long LlkesIdx) {
-        Likes Likes = likesRepository.findById(LlkesIdx).orElseThrow();
-        return LikesDto.LikesResponse.from(Likes);
-    }
+    private final UsersRepository usersRepository;
+    private final StoreRepository storeRepository;
 
     public List<LikesDto.StoreLikesResponse> storeList(Long idx) {
         List<Likes> likes = likesRepository.findLikesByUserId(idx);
@@ -43,13 +36,23 @@ public class LikesService {
         return responseList;
     } // 마이페이지 좋아요 한 식당 내역 보기
 
-    public void deleteLikes(Long idx) {
-        likesRepository.findById(idx).ifPresentOrElse(
+    public void deleteLikes(Long userIdx, Long storeIdx) {
+
+        Optional<Likes> likes = likesRepository.findLikesByUserIdANDStoreId(userIdx,storeIdx);
+
+        likes.ifPresentOrElse(
                 likesRepository::delete,
                 () -> {
-                    throw new IllegalArgumentException("해당 식당이 존재하지 않습니다");
+                    Users user = usersRepository.findById(userIdx)
+                            .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+                    Store store = storeRepository.findById(storeIdx)
+                            .orElseThrow(() -> new IllegalArgumentException("가게를 찾을 수 없습니다."));
+
+                    Likes newLike = LikesDto.LikeRegister.toEntity(user, store);
+                    likesRepository.save(newLike);
                 }
-        );// idx 값으로 검색후 있으면 삭제 없으면 예외처리
+        );
+
     } // 마이페이지 클라이언트 식당 좋아요 삭제
     
     
