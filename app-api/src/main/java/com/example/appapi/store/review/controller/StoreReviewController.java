@@ -6,6 +6,7 @@ import com.example.appapi.users.model.Users;
 import com.example.common.BaseResponse;
 import com.example.common.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,13 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Tag(name="식당 리뷰 관련 기능")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/app/review")
 public class StoreReviewController {
     private final StoreReviewService storeReviewService;
 
-    @Operation(summary = "리뷰 작성하기(클라이언트)", description = "마이 페이지에서 리뷰를 작성하는 기능")
+    @Operation(summary = "리뷰 작성하기 (CLIENT)", description = "마이 페이지에서 리뷰를 작성하는 기능")
     @PostMapping("/create")
     public ResponseEntity<StoreReviewDto.ReviewRes> create(
             @RequestBody StoreReviewDto.CreateReq dto,

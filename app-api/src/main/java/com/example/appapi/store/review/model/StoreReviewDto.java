@@ -1,6 +1,7 @@
 package com.example.appapi.store.review.model;
 
 import com.example.appapi.store.model.Store;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,16 @@ public class StoreReviewDto {
 
     @Getter
     public static class CreateReq {
+        @Schema(description = "리뷰 제목", example = "너무 맛있어요")
         private String title;
+        @Schema(description = "리뷰 내용", example = "오늘로 세번째 시켜 먹어봐요. 너무 맛있습니다.")
         private String contents;
+        @Schema(description = "별점", example = "5")
         private int starPoint;
         private LocalDateTime createdAt;
+        @Schema(description = "상점 idx 값", example = "2")
         private Long storeIdx;
+        @Schema(description = "이미지 링크", example = "[\"C:\\\\upload\\\\test01.png\", \"C:\\\\upload\\\\test02.png\"]")
         private List<String> imageUrls;
 
         public StoreReview toEntity(Store store) {

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "ProductReviewsImagesService API", description = "상품 리뷰 이미지 관련 API")
 @RequiredArgsConstructor
 @Service
 public class ProductReviewsImagesService {
