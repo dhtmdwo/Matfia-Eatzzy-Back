@@ -4,6 +4,7 @@ import com.example.appapi.category.model.Category;
 import com.example.appapi.likes.model.Likes;
 import com.example.appapi.reservation.model.Reservation;
 import com.example.appapi.store.images.model.StoreImages;
+import com.example.appapi.store.review.model.StoreReview;
 import com.example.appapi.users.model.Users;
 import jakarta.persistence.*;
 import lombok.*;
@@ -47,7 +48,7 @@ public class Store {
     @OneToMany
     private List<Likes> likesList = new ArrayList<>();
 
-    @BatchSize(size = 6)
+    @BatchSize(size = 4)
     @OneToMany(mappedBy = "store")
     private List<StoreImages> images;
 
@@ -60,4 +61,6 @@ public class Store {
     @JoinColumn(name = "category_idx")
     private Category category;  // category_idx (FK)
 
+    @OneToMany(mappedBy = "store")
+    private List<StoreReview> storeReviewList;
 }

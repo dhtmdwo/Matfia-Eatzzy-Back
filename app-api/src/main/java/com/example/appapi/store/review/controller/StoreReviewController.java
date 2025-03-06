@@ -3,6 +3,7 @@ package com.example.appapi.store.review.controller;
 import com.example.appapi.reservation.model.ReservationDto;
 import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.service.StoreReviewService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +40,14 @@ public class StoreReviewController {
         StoreReviewDto.ReviewRes response = storeReviewService.get(reviewIdx);
         return ResponseEntity.ok(response);
     }
+    @Operation(summary = "작성한 식당 리뷰 보기(클라이언트)")
     @GetMapping("/mypage/store")
     public ResponseEntity<List<StoreReviewDto.StoreReivewResponse>> storeList(@RequestParam("idx") Long idx) {
         List<StoreReviewDto.StoreReivewResponse> responseList = storeReviewService.storeList(idx);
         return ResponseEntity.ok(responseList);
     } // 마이페이지 클라이언트 식당 리뷰 보기
 
+    @Operation(summary = "식당 리뷰 삭제하기(클라이언트)")
     @GetMapping("/mypage/storedelete")
     public ResponseEntity<String> deleteLikes(@RequestParam("idx") Long idx) {
         storeReviewService.deleteReview(idx);

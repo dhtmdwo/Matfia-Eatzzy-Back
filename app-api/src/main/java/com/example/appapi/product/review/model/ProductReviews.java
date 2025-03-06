@@ -22,7 +22,6 @@ public class ProductReviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-
     private String title;
     private int starPoint;
     private String content;
