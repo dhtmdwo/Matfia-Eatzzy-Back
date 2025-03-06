@@ -1,16 +1,20 @@
 package com.example.resv.resv.model;
 
 import com.example.appapi.store.model.Store;
+import com.example.appapi.store.model.StoreDto;
 import com.example.appapi.users.model.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResvDto {
 
@@ -102,6 +106,41 @@ public class ResvDto {
                     .time(String.valueOf(resv.getTime()))
                     .date(String.valueOf(resv.getDate()))
                     .headCount(resv.getHeadCount())
+                    .build();
+        }
+    }
+
+
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ResvPageResponseDto {
+        @Schema(description = "페이지 번호", example = "0")
+        private int page;
+        @Schema(description = "한 페이지 당 데이터 개수", example = "10")
+        private int size;
+        @Schema(description = "총 데이터 개수", example = "13")
+        private long totalElements;
+        @Schema(description = "총 페이지 개수", example = "2")
+        private int totalPages;
+        @Schema(description = "다음 페이지 여부", example = "true")
+        private boolean hasNext;
+        @Schema(description = "이전 페이지 여부", example = "false")
+        private boolean hasPrevious;
+
+        private List<ResvResponse> reservations;
+
+        public static ResvPageResponseDto from(Page<Resv> resvPage) {
+            return ResvPageResponseDto.builder()
+                    .page(resvPage.getNumber())
+                    .size(resvPage.getSize())
+                    .totalElements(resvPage.getTotalElements())
+                    .totalPages(resvPage.getTotalPages())
+                    .hasNext(resvPage.hasNext())
+                    .hasPrevious(resvPage.hasPrevious())
+                    .reservations(resvPage.stream().map(ResvResponse::from).collect(Collectors.toList()))
                     .build();
         }
     }
