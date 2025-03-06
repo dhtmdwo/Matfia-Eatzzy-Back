@@ -5,7 +5,19 @@ project:
 server:
   port: 8081
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+
 spring:
+  application:
+    name: app-api
   datasource:
     url: jdbc:mariadb://${DB_URL}
     driver-class-name: org.mariadb.jdbc.Driver
