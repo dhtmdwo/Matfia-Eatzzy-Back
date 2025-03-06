@@ -6,6 +6,7 @@ import com.example.appapi.store.review.model.StoreReview;
 import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.store.review.model.StoreReviewImage;
 import com.example.appapi.store.review.repository.StoreReviewRepository;
+import com.example.appapi.users.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,14 +21,14 @@ public class StoreReviewService {
     private final StoreReviewImageService storeReviewImageService;
     private final StoreRepository storeRepository;
 
-    public StoreReviewDto.ReviewRes create(StoreReviewDto.CreateReq dto, MultipartFile[] files) {
+    public StoreReviewDto.ReviewRes create(StoreReviewDto.CreateReq dto, Users user) {
         Store store = storeRepository.findById(dto.getStoreIdx()).orElseThrow();
 
         StoreReview storeReview = storeReviewRepository.save(dto.toEntity(store));
 
-        List<String> uploadFilePaths = storeReviewImageService.upload(files, storeReview);
+        //List<String> uploadFilePaths = storeReviewImageService.upload(files, storeReview);
 
-        return StoreReviewDto.ReviewRes.of(storeReview, uploadFilePaths);
+        return storeReviewImageService.preSigned(dto, storeReview);
     }
 
     public List<StoreReviewDto.ReviewRes> getList() {
@@ -42,8 +43,8 @@ public class StoreReviewService {
         return StoreReviewDto.ReviewRes.of(storeReview, storeReview.getStoreReviewImageList().stream().map(StoreReviewImage::getUrl).toList());
     }
 
-    public List<StoreReviewDto.StoreReivewResponse> storeList(Long idx) {
-        List<StoreReview> storeReviews = storeReviewRepository.findReviewBy(idx);
+    public List<StoreReviewDto.StoreReivewResponse> storeList(Long userIdx) {
+        List<StoreReview> storeReviews = storeReviewRepository.findReviewBy(userIdx);
 
         List<StoreReviewDto.StoreReivewResponse> responseList = new ArrayList<>();
 

@@ -20,4 +20,6 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
             "WHERE l.users.idx = :userId AND l.store.idx= :storeId")
     Optional<Likes> findLikesByUserIdANDStoreId(@Param("userId") Long userId, @Param("storeId") Long storeId);
 
+    @Query("SELECT COUNT(l) FROM Likes l WHERE l.store.idx = :storeId")
+    Long countLikesByStoreId(@Param("storeId") Long storeId);
 }
