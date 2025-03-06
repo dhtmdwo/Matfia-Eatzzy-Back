@@ -111,7 +111,8 @@ public class StoreDto {
                     .shortAddress(store.getShortAddress())
                     .allowed(store.getAllowed())
                     .categoryName(store.getCategory().getName())
-                    .closedDayList(store.getClosedDayList().stream().map(StoreDto.ClosedDayResponseDto::from).collect(Collectors.toList()))
+                    .closedDayList(store.getClosedDayList() == null ? null
+                            : store.getClosedDayList().stream().map(StoreDto.ClosedDayResponseDto::from).collect(Collectors.toList()))
                     .imagePaths(
                             store.getImages() == null ? List.of() : store.getImages().stream()
                                     .map(image -> image.getImagePath()).toList()
@@ -196,6 +197,7 @@ public class StoreDto {
         private LocalTime startTime;
         private LocalTime endTime;
         private String address;
+
         public static MyStoreResponseDto from(Store store) {
             String storeImageUrl = store.getImages().get(0).getImagePath();
 
