@@ -32,8 +32,10 @@ public class StoreController {
     @GetMapping("/list")
     public ResponseEntity<BaseResponse<StoreDto.StorePageResponseDto>> getStoreList(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        StoreDto.StorePageResponseDto response = storeService.list(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) Long categoryIdx) {
+        StoreDto.StorePageResponseDto response = storeService.list(page, size, sort, categoryIdx);
 
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, response));
     }

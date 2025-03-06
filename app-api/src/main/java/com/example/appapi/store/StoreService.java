@@ -33,6 +33,7 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final StoreClosedDayRepository storeClosedDayRepository;
     private final CategoryRepository categoryRepository;
+    private final StoreQueryRepository storeQueryRepository;
     private final StoreImagesService storeImagesService;
     private final PreSignedCloudImageService preSignedCloudImageService;
 
@@ -76,8 +77,8 @@ public class StoreService {
         return response;
     }
 
-    public StoreDto.StorePageResponseDto list(int page, int size) {
-        Page<Store> result = storeRepository.findByAllowed(AllowedStatus.YES, PageRequest.of(page, size));
+    public StoreDto.StorePageResponseDto list(int page, int size, String sort, Long categoryIdx) {
+        Page<Store> result = storeQueryRepository.search(page, size, sort, categoryIdx);
         return StoreDto.StorePageResponseDto.from(result);
     }
 
