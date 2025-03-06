@@ -67,22 +67,22 @@ public class ResvDto {
         private String storeImage;      // 식당 이미지 (이미지 테이블)
         private String storeAddress;    // 식당 주소
         private String storeName;       // 식당 이름
-        private String rezTime;         // 예약 시간 (예약 테이블)
-        private String rezDate;         // 예약 날짜 (예약 테이블)
-        private int rezCount;           // 예약 인원 (예약 테이블)
+        private String time;         // 예약 시간 (예약 테이블)
+        private String date;         // 예약 날짜 (예약 테이블)
+        private int headCount;           // 예약 인원 (예약 테이블)
 
         // 카테고리 안써서 뺏다
         public static StoreRezResponse from(Store store, Resv resv) {
-            String storeImageUrl = store.getImages().get(0).getImagePath();
+            String storeImageUrl = store.getImages().isEmpty() ? null : store.getImages().get(0).getImagePath();
 
             return StoreRezResponse.builder()
                     .idx(store.getIdx())
                     .storeImage(storeImageUrl)
                     .storeAddress(store.getAddress())
                     .storeName(store.getName())
-                    .rezTime(String.valueOf(resv.getTime()))
-                    .rezDate(String.valueOf(resv.getDate()))
-                    .rezCount(resv.getHeadCount())
+                    .time(String.valueOf(resv.getTime()))
+                    .date(String.valueOf(resv.getDate()))
+                    .headCount(resv.getHeadCount())
                     .build();
         }
     }
