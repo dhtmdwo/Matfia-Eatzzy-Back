@@ -16,7 +16,7 @@ import java.util.List;
 
 @Tag(name = "상품 기능")
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/app/products")
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductsService productsService;

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/app/payment")
 public class PaymentController {
     private final PaymentService paymentService;
     @PostMapping("/register")
