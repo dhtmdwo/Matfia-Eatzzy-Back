@@ -1,7 +1,19 @@
 server:
   port: 8082
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+
 spring:
+  application:
+    name: resv-api
   datasource:
     url: jdbc:mariadb://${DB_URL}
     driver-class-name: org.mariadb.jdbc.Driver
