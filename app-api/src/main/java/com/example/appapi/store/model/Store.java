@@ -44,7 +44,7 @@ public class Store {
     //@OneToMany
     //private List<Resv> reservationList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "store")
     private List<Likes> likesList = new ArrayList<>();
 
     @BatchSize(size = 4)

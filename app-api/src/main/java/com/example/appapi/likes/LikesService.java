@@ -60,5 +60,18 @@ public class LikesService {
         return count;
     }
 
+    public List<LikesDto.StoreAllLikesResponse> countLikes() {
+        List<Store> storeList = storeRepository.findAll();
+        List<LikesDto.StoreAllLikesResponse> StoreAllLikesResponseList = new ArrayList<>();
+
+        for(Store store : storeList) {
+            LikesDto.StoreAllLikesResponse storeAllLikesResponse = LikesDto.StoreAllLikesResponse.from(store);
+            StoreAllLikesResponseList.add(storeAllLikesResponse);
+        }
+
+
+        return StoreAllLikesResponseList;
+    }
+
     
 }

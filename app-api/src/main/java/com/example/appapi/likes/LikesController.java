@@ -44,5 +44,11 @@ public class LikesController {
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS,count));
     } // 마이페이지 클라이언트 식당 좋아요 삭제
 
+    @Operation(summary = "전체 식당별 좋아요 개수 세기")
+    @GetMapping("/mypage/countall")
+    public ResponseEntity<BaseResponse<List<LikesDto.StoreAllLikesResponse>>> countLikes() {
+        List<LikesDto.StoreAllLikesResponse> ressponse = likesService.countLikes();
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS,ressponse));
+    } // 마이페이지 클라이언트 식당 좋아요 삭제
 
 }
