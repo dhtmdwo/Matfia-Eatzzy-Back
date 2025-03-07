@@ -1,12 +1,8 @@
 package com.example.appapi.product.review.model;
 
-import com.example.appapi.orderProducts.model.OrderProducts;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
 import com.example.appapi.product.model.Products;
-import com.example.appapi.store.model.Store;
-import com.example.appapi.product.model.ProductsDto;
 import com.example.appapi.product.review.images.model.ProductReviewImages;
-import com.example.appapi.store.review.model.StoreReview;
-import com.example.appapi.store.review.model.StoreReviewDto;
 import com.example.appapi.users.model.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

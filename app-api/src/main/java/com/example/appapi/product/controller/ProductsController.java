@@ -29,7 +29,7 @@ public class ProductsController {
 
     @Operation(summary = "상품 리스트 조회", description = "상품 리스트를 조회하는 기능입니다.")
     @GetMapping("/list")
-    public ResponseEntity<BaseResponse<List<ProductsDto.InfoResponse>>> getProducts() {
+        public ResponseEntity<BaseResponse<List<ProductsDto.InfoResponse>>> getProducts() {
         return ResponseEntity.ok(new BaseResponse(productsService.list()));
     }
 

@@ -20,7 +20,7 @@ public class MenusService {
     private final MenusRepository menusRepository;
     private final StoreRepository storeRepository;
     public MenusDto.MenusResponseDto create(Users user, MenusDto.CreateMenuRequestDto dto) {
-        Store store = storeRepository.findById(dto.getStoreIdx()).orElseThrow(); //-> new BaseException(BaseResponseStatus.MENU_REGIST_FAILED));
+        Store store = storeRepository.findByIdAndUserId(dto.getStoreIdx(), user.getIdx()).orElseThrow(); //-> new BaseException(BaseResponseStatus.MENU_REGIST_FAILED));
 
         Menus menu = menusRepository.save(dto.toEntity(store));
 

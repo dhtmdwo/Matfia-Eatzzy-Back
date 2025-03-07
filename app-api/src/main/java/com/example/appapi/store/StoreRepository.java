@@ -36,4 +36,9 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByCategory_Idx(Long categoryIdx);
   
     List<Store> findByCategory_ParentCategory_Idx(Long parentIdx);
+
+    @Query("SELECT s FROM Store s " +
+            "WHERE s.idx = :storeIdx " +
+            "AND s.user.idx = :userIdx")
+    Optional<Store> findByIdAndUserId(@Param("storeIdx") Long storeIdx, @Param("userIdx") Long userIdx);
 }

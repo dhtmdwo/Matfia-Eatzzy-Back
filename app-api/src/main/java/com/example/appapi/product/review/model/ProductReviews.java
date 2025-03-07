@@ -1,7 +1,6 @@
 package com.example.appapi.product.review.model;
 
-import com.example.appapi.orderProducts.model.OrderProducts;
-import com.example.appapi.orders.model.Orders;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
 import com.example.appapi.product.model.Products;
 import com.example.appapi.product.review.images.model.ProductReviewImages;
 import com.example.appapi.users.model.Users;
@@ -10,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -210,6 +210,8 @@ public class StoreDto {
     @Getter
     @Builder
     public static class MyStoreResponseDto {
+        @Schema(description = "식당 고유 번호", example = "1")
+        private Long idx;
         @Schema(description = "식당 이름", example = "모스키친")
         private String name;
         @Schema(description = "식당 설명", example = "신선한 재료와 정성을 담아 맛있는 한 끼를 제공하는 맛집입니다.")
@@ -231,6 +233,7 @@ public class StoreDto {
             String storeImageUrl = store.getImages().get(0).getImagePath();
 
             return MyStoreResponseDto.builder()
+                    .idx(store.getIdx())
                     .name(store.getName())
                     .description(store.getDescription())
                     .imagePath(storeImageUrl)

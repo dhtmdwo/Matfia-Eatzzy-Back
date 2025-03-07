@@ -1,6 +1,6 @@
 package com.example.appapi.orders.model;
 
-import com.example.appapi.orderProducts.model.OrderProductsDto;
+import com.example.appapi.orders.orderProducts.model.OrderProductsDto;
 import com.example.appapi.payment.model.Payment;
 import com.example.appapi.users.model.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
