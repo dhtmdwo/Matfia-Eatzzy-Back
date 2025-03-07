@@ -60,7 +60,7 @@ public class ProductReviewsService {
         productReviewsRepository.findById(idx).ifPresentOrElse(
                 productReviewsRepository::delete,
                 () -> {
-                    throw new IllegalArgumentException("해당 식당이 존재하지 않습니다");
+                    throw new IllegalArgumentException("해당리뷰가 존재하지 않습니다");
                 }
         );// idx 값으로 검색후 있으면 삭제 없으면 예외처리
     } // 마이페이지 클라이언트 상품 리뷰 삭제

@@ -43,4 +43,5 @@ public class StoreReview {
     @ManyToOne
     @JoinColumn(name = "users_idx")
     private Users users;
+
 }
