@@ -47,7 +47,7 @@ public class ProductsController {
 
     @Operation(summary = "상품 카테고리 조회", description = "카테고리로 상품을 조회하는 기능")
     @GetMapping("/{categoryIdx}/list")
-    public ResponseEntity<BaseResponse<List<ProductsDto.InfoResponse>>> getProductsWithCategory(int page, int size, String sort,@PathVariable Long categoryIdx) {
+    public ResponseEntity<BaseResponse<List<ProductsDto.InfoResponse>>> getProductsWithCategory(int page, int size, @RequestParam(required = false) String sort,@PathVariable Long categoryIdx) {
         return ResponseEntity.ok(new BaseResponse(productsService.listWithCategoryNPlusOne(page, size, sort, categoryIdx)));
     }
 

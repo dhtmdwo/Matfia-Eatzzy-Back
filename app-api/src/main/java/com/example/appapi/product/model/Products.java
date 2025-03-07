@@ -40,7 +40,7 @@ public class Products {
     @OneToMany(mappedBy = "products")
     private List<ProductsImages> images;
 
-    @BatchSize(size = 6)
+//    @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductReviews> reviews;
 

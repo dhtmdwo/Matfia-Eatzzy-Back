@@ -78,9 +78,9 @@ public class ProductsService {
             return Sort.by(Sort.Direction.DESC, "idx"); // 기본 정렬 (최신순)
         }
 
-        return switch (sort.toLowerCase()) {
-            case "reviewcount" -> Sort.by(Sort.Direction.DESC, "reviewCount");
-            case "starpoint" -> Sort.by(Sort.Direction.DESC, "starPoint");
+        return switch (sort) {
+            case "reviewCount" -> Sort.by(Sort.Direction.DESC, "reviewCount");
+            case "starPoint" -> Sort.by(Sort.Direction.DESC, "starPoint");
             default -> Sort.by(Sort.Direction.ASC, "idx"); // 기본 정렬 idx ASC
         };
     }

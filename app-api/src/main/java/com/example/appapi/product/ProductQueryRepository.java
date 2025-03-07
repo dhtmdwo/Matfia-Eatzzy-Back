@@ -71,7 +71,7 @@ public class ProductQueryRepository {
 
     // 정렬 처리
     private OrderSpecifier<?> getOrderSpecifier(String sort) {
-        PathBuilder<Store> pathBuilder = new PathBuilder<>(Store.class, "store");
+        PathBuilder<Products> pathBuilder = new PathBuilder<>(Products.class, "store");
 
         if (sort == null) {
             sort = "idx";
