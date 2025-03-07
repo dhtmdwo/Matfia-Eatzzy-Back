@@ -68,6 +68,7 @@ public class ProductsDto {
                     //반 정규화 적용 전
 //                    .reviewCnt(products.getReviewCount())
 //                    .starPoint(products.getStarPoint())
+                    //N + 1 문제 발생
                     .reviewCnt(products.getReviews().size())
                     .starPoint(products.getReviews().stream()
                             .mapToInt(ProductReviews::getStarPoint)
