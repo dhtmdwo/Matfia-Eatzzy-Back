@@ -28,9 +28,9 @@ public class OrdersController {
 
     @Operation(summary = "내 주문 보기", description = "내 주문 목록 보기")
     @GetMapping("/orderlist")   // 내 주문 보기
-    public ResponseEntity<List<OrdersDto.OrdersResponse>> orderList(@AuthenticationPrincipal Users user) {
+    public ResponseEntity<BaseResponse<OrdersDto.OrdersResponse>> orderList(@AuthenticationPrincipal Users user) {
         List<OrdersDto.OrdersResponse> resp = ordersService.getOrderList(user.getIdx());
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
     }
 
     @GetMapping("/mypage/orderlist")
@@ -44,13 +44,11 @@ public class OrdersController {
         OrdersDto.OrderMypageDetails response = ordersService.orderDetails(idx, orderIdx);
         return ResponseEntity.ok(response);
     } // 마이페이지 클라이언트 주문 상세 보기
-    
 
-
+    @Operation(summary = "주문 상세보기", description = "내 주문 상세 보기")
     @GetMapping("/{orderIdx}")  // 주문 상세보기
-    public ResponseEntity<OrdersDto.OrdersResponse> orderRead(@PathVariable Long orderIdx){
+    public ResponseEntity<BaseResponse<OrdersDto.OrdersResponse>> orderRead(@PathVariable Long orderIdx){
         OrdersDto.OrdersResponse resp = ordersService.getOrderRead(orderIdx);
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
     }
-
 }
