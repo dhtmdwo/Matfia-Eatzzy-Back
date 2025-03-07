@@ -1,7 +1,7 @@
 package com.example.appapi.product.review.service;
 
-import com.example.appapi.orderProducts.OrderProductsRepository;
-import com.example.appapi.orderProducts.model.OrderProducts;
+import com.example.appapi.orders.orderProducts.OrderProductsRepository;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
 import com.example.appapi.product.model.Products;
 import com.example.appapi.product.repository.ProductsRepository;
 import com.example.appapi.product.review.images.model.ProductReviewImages;

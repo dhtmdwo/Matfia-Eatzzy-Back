@@ -1,7 +1,6 @@
-package com.example.appapi.orderProducts;
+package com.example.appapi.orders.orderProducts;
 
-import com.example.appapi.orderProducts.model.OrderProducts;
-import com.example.appapi.product.review.model.ProductReviewsDto;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

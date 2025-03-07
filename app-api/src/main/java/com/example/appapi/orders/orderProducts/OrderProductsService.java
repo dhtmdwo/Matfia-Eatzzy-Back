@@ -1,7 +1,7 @@
-package com.example.appapi.orderProducts;
+package com.example.appapi.orders.orderProducts;
 
-import com.example.appapi.orderProducts.model.OrderProducts;
-import com.example.appapi.orderProducts.model.OrderProductsDto;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
+import com.example.appapi.orders.orderProducts.model.OrderProductsDto;
 import com.example.appapi.orders.OrdersRepository;
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.product.model.Products;

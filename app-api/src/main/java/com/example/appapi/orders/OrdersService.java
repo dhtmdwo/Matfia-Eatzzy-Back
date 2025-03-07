@@ -1,7 +1,7 @@
 package com.example.appapi.orders;
 
-import com.example.appapi.orderProducts.model.OrderProducts;
-import com.example.appapi.orderProducts.model.OrderProductsDto;
+import com.example.appapi.orders.orderProducts.model.OrderProducts;
+import com.example.appapi.orders.orderProducts.model.OrderProductsDto;
 import com.example.appapi.orders.model.Orders;
 import com.example.appapi.orders.model.OrdersDto;
 import com.example.appapi.payment.model.Payment;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
