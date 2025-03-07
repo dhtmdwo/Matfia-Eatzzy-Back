@@ -12,7 +12,9 @@ public class OrderProductsDto {
     @Builder
     @Getter
     public static class OrderProductResponse {
+        @Schema(description = "주문상품 고유번호", example = "1")
         private Long idx;
+        @Schema(description = "주문상품 갯수", example = "4")
         private int quantity;
         private ProductsResponse productsResponse;
 
@@ -27,7 +29,9 @@ public class OrderProductsDto {
     @Builder
     @Getter
     public static class ProductsResponse {
+        @Schema(description = "상품명", example = "김치찌개 밀키트")
         private String name;
+        @Schema(description = "상품 가격(원 단위)", example = "9900")
         private int price;
         public static ProductsResponse of(Products products) {
             return ProductsResponse.builder()
@@ -40,6 +44,7 @@ public class OrderProductsDto {
     @Getter
     public static class OrderRegisterRequest {  // 등록
         private List<OrderProductRegisterRequest> orderProductRegisterRequest;
+        @Schema(description = "주문 상품 총 가격", example = "150000")
         private int totalPrice;
     }
     @Builder
@@ -61,7 +66,9 @@ public class OrderProductsDto {
     @Builder
     @Getter
     public static class OrderProductRegisterRequest {
+        @Schema(description = "주문 상품 고유번호", example = "1")
         private Long productIdx;
+        @Schema(description = "주문 상품 갯수", example = "4")
         private int quantity;
         public OrderProducts toEntity(Orders order, Products product) {
             return OrderProducts.builder()
@@ -76,7 +83,9 @@ public class OrderProductsDto {
     @Builder
     @Getter
     public static class ListProductsResponse {
+        @Schema(description = "주문 상품 고유번호", example = "1")
         private Long idx;
+        @Schema(description = "주문 상품 총 갯수", example = "4")
         private int quantity;
         private OrderProductsDto.ListProductResponse ListProductResponse;
         public static ListProductsResponse from (OrderProducts orderProducts, OrderProductsDto.ListProductResponse products) {
@@ -90,8 +99,11 @@ public class OrderProductsDto {
     @Builder
     @Getter
     public static class ListProductResponse{
+        @Schema(description = "상품 고유 번호", example = "1")
         private Long idx;
+        @Schema(description = "상품명", example = "김치찌개 밀키트")
         private String name;
+        @Schema(description = "상품 가격", example = "10000")
         private int price;
         public static ListProductResponse from(Products product){
             return ListProductResponse.builder()

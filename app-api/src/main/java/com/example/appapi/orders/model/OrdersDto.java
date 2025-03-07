@@ -3,6 +3,7 @@ package com.example.appapi.orders.model;
 import com.example.appapi.orderProducts.model.OrderProductsDto;
 import com.example.appapi.payment.model.Payment;
 import com.example.appapi.users.model.Users;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,6 +13,7 @@ public class OrdersDto {
     @Builder
     @Getter
     public static class OrdersRegister {
+        @Schema(description = "주문 요청사항", example = "유통기한 긴 제품으로 보내주세요")
         private String message;
     }
     @Builder
@@ -68,9 +70,13 @@ public class OrdersDto {
     @Getter
     @Builder
     public static class OrdersResponse {
+        @Schema(description = "주문서 고유번호", example = "1")
         private Long idx;
+        @Schema(description = "주문 총 금액(원 단위)", example = "150000")
         private int price;
+        @Schema(description = "주문 요청사항", example = "유통기한 긴 제품으로 보내주세요")
         private String message;
+        @Schema(description = "주문상태", example = "Paying")
         private String status;
         private List<OrderProductsDto.OrderProductResponse> OrderProductResponse;
 
@@ -161,7 +167,9 @@ public class OrdersDto {
     @Getter
     @Builder
     public static class OrdersRegisterResponse {
+        @Schema(description = "주문서 고유번호", example = "1")
         private Long idx;
+        @Schema(description = "주문 요청사항", example = "유통기한 긴 제품으로 보내주세요")
         private String message;
 
         public static OrdersRegisterResponse from(Orders order) {

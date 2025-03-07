@@ -210,13 +210,21 @@ public class StoreDto {
     @Getter
     @Builder
     public static class MyStoreResponseDto {
+        @Schema(description = "식당 이름", example = "모스키친")
         private String name;
+        @Schema(description = "식당 설명", example = "신선한 재료와 정성을 담아 맛있는 한 끼를 제공하는 맛집입니다.")
         private String description;
+        @Schema(description = "이미지 주소", example = "C:/Users/YourName/Pictures/moskitchen_logo.jpg")
         private String imagePath;
+        @Schema(description = "식당 전화번호", example = "02-111-2222")
         private String callNumber;
+        @Schema(description = "식당 운영 시간", example = "10:00~22:00")
         private String openingHours;
+        @Schema(description = "예약 시작 시간", example = "10:00")
         private LocalTime startTime;
+        @Schema(description = "예약 종료 고유번호", example = "14:00")
         private LocalTime endTime;
+        @Schema(description = "식당 주소", example = "서울시 동작구 보라매로 87")
         private String address;
 
         public static MyStoreResponseDto from(Store store) {

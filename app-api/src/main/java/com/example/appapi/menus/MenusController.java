@@ -25,7 +25,6 @@ public class MenusController {
             @AuthenticationPrincipal Users user,
             @RequestBody MenusDto.CreateMenuRequestDto dto){
         MenusDto.MenusResponseDto resp = menusService.create(user, dto);
-
         return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
     }
     @Operation(summary = "메뉴 목록보기", description = "내 식당 메뉴 목록 보기")

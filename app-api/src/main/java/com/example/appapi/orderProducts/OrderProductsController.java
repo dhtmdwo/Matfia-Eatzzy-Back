@@ -30,8 +30,8 @@ public class OrderProductsController {
     }
     @Operation(summary = "주문할 상품 목록", description = "주문서에서 주문할 상품 목록 보기")
     @GetMapping("/list/{ordersIdx}")    // 주문서 작성 페이지에서 주문할 상품 목록
-    public ResponseEntity<List<OrderProductsDto.ListProductsResponse>> list(@PathVariable Long ordersIdx) {
+    public ResponseEntity<BaseResponse<OrderProductsDto.ListProductsResponse>> list(@PathVariable Long ordersIdx) {
         List<OrderProductsDto.ListProductsResponse> resp = orderProductsService.list(ordersIdx);
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(new BaseResponse(BaseResponseStatus.SUCCESS, resp));
     }
 }
