@@ -65,8 +65,14 @@ public class ProductsDto {
                     .name(products.getName())
                     .imgPath(products.getImages().get(0).getImagePath())
                     .price(products.getPrice())
-                    .reviewCnt(products.getReviewCount())
-                    .starPoint(products.getStarPoint())
+                    //반 정규화 적용 전
+//                    .reviewCnt(products.getReviewCount())
+//                    .starPoint(products.getStarPoint())
+                    .reviewCnt(products.getReviews().size())
+                    .starPoint(products.getReviews().stream()
+                            .mapToInt(ProductReviews::getStarPoint)
+                            .average()
+                            .orElse(0.0))
                     .build();
         }
     }
