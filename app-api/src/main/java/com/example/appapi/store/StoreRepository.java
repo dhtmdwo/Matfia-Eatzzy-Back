@@ -35,4 +35,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByCategory_Idx(Long categoryIdx);
   
     List<Store> findByCategory_ParentCategory_Idx(Long parentIdx);
+
+    List<Store> findAll();
+
 }
