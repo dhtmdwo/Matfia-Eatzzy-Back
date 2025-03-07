@@ -45,7 +45,7 @@ public class ProductReviews {
     @JoinColumn(name = "users_idx")
     private Users user;
 
-    @OneToMany(mappedBy = "productReviews")
+    @OneToMany(mappedBy = "productReviews", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ProductReviewImages> images;
 
     @OneToOne

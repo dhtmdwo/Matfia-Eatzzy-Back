@@ -1,6 +1,7 @@
 package com.example.resv.resv.model;
 
 import com.example.appapi.store.model.Store;
+import com.example.appapi.store.review.model.StoreReview;
 import com.example.appapi.users.model.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -28,6 +29,7 @@ public class Resv {
     private String name;
     private int headCount;
     private String request;
+    private String isReviewed;
 
 
     @ManyToOne

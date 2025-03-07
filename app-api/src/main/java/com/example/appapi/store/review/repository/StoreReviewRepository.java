@@ -12,4 +12,5 @@ public interface StoreReviewRepository extends JpaRepository<StoreReview, Long> 
             "LEFT JOIN FETCH r.storeReviewImageList s " +
             "WHERE r.users.idx = :userId")
     List<StoreReview> findReviewBy(@Param("userId") Long userId);
+
 }

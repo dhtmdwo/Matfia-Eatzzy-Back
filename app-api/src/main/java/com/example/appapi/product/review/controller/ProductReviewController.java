@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,9 +31,9 @@ public class ProductReviewController {
     } // 마이페이지 클라이언트 식당 리뷰 보기
 
     @Operation(summary = "작성한 상품 리뷰 삭제 (CLIENT)")
-    @GetMapping("/mypage/productdelete")
-    public ResponseEntity<String> deleteLikes(@RequestParam("idx") Long idx) {
-        productReviewsService.deleteReview(idx);
+    @GetMapping("/mypage/productdelete/{reviewIdx}")
+    public ResponseEntity<String> deleteLikes(@PathVariable Long reviewIdx) {
+        productReviewsService.deleteReview(reviewIdx);
         return ResponseEntity.ok("삭제 완료");
     } // 마이페이지 클라이언트 상품 리뷰 삭제
 
