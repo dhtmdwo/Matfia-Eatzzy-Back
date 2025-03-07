@@ -24,14 +24,14 @@ public class DeliveryController {
         return "배송 등록 완료";
     }
 
-    @Operation(summary = "배송 등록 기능", description = " ")
+    @Operation(summary = "배송 목록 조회", description = " ")
     @GetMapping("/list")
     public ResponseEntity<List<DeliveryDto.ListResponse>> list() {
         List<DeliveryDto.ListResponse> resp = deliveryService.getList();
         return ResponseEntity.ok(resp);
     }
 
-    @Operation(summary = "배송 등록 기능", description = " ")
+    @Operation(summary = "배송 상세조회", description = " ")
     @GetMapping("/{idx}")
     public ResponseEntity<DeliveryDto.ReadResponse> get(@PathVariable Long idx) {
         DeliveryDto.ReadResponse resp = deliveryService.getRead(idx);

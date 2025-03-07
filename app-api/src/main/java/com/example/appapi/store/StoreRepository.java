@@ -28,7 +28,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     Optional<Store> findByIdWithClosedDaysAndUserAndCategory(Long idx);
 
     @Query("SELECT s FROM Store s " +
-            "JOIN FETCH s.images " +
+            "JOIN FETCH s.images i " +
+            "JOIN FETCH s.category c " +
             "WHERE s.user.idx = :userIdx")
     List<Store> findAllByUserIdx(@Param("userIdx") Long userIdx);
   
