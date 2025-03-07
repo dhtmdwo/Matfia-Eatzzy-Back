@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,11 @@ public class ProductReviews {
     private String content;
     private LocalDateTime createdAt;
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "products_idx")
     private Products products;
@@ -36,7 +42,7 @@ public class ProductReviews {
     @JoinColumn(name = "users_idx")
     private Users user;
 
-    @OneToMany(mappedBy = "productReviews")
+    @OneToMany(mappedBy = "productReviews", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ProductReviewImages> images;
 
     @OneToOne

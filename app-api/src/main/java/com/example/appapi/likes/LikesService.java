@@ -54,6 +54,24 @@ public class LikesService {
         );
 
     } // 마이페이지 클라이언트 식당 좋아요 삭제
-    
+
+    public Long countLikes(Long storeIdx) {
+        Long count = likesRepository.countLikesByStoreId(storeIdx);
+        return count;
+    }
+
+    public List<LikesDto.StoreAllLikesResponse> countLikes() {
+        List<Store> storeList = storeRepository.findAll();
+        List<LikesDto.StoreAllLikesResponse> StoreAllLikesResponseList = new ArrayList<>();
+
+        for(Store store : storeList) {
+            LikesDto.StoreAllLikesResponse storeAllLikesResponse = LikesDto.StoreAllLikesResponse.from(store);
+            StoreAllLikesResponseList.add(storeAllLikesResponse);
+        }
+
+
+        return StoreAllLikesResponseList;
+    }
+
     
 }

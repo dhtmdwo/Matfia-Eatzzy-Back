@@ -41,4 +41,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "WHERE s.idx = :storeIdx " +
             "AND s.user.idx = :userIdx")
     Optional<Store> findByIdAndUserId(@Param("storeIdx") Long storeIdx, @Param("userIdx") Long userIdx);
+
+    List<Store> findAll();
 }

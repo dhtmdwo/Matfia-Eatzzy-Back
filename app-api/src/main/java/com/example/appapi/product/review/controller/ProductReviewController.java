@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Tag(name ="상품 리뷰 관련 기능")
 @RestController
-@RequestMapping("/products/reviews")
+@RequestMapping("/app/products/reviews")
 @RequiredArgsConstructor
 public class ProductReviewController {
     private final ProductReviewsService productReviewsService;
@@ -30,14 +30,14 @@ public class ProductReviewController {
         return ResponseEntity.ok(responseList);
     } // 마이페이지 클라이언트 식당 리뷰 보기
 
-    @Operation(summary = "작성한 상품 리뷰 삭제(클라이언트)")
-    @GetMapping("/mypage/productdelete")
-    public ResponseEntity<String> deleteLikes(@RequestParam("idx") Long idx) {
-        productReviewsService.deleteReview(idx);
+    @Operation(summary = "작성한 상품 리뷰 삭제 (CLIENT)")
+    @GetMapping("/mypage/productdelete/{reviewIdx}")
+    public ResponseEntity<String> deleteLikes(@PathVariable Long reviewIdx) {
+        productReviewsService.deleteReview(reviewIdx);
         return ResponseEntity.ok("삭제 완료");
     } // 마이페이지 클라이언트 상품 리뷰 삭제
 
-    @Operation(summary = "상품 리뷰 작성하기(클라이언트)")
+    @Operation(summary = "상품 리뷰 작성하기 (CLIENT)")
     @PostMapping("/create")
     public ResponseEntity<ProductReviewsDto.ReviewRes> create(
             @RequestBody ProductReviewsDto.CreateReq dto,
@@ -46,7 +46,7 @@ public class ProductReviewController {
         return ResponseEntity.ok(response);
     } // 상품 리뷰 작성하기
 
-    @Operation(summary = "작성 가능한 리뷰(클라이언트)")
+    @Operation(summary = "작성 가능한 리뷰 (CLIENT)")
     @GetMapping("/reviewable")
     public ResponseEntity<List<ProductReviewsDto.ReviewablesResponse>> getReviewables
             (@AuthenticationPrincipal Users user)

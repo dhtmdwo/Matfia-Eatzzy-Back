@@ -1,5 +1,7 @@
 package com.example.appapi.product.service;
 
+import com.example.appapi.category.CategoryService;
+import com.example.appapi.product.ProductQueryRepository;
 import com.example.appapi.product.images.service.ProductsImagesService;
 import com.example.appapi.product.model.Products;
 import com.example.appapi.product.model.ProductsDto;
@@ -9,6 +11,8 @@ import com.example.appapi.upload.PreSignedCloudImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductsService {
     private final ProductsRepository productsRepository;
+    private final ProductQueryRepository productQueryRepository;
     private final ProductsImagesService productsImagesService;
     private final PreSignedCloudImageService preSignedCloudImageService;
 
@@ -47,6 +52,39 @@ public class ProductsService {
         return response;
     }
 
+    //products -> images batch size 있어야 함
+    public Page<ProductsDto.InfoResponse> listWithCategoryOptimized(int page, int size, String sort, Long categoryIdx) {
+        return productQueryRepository.search(page, size, sort, categoryIdx);
+    }
+
+    //products -> images batch size X
+    public Page<ProductsDto.InfoResponse> listWithCategoryNPlusOne(int page, int size, String sort, Long categoryIdx) {
+        Sort sortOption = getSortOption(sort);
+        Pageable pageable = PageRequest.of(page, size, sortOption);
+
+        // ✅ JPA에서 페이징된 `Page<Products>` 가져오기 (N+1 발생 가능)
+        Page<Products> productsPage = productsRepository.findByCategory_Idx(categoryIdx, pageable);
+
+        // ✅ `Page<Products>` → `Page<ProductsDto.InfoResponse>` 변환
+        Page<ProductsDto.InfoResponse> dtoPage = productsPage.map(ProductsDto.InfoResponse::fromEntity);
+
+        return dtoPage;
+    }
+
+
+    // 정렬 처리 (Spring Data JPA Sort 적용)
+    private Sort getSortOption(String sort) {
+        if (sort == null || sort.isEmpty()) {
+            return Sort.by(Sort.Direction.DESC, "idx"); // 기본 정렬 (최신순)
+        }
+
+        return switch (sort) {
+            case "reviewCount" -> Sort.by(Sort.Direction.DESC, "reviewCount");
+            case "starPoint" -> Sort.by(Sort.Direction.DESC, "starPoint");
+            default -> Sort.by(Sort.Direction.ASC, "idx"); // 기본 정렬 idx ASC
+        };
+    }
+
 
     // 리뷰 starPoint, 리뷰 개수, 이미지
     public List<ProductsDto.InfoResponse> list() {
@@ -60,6 +98,19 @@ public class ProductsService {
     }
 
     public List<ProductReviewsDto.InfoResponse> getProductReviews(Long idx) {
-        return new ArrayList<>();
+        Products products = productsRepository.findByIdx(idx);
+        return products.getReviews().stream().map(ProductReviewsDto.InfoResponse::fromEntity).collect(Collectors.toList());
+    }
+
+    public void addReviewCnt(Long productIdx) {
+        Products products = productsRepository.findByIdx(productIdx);
+        products.addReviewCount();
+        productsRepository.save(products);
+    }
+
+    public void calculateStarPoint(Long productIdx, int starPoint) {
+        Products products = productsRepository.findByIdx(productIdx);
+        products.calculateStarPoint(starPoint);
+        productsRepository.save(products);
     }
 }

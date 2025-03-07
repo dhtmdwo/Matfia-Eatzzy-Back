@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/resv")
+@RequestMapping("/app/resv")
 @Tag(name = "예약 기능")
 public class ResvController {
     private final ResvService resvService;
@@ -36,8 +36,8 @@ public class ResvController {
     }
 
     @Operation(summary = "예약 취소하기 (CLIENT)")
-    @GetMapping("/mypage/delete")
-    public ResponseEntity<BaseResponse<String>> deleteResv(@RequestParam("idx") Long idx) {
+    @GetMapping("/mypage/delete/{idx}")
+    public ResponseEntity<BaseResponse<String>> deleteResv(@PathVariable Long idx) {
         resvService.deleteReservation(idx);
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, "예약이 성공적으로 취소되었습니다."));
     }
@@ -52,5 +52,14 @@ public class ResvController {
         ResvDto.ResvPageResponseDto responseList = resvService.myStoreResv(user, storeIdx, page, size);
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
     }
+
+//    @Operation(summary = "예약한 식당 중 리뷰 작성 가능한 식당 (CLIENT)")
+//    @GetMapping("/mypage/store/canreview")
+//    public ResponseEntity<BaseResponse<ResvDto.ResvPageResponseDto>> getCanReviewStoreList(
+//            @AuthenticationPrincipal Users user) {
+//        ResvDto.ResvPageResponseDto responseList = resvService.myStoreResv(user, storeIdx, page, size);
+//        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, responseList));
+//    }
+    
 
 }

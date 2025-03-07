@@ -70,4 +70,18 @@ public class ResvService {
         return ResvDto.ResvPageResponseDto.from(result);
     }
 
+//    public ResvDto.ResvPageResponseDto getCanReviewStoreList(Users user, Long storeIdx, int page, int size) {
+//        List<Resv> resvList = resvRepository.findReservationsByUserId(user.getIdx());
+//        List<ResvDto.StoreRezResponse> responseList = new ArrayList<>();
+//
+//        for (Resv reservation : resvList) {
+//            Store store = reservation.getStore();
+//            ResvDto.StoreRezResponse response = ResvDto.StoreRezResponse.from(store, reservation);
+//            responseList.add(response);
+//        }
+//
+//
+//        return ResvDto.ResvPageResponseDto.from(responseList);
+//    } // 예약 한 식당 중 리뷰 가능한 식당
+
 }

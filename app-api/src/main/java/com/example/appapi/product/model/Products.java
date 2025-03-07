@@ -36,11 +36,11 @@ public class Products {
     @JoinColumn(name = "store_idx",nullable = true)
     private Store store;
 
-    @BatchSize(size = 6)
+//    @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductsImages> images;
 
-    @BatchSize(size = 6)
+//    @BatchSize(size = 6)
     @OneToMany(mappedBy = "products")
     private List<ProductReviews> reviews;
 
@@ -61,7 +61,12 @@ public class Products {
     private double starPoint;
 
     public void calculateStarPoint(int value) {
-        starPoint = (starPoint * totalStarCount + value) / totalStarCount + 1;
+        if (totalStarCount == 0) {
+            starPoint = value; // 첫 번째 리뷰일 때는 그대로 반영
+        } else {
+            starPoint = (starPoint * totalStarCount + value) / (totalStarCount + 1);
+        }
+        addStarCount(); // ⭐ 카운트 증가를 항상 보장
     }
 
     private double totalStarCount;

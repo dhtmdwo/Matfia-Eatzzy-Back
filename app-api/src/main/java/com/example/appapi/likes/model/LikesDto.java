@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 public class LikesDto {
     @Getter
@@ -47,6 +49,25 @@ public class LikesDto {
                     .build();
         }
     } // 마이패이지 클라이언트 좋아요 한 식당 내역 보기
+
+    @Builder
+    @Getter
+    public static class StoreAllLikesResponse{
+        private Long storeIdx;
+        private String storeName;
+        private Long likeCount;
+
+        public static StoreAllLikesResponse from(Store store) {
+            Long likeCount = (long)store.getLikesList().size();
+
+            return LikesDto.StoreAllLikesResponse.builder()
+                    .storeIdx(store.getIdx())
+                    .storeName(store.getName())
+                    .likeCount(likeCount)
+                    .build();
+        }
+
+    }// 식당 별 좋아요
 
 
 

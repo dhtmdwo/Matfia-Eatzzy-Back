@@ -42,6 +42,7 @@ public class ResvDto {
                     .request(this.request)
                     .store(store)
                     .user(user)
+                    .isReviewed("No")
                     .build();
         }
     }
